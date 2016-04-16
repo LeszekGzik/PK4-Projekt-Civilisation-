@@ -128,11 +128,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="dass.cpp" />
+    <ClCompile Include="ApplicationControl.cpp" />
+    <ClCompile Include="BorderMenu.cpp" />
+    <ClCompile Include="Event.cpp" />
+    <ClCompile Include="Field.cpp" />
+    <ClCompile Include="GameMap.cpp" />
+    <ClCompile Include="GameState.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="dass.h" />
+    <ClInclude Include="ApplicationControl.h" />
+    <ClInclude Include="BorderMenu.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="Field.h" />
+    <ClInclude Include="GameMap.h" />
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="MainMenu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
