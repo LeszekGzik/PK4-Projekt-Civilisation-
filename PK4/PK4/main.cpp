@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int main()
+int main() //random comment
 {
 	sf::RenderWindow okno(sf::VideoMode(320, 240), "Kurs SFML 2.0 - http://cpp0x.pl");
 	sf::Clock stoper;
