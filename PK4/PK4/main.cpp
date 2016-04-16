@@ -1,33 +1,30 @@
 #include <SFML/Graphics.hpp>
-#include <windows.h>
-#include <string>
-#include <iostream>
-#include <tchar.h>
+#include <cmath>
 
-#include "MainMenu.h"
-#include "ApplicationControl.h"
+using namespace std;
 
-#define BUFSIZE MAX_PATH
-
-const std::string WINDOW_CAPTION = "PK4";
-
-	TCHAR buffer[BUFSIZE];
-std::string ExePath()
-{
-	char buffer[MAX_PATH];
-	GetModuleFileName(NULL, buffer, MAX_PATH);
-	std::string::size_type pos = std::string(buffer).find_last_of("\\/");
-	return std::string(buffer).substr(0, pos);
-}
 int main()
 {
-	DWORD dwRet;
+	sf::RenderWindow okno(sf::VideoMode(320, 240), "Kurs SFML 2.0 - http://cpp0x.pl");
+	sf::Clock stoper;
+	while (okno.isOpen())
+	{
+		sf::Event event;
+		while (okno.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				okno.close();
 
-	std::cout << ExePath() << std::endl;
-	SetCurrentDirectory(ExePath().c_str());
+		} //while
+		okno.clear();
 
-	ApplicationControl applicationControl;
-	applicationControl.Run();
-
+		sf::CircleShape ksztalt(std::sin(stoper.getElapsedTime().asSeconds()) * okno.getSize().y / 8 + okno.getSize().y / 4);
+		ksztalt.setOrigin(sf::Vector2f(ksztalt.getRadius(), ksztalt.getRadius()));
+		ksztalt.setPosition(okno.getSize().x / 2.0f, okno.getSize().y / 2.0f);
+		ksztalt.setFillColor(sf::Color::Yellow);
+		okno.draw(ksztalt);
+		//e
+		okno.display();
+	} //while
 	return 0;
 }
