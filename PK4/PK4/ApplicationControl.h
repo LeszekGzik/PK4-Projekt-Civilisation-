@@ -1,9 +1,9 @@
 #pragma once
+#include <vector>
+#include <SFML/Graphics.hpp>
 #include "GameState.h"
 #include "MainMenu.h"
-#include <vector>
-#include "Event.h"
-#include "Event.cpp"
+
 
 class ApplicationControl
 {
@@ -11,8 +11,11 @@ private:
 	GameState * game_state;
 	sf::VideoMode current_vmode;
 	sf::RenderWindow window;
+
+	void gameLoop();
 public:
 	void startNewGame();
+
 	sf::VideoMode const & getCurrentVideoMode() { return current_vmode; }
 
 	void Run();

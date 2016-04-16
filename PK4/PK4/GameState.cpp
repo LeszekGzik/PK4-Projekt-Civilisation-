@@ -1,6 +1,11 @@
 #include "GameState.h"
 
 
+GameMap * GameState::getGameMap()
+{
+	return game_map; 
+}
+
 void GameState::initializeSession()
 {
 	game_view = window->getDefaultView();

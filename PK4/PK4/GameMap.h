@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Field.h"
+#include "ApplicationControl.h"
 
 class GameMap : public sf::Drawable
 {

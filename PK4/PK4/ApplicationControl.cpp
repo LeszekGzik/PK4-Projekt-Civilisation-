@@ -2,23 +2,17 @@
 
 
 
-void ApplicationControl::startNewGame()
-{
-	if (game_state != NULL)
-		return;
-
-	game_state = new GameState(&window);
-	game_state->initializeSession();
-}
-
 void ApplicationControl::Run()
 {
 	current_vmode = sf::VideoMode::getDesktopMode();
 	current_vmode.height = current_vmode.height * 0.75;
 	current_vmode.width = current_vmode.width * 0.75;
 	window.create(current_vmode, "WORKS!");
-	MainMenu menu(sf::IntRect(32, 32, 256, 256));
+	startNewGame();
+}
 
+void ApplicationControl::gameLoop()
+{
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -34,9 +28,20 @@ void ApplicationControl::Run()
 		}
 
 		window.clear();
-		window.draw(menu);
+
 		window.display();
 	}
+}
+
+void ApplicationControl::startNewGame()
+{
+	if (game_state != NULL)
+		return;
+
+
+	//game_state = new GameState(&window);
+	//game_state->initializeSession(init);
+	gameLoop();
 }
 
 ApplicationControl::ApplicationControl()
@@ -47,4 +52,6 @@ ApplicationControl::ApplicationControl()
 
 ApplicationControl::~ApplicationControl()
 {
+	if (game_state != NULL)
+		delete game_state;
 }
