@@ -1,7 +1,5 @@
 #include "ApplicationControl.h"
 
-
-
 void ApplicationControl::Run()
 {
 	current_vmode = sf::VideoMode::getDesktopMode();
@@ -28,7 +26,7 @@ void ApplicationControl::gameLoop()
 		}
 
 		window.clear();
-
+		game_state->draw();
 		window.display();
 	}
 }
@@ -38,9 +36,10 @@ void ApplicationControl::startNewGame()
 	if (game_state != NULL)
 		return;
 
-
-	//game_state = new GameState(&window);
-	//game_state->initializeSession(init);
+	game_state = new GameState(&window);
+	game_state->initializeSession(
+		InitSettings(MapSettings(sf::Vector2i(12, 6)))
+		);
 	gameLoop();
 }
 
@@ -52,6 +51,4 @@ ApplicationControl::ApplicationControl()
 
 ApplicationControl::~ApplicationControl()
 {
-	if (game_state != NULL)
-		delete game_state;
 }

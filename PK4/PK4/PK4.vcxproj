@@ -144,6 +144,7 @@
     <ClInclude Include="Field.h" />
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="InitSettings.h" />
     <ClInclude Include="MainMenu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

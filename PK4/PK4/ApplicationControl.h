@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "GameState.h"
 #include "MainMenu.h"
-
+#include "InitSettings.h"
 
 class ApplicationControl
 {

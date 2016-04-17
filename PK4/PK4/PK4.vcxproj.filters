@@ -80,5 +80,8 @@
     <ClInclude Include="Event.h">
       <Filter>Header Files\Event</Filter>
     </ClInclude>
+    <ClInclude Include="InitSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
