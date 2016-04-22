@@ -1,5 +1,4 @@
 #include "GameMap.h"
-#include <iostream>
 
 
 
@@ -43,11 +42,28 @@ void GameMap::drawGrid(sf::RenderTarget & window, sf::RenderStates states) const
 	{
 		for (int i = i_start; i < i_stop; i++)
 		{
-			sf::CircleShape hex(hex_edge - hex_outline_thickness, 6);
+			float x = i * hexHorizontalSize() + ((j % 2) * hexHorizontalSize() * 0.5);
+			float y = j * hex_edge * 1.5;
+			float h = hexHorizontalSize();
+			sf::VertexArray hex(sf::LinesStrip, 7);
+			hex[0].position = sf::Vector2f(x, y + 0.5 * hex_edge);
+			hex[1].position = sf::Vector2f(x + 0.5 * h, y);
+			hex[2].position = sf::Vector2f(x + h, y + 0.5 * hex_edge);
+			hex[3].position = sf::Vector2f(x + h, y + 1.5 * hex_edge);
+			hex[4].position = sf::Vector2f(x + 0.5 * h, y + 2 * hex_edge);
+			hex[5].position = sf::Vector2f(x, y + 1.5 * hex_edge);
+			hex[6].position = sf::Vector2f(x, y + 0.5 * hex_edge);
+
+			for (int k = 0; k < 7; k++)
+			{
+				hex[k].color = hex_outline_color;
+			}
+
+			/*sf::CircleShape hex(hex_edge - hex_outline_thickness, 6);
 			hex.setPosition(i * hexHorizontalSize() + ((j % 2) * hexHorizontalSize() * 0.5), j * (hex_edge * 1.5));
 			hex.setFillColor(sf::Color(0, 0, 0, 0));
 			hex.setOutlineColor(hex_outline_color);
-			hex.setOutlineThickness(hex_outline_thickness);
+			hex.setOutlineThickness(hex_outline_thickness);*/
 			window.draw(hex);
 		}
 	}
@@ -69,10 +85,10 @@ sf::IntRect GameMap::visibilityCheck(sf::View view) const
 
 Field const & GameMap::getField(int xPos, int yPos)
 {
-	return board[xPos + yPos / 2][yPos];
+	return *board[xPos + yPos / 2][yPos];
 }
 
-void GameMap::setField(int xPos, int yPos, Field field)
+void GameMap::setField(int xPos, int yPos, Field * field)
 {
 	this->board[xPos + yPos / 2][yPos] = field;
 }
@@ -93,9 +109,9 @@ GameMap::GameMap(sf::Vector2i size)
 {
 	grid_size.x = size.x;
 	grid_size.y = size.y;
-	board = new Field*[size.x];
+	board = new Field**[size.x];
 	for (int i = 0; i < size.x; i++)
-		board[i] = new Field[size.y];
+		board[i] = new Field*[size.y];
 }
 
 GameMap::~GameMap()

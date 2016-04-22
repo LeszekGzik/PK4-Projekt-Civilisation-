@@ -71,9 +71,10 @@ void ApplicationControl::startNewGame()
 		return;
 
 	game_state = new GameState(&window);
-	game_state->initializeSession(
-		InitSettings(MapSettings(sf::Vector2i(12, 6)))
-		);
+	game_state->initializeSession(InitSettings
+		(MapSettings(sf::Vector2i(12, 6)),
+		(PlayerSettings(0, NULL, NULL))
+		));
 	gameLoop();
 }
 

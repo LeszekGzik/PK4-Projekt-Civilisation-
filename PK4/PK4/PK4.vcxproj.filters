@@ -31,6 +31,18 @@
     <Filter Include="Source Files\Event">
       <UniqueIdentifier>{8e836014-2753-46c6-9cd6-a8caf826cd84}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Objects">
+      <UniqueIdentifier>{d2b33ae6-8e88-4ffc-bc7f-68b517e761a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Objects\Units">
+      <UniqueIdentifier>{08b305db-6c57-4bc2-b528-bb3e09f003ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects">
+      <UniqueIdentifier>{1185be6e-e43b-4d6f-a73b-e794b916a371}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Units">
+      <UniqueIdentifier>{1e032caf-6cc2-4e11-aa1e-fcbc1cd0d87a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -57,6 +69,9 @@
     <ClCompile Include="Event.cpp">
       <Filter>Source Files\Event</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainMenu.h">
@@ -80,7 +95,10 @@
     <ClInclude Include="Event.h">
       <Filter>Header Files\Event</Filter>
     </ClInclude>
-    <ClInclude Include="InitSettings.h">
+    <ClInclude Include="PlayerState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameDefinitions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -10,7 +10,7 @@ const sf::Color DEFAULT_HEX_OUTLINE_COLOR(255, 0, 0, 255);
 class GameMap : public sf::Drawable
 {
 private:
-	Field ** board;
+	Field *** board;
 	bool show_grid;
 	float hex_edge = DEFAULT_HEX_EDGE;
 	float hex_outline_thickness = DEFAULT_HEX_OUTLINE_THICKNESS;
@@ -26,7 +26,7 @@ public:
 	void showGrid(bool show) { show_grid = show; }
 
 	Field const& getField(int xPos, int yPos);
-	void setField(int xPos, int yPos, Field field);
+	void setField(int xPos, int yPos, Field * field);
 	sf::Vector2f getSizeInPixel();
 
 	void draw(sf::RenderTarget& window, sf::RenderStates states) const;

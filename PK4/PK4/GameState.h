@@ -1,7 +1,9 @@
 #pragma once
 #include <SFML\Graphics.hpp>
+#include <vector>
 #include "GameMap.h"
-#include "InitSettings.h"
+#include "GameDefinitions.h"
+#include "PlayerState.h"
 
 
 class GameState
@@ -11,6 +13,7 @@ private:
 	sf::RenderWindow * window;
 	sf::View world;
 	sf::View gui;
+	std::vector<PlayerState> players;
 
 public:
 	GameMap * getGameMap();

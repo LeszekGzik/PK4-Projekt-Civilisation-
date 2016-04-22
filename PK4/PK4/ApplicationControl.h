@@ -3,9 +3,9 @@
 #include <SFML/Graphics.hpp>
 #include "GameState.h"
 #include "MainMenu.h"
-#include "InitSettings.h"
+#include "GameDefinitions.h"
 
-const float DEFAULT_SCROLL_SPEED = 1.f;
+const float DEFAULT_SCROLL_SPEED = 0.3f;
 const float DEFAULT_SCROLL_DISTANCE = 30.f;
 
 class ApplicationControl
