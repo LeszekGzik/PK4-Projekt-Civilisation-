@@ -3,6 +3,7 @@
 #include "GameMap.h"
 #include "InitSettings.h"
 
+
 class GameState
 {
 private:
@@ -16,6 +17,7 @@ public:
 
 	void initializeSession(InitSettings settings);
 	void draw();
+	void moveWorld(sf::Vector2f offset);
 
 	GameState(sf::RenderWindow * target);
 	~GameState();

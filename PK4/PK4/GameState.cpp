@@ -1,10 +1,17 @@
 #include "GameState.h"
 
 
+
+
 void GameState::draw()
 {
-	//window->setView(world);
+	window->setView(world);
 	window->draw(*game_map);
+}
+
+void GameState::moveWorld(sf::Vector2f offset)
+{
+	world.move(offset);
 }
 
 GameMap * GameState::getGameMap()
@@ -16,7 +23,7 @@ void GameState::initializeSession(InitSettings settings)
 {
 	gui = window->getDefaultView();
 	game_map = new GameMap(settings.map_settings.size);
-	world.setSize(game_map->getSizeInPixel());
+	world = window->getDefaultView();
 	game_map->showGrid(true);
 }
 

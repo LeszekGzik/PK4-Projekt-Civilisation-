@@ -5,6 +5,9 @@
 #include "MainMenu.h"
 #include "InitSettings.h"
 
+const float DEFAULT_SCROLL_SPEED = 1.f;
+const float DEFAULT_SCROLL_DISTANCE = 30.f;
+
 class ApplicationControl
 {
 private:
@@ -12,6 +15,10 @@ private:
 	sf::VideoMode current_vmode;
 	sf::RenderWindow window;
 
+	float scroll_speed = DEFAULT_SCROLL_SPEED;
+	float scroll_distance = DEFAULT_SCROLL_DISTANCE;
+
+	bool movingWorld(sf::Vector2f& offset);
 	void gameLoop();
 public:
 	void startNewGame();

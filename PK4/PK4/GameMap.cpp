@@ -1,4 +1,5 @@
 #include "GameMap.h"
+#include <iostream>
 
 
 
@@ -14,9 +15,33 @@ float GameMap::hexVerticalSize() const
 
 void GameMap::drawGrid(sf::RenderTarget & window, sf::RenderStates states) const
 {
-	for (int j = 0; j < grid_size.y; j++)
+	sf::IntRect visibility = visibilityCheck(window.getView());
+	
+	int i_start, j_start, i_stop, j_stop;
+
+	if (visibility.left < 0)
+		i_start = 0;
+	else
+		i_start = visibility.left;
+
+	if (visibility.top < 0)
+		j_start = 0;
+	else
+		j_start = visibility.top;
+
+	if (visibility.width > grid_size.x)
+		i_stop = grid_size.x;
+	else
+		i_stop = visibility.width;
+
+	if (visibility.height + 1 > grid_size.y) // poprawka +1 gdy¿ punkt wskazuje na górny wierzcho³ek hexa??
+		j_stop = grid_size.y;
+	else
+		j_stop = visibility.height + 1;
+
+	for (int j = j_start; j < j_stop; j++)
 	{
-		for (int i = 0; i < grid_size.x; i++)
+		for (int i = i_start; i < i_stop; i++)
 		{
 			sf::CircleShape hex(hex_edge - hex_outline_thickness, 6);
 			hex.setPosition(i * hexHorizontalSize() + ((j % 2) * hexHorizontalSize() * 0.5), j * (hex_edge * 1.5));
@@ -26,7 +51,20 @@ void GameMap::drawGrid(sf::RenderTarget & window, sf::RenderStates states) const
 			window.draw(hex);
 		}
 	}
-	
+}
+
+sf::IntRect GameMap::visibilityCheck(sf::View view) const
+{
+	sf::Vector2f center = view.getCenter();
+	sf::Vector2f size = view.getSize();
+	sf::IntRect visibility;
+
+	visibility.left = floorf((center.x - size.x / 2) / hexHorizontalSize());
+	visibility.top = floorf((center.y - size.y / 2) / hexVerticalSize());
+	visibility.width = ceilf ((center.x + size.x / 2) / hexHorizontalSize());
+	visibility.height = ceilf((center.y + size.y / 2) / hexVerticalSize());
+
+	return visibility;
 }
 
 Field const & GameMap::getField(int xPos, int yPos)
@@ -37,7 +75,6 @@ Field const & GameMap::getField(int xPos, int yPos)
 void GameMap::setField(int xPos, int yPos, Field field)
 {
 	this->board[xPos + yPos / 2][yPos] = field;
-
 }
 
 sf::Vector2f GameMap::getSizeInPixel()

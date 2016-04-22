@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <math.h>
 #include "Field.h"
 
 const float DEFAULT_HEX_EDGE = 60;
@@ -19,6 +20,7 @@ private:
 	float hexHorizontalSize() const;
 	float hexVerticalSize() const;
 	void drawGrid(sf::RenderTarget& window, sf::RenderStates states) const;
+	sf::IntRect visibilityCheck(sf::View view) const;
 public:
 	bool showGrid() { return show_grid; }
 	void showGrid(bool show) { show_grid = show; }

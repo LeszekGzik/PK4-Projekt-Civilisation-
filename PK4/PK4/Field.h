@@ -3,6 +3,9 @@
 
 class Field : public sf::Drawable
 {
+private:
+	
+
 public:
 	void draw(sf::RenderTarget & window, sf::RenderStates states) const;
 
