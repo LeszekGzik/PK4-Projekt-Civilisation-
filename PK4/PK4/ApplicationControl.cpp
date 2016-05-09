@@ -3,10 +3,19 @@
 
 void ApplicationControl::Run()
 {
-	current_vmode = sf::VideoMode::getDesktopMode();
-	current_vmode.height = current_vmode.height * 0.75;
-	current_vmode.width = current_vmode.width * 0.75;
-	window.create(current_vmode, "WORKS!");
+	try
+	{
+		current_vmode = sf::VideoMode::getDesktopMode();
+		current_vmode.height = current_vmode.height * 0.75;
+		current_vmode.width = current_vmode.width * 0.75;
+		window.create(current_vmode, "WORKS!");
+
+		Textures::init();
+	}
+	catch(TextureLoadException ex)
+	{
+		std::cout << ex.what() << std::endl;
+	}
 	startNewGame();
 }
 

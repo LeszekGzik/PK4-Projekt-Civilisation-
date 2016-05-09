@@ -38,6 +38,8 @@ void GameMap::drawGrid(sf::RenderTarget & window, sf::RenderStates states) const
 	else
 		j_stop = visibility.height + 1;
 
+	
+
 	for (int j = j_start; j < j_stop; j++)
 	{
 		for (int i = i_start; i < i_stop; i++)
@@ -104,6 +106,10 @@ void GameMap::draw(sf::RenderTarget & window, sf::RenderStates states) const
 		drawGrid(window, states);
 }
 
+
+GameMap::GameMap()
+{
+}
 
 GameMap::GameMap(sf::Vector2i size)
 {

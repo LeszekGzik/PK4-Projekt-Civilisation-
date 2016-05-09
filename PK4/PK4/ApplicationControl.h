@@ -4,6 +4,8 @@
 #include "GameState.h"
 #include "MainMenu.h"
 #include "GameDefinitions.h"
+#include "GameExceptions.h"
+#include "Textures.h"
 
 const float DEFAULT_SCROLL_SPEED = 0.3f;
 const float DEFAULT_SCROLL_DISTANCE = 30.f;
@@ -22,6 +24,7 @@ private:
 	void gameLoop();
 public:
 	void startNewGame();
+
 
 	sf::VideoMode const & getCurrentVideoMode() { return current_vmode; }
 

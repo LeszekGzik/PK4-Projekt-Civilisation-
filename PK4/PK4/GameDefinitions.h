@@ -4,18 +4,6 @@
 
 enum Color {Red, Blue, Green};
 
-struct InitSettings
-{
-	MapSettings map_settings;
-	PlayerSettings player_settings;
-	
-	InitSettings(MapSettings _map_settings, PlayerSettings _player_settings)
-	{
-		map_settings = _map_settings;
-		player_settings = _player_settings;
-	}
-};
-
 struct MapSettings
 {
 	sf::Vector2i size;
@@ -53,3 +41,16 @@ struct WorldSettings
 {
 
 };
+
+struct InitSettings
+{
+	MapSettings map_settings;
+	PlayerSettings player_settings;
+	
+	InitSettings(MapSettings _map_settings, PlayerSettings _player_settings)
+	{
+		map_settings = _map_settings;
+		player_settings = _player_settings;
+	}
+};
+

@@ -13,7 +13,7 @@ private:
 	Field *** board;
 	bool show_grid;
 	float hex_edge = DEFAULT_HEX_EDGE;
-	float hex_outline_thickness = DEFAULT_HEX_OUTLINE_THICKNESS;
+	//float hex_outline_thickness = DEFAULT_HEX_OUTLINE_THICKNESS;
 	sf::Color hex_outline_color = DEFAULT_HEX_OUTLINE_COLOR;
 	sf::Vector2i grid_size;
 
@@ -31,6 +31,7 @@ public:
 
 	void draw(sf::RenderTarget& window, sf::RenderStates states) const;
 
+	GameMap();
 	GameMap(sf::Vector2i size);
 	~GameMap();
 };

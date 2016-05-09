@@ -43,6 +43,24 @@
     <Filter Include="Source Files\Objects\Units">
       <UniqueIdentifier>{1e032caf-6cc2-4e11-aa1e-fcbc1cd0d87a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Player">
+      <UniqueIdentifier>{4f3e8824-511a-4937-8928-d709887e5947}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Player">
+      <UniqueIdentifier>{92cf0ccf-69b9-43dc-93f8-c804c9954340}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Exceptions">
+      <UniqueIdentifier>{4d8664d8-a4db-4529-ade7-41611903b0ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Exception">
+      <UniqueIdentifier>{6c0c1777-85fa-47e3-a845-0a5487e80ee2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{12318e50-2b51-4014-bf31-5af1507ff54c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics">
+      <UniqueIdentifier>{98e4875f-5afe-40c9-88df-806f650a7ed3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -70,6 +88,18 @@
       <Filter>Source Files\Event</Filter>
     </ClCompile>
     <ClCompile Include="PlayerState.cpp">
+      <Filter>Source Files\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureLoadException.cpp">
+      <Filter>Source Files\Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="Textures.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Tileset.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureOutOfRangeException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -95,11 +125,29 @@
     <ClInclude Include="Event.h">
       <Filter>Header Files\Event</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameDefinitions.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureLoadException.h">
+      <Filter>Header Files\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="Textures.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="TilesetLoadData.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Tileset.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GameExceptions.h">
+      <Filter>Header Files\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureOutOfRangeException.h">
+      <Filter>Header Files\Exceptions</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

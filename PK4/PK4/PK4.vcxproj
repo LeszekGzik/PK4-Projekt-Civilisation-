@@ -137,17 +137,27 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="PlayerState.cpp" />
+    <ClCompile Include="TextureLoadException.cpp" />
+    <ClCompile Include="TextureOutOfRangeException.cpp" />
+    <ClCompile Include="Textures.cpp" />
+    <ClCompile Include="Tileset.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ApplicationControl.h" />
     <ClInclude Include="BorderMenu.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="Field.h" />
+    <ClInclude Include="GameExceptions.h" />
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameDefinitions.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="PlayerState.h" />
+    <ClInclude Include="TextureLoadException.h" />
+    <ClInclude Include="TextureOutOfRangeException.h" />
+    <ClInclude Include="Textures.h" />
+    <ClInclude Include="Tileset.h" />
+    <ClInclude Include="TilesetLoadData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
