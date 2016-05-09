@@ -17,7 +17,5 @@ public:
 
 	TextureOutOfRangeException(std::string _error_source, int _error_index);
 	~TextureOutOfRangeException();
-
-	~TextureOutOfRangeException();
 };
 

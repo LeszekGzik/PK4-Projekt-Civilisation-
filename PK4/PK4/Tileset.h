@@ -14,6 +14,8 @@ private:
 	int items_per_row;
 	int items;
 	std::string name;
+
+	void countItems();
 		
 public:
 	sf::IntRect getTile(int num);
@@ -24,4 +26,5 @@ public:
 
 	void setTexture(TilesetLoadData tileset_data);
 };
+
 

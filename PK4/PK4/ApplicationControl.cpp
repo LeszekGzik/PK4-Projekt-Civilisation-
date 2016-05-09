@@ -1,5 +1,4 @@
 #include "ApplicationControl.h"
-#include <iostream>
 
 void ApplicationControl::Run()
 {
@@ -12,9 +11,11 @@ void ApplicationControl::Run()
 
 		Textures::init();
 	}
-	catch(TextureLoadException ex)
+	catch(std::exception ex)
 	{
 		std::cout << ex.what() << std::endl;
+		std::cin.get();
+		return;
 	}
 	startNewGame();
 }

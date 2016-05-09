@@ -90,7 +90,7 @@
     <ClCompile Include="PlayerState.cpp">
       <Filter>Source Files\Player</Filter>
     </ClCompile>
-    <ClCompile Include="TextureLoadException.cpp">
+    <ClCompile Include="TextureOutOfRangeException.cpp">
       <Filter>Source Files\Exception</Filter>
     </ClCompile>
     <ClCompile Include="Textures.cpp">
@@ -99,8 +99,8 @@
     <ClCompile Include="Tileset.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="TextureOutOfRangeException.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="TextureLoadException.cpp">
+      <Filter>Source Files\Exception</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

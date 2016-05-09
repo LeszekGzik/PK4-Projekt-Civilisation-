@@ -11,7 +11,7 @@ TextureOutOfRangeException::TextureOutOfRangeException(std::string _error_source
 
 const char * TextureOutOfRangeException::what() const throw()
 {
-	return (EX_MESSAGE_1 + std::to_string(error_index) + EX_MESSAGE_2 + error_source);
+	return (EX_MESSAGE_1 + std::to_string(error_index) + EX_MESSAGE_2 + error_source).c_str();
 }
 
 TextureOutOfRangeException::~TextureOutOfRangeException()
