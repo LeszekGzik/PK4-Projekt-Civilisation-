@@ -4,13 +4,13 @@ const TilesetLoadData Textures::FIELDS = TilesetLoadData("gfx\\fields.png", sf::
 
 void Textures::init()
 {	
-
-	fields->setTexture(FIELDS);
+	//Tileset * t = new Tileset(FIELDS);
+	fields = new Tileset(FIELDS);
 }
 
 void Textures::end()
 {
-	delete fields;
+	//delete Textures::fields;
 }
 
 Textures::Textures()

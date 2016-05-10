@@ -6,16 +6,19 @@
 #include "TextureLoadException.h"
 #include "TilesetLoadData.h"
 
-static class Textures
+class Textures
 {
 private:
 	static const TilesetLoadData FIELDS;
 
-	static Tileset * fields;
-	static Tileset * units;
+	
+
 public:
 	static void init();
 	static void end();
+
+	static Tileset* fields;
+	static Tileset* units;
 
 	static Tileset& tilesetFields() { return *fields; }
 	static Tileset& tilesetUnits() { return *units; }
