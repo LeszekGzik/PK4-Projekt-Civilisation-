@@ -9,6 +9,8 @@
 class Tileset
 {
 private:
+	const sf::Color MASK_COLOR = sf::Color(255, 0, 144);
+
 	sf::Texture texture;
 	sf::Vector2i tile_size;
 	int items_per_row;
@@ -19,7 +21,7 @@ private:
 		
 public:
 	sf::IntRect getTile(int num);
-	sf::Texture const& getTileset() { return texture; }
+	sf::Texture& getTileset() { return texture; }
 	Tileset(TilesetLoadData tileset_data);
 	Tileset();
 	~Tileset();

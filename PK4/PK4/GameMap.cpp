@@ -1,5 +1,5 @@
 #include "GameMap.h"
-
+#include "Textures.h"
 
 
 float GameMap::hexHorizontalSize() const
@@ -46,26 +46,16 @@ void GameMap::drawGrid(sf::RenderTarget & window, sf::RenderStates states) const
 		{
 			float x = i * hexHorizontalSize() + ((j % 2) * hexHorizontalSize() * 0.5);
 			float y = j * hex_edge * 1.5;
-			float h = hexHorizontalSize();
-			sf::VertexArray hex(sf::LinesStrip, 7);
-			hex[0].position = sf::Vector2f(x, y + 0.5 * hex_edge);
-			hex[1].position = sf::Vector2f(x + 0.5 * h, y);
-			hex[2].position = sf::Vector2f(x + h, y + 0.5 * hex_edge);
-			hex[3].position = sf::Vector2f(x + h, y + 1.5 * hex_edge);
-			hex[4].position = sf::Vector2f(x + 0.5 * h, y + 2 * hex_edge);
-			hex[5].position = sf::Vector2f(x, y + 1.5 * hex_edge);
-			hex[6].position = sf::Vector2f(x, y + 0.5 * hex_edge);
 
-			for (int k = 0; k < 7; k++)
-			{
-				hex[k].color = hex_outline_color;
-			}
+			Hex hexFactory;
+			sf::VertexArray hex = hexFactory.create(sf::Vector2i(x, y));
 
 			/*sf::CircleShape hex(hex_edge - hex_outline_thickness, 6);
 			hex.setPosition(i * hexHorizontalSize() + ((j % 2) * hexHorizontalSize() * 0.5), j * (hex_edge * 1.5));
 			hex.setFillColor(sf::Color(0, 0, 0, 0));
 			hex.setOutlineColor(hex_outline_color);
 			hex.setOutlineThickness(hex_outline_thickness);*/
+
 			window.draw(hex);
 		}
 	}
@@ -77,10 +67,12 @@ sf::IntRect GameMap::visibilityCheck(sf::View view) const
 	sf::Vector2f size = view.getSize();
 	sf::IntRect visibility;
 
-	visibility.left = floorf((center.x - size.x / 2) / hexHorizontalSize());
-	visibility.top = floorf((center.y - size.y / 2) / hexVerticalSize());
-	visibility.width = ceilf ((center.x + size.x / 2) / hexHorizontalSize());
-	visibility.height = ceilf((center.y + size.y / 2) / hexVerticalSize());
+	Hex hex;
+
+	visibility.left = floorf((center.x - size.x / 2) / hex.horizontalSize());
+	visibility.top = floorf((center.y - size.y / 2) / hex.verticalSize());
+	visibility.width = ceilf((center.x + size.x / 2) / hex.horizontalSize());
+	visibility.height = ceilf((center.y + size.y / 2) / hex.verticalSize());
 
 	return visibility;
 }
@@ -102,6 +94,23 @@ sf::Vector2f GameMap::getSizeInPixel()
 
 void GameMap::draw(sf::RenderTarget & window, sf::RenderStates states) const
 {
+	TexturedHex hexFactory;
+	sf::VertexArray hex = hexFactory.create(sf::Vector2i(0, 0), Textures::tilesetTest(), 1);
+	
+	//float h = hex[5].texCoords.x;
+
+	sf::VertexArray test(sf::TrianglesFan, 3);
+	test[0].position = sf::Vector2f(0, 0);
+	test[1].position = sf::Vector2f(50, 50);
+	test[2].position = sf::Vector2f(25, 100);
+
+	test[0].texCoords = sf::Vector2f(0, 0);
+	test[1].texCoords = sf::Vector2f(10, 10);
+	test[2].texCoords = sf::Vector2f(5, 20);
+	
+	window.draw(hex, &(Textures::tilesetTest().getTileset()));
+	//window.draw(test, &(Textures::tilesetTest().getTileset()));
+
 	if (show_grid)
 		drawGrid(window, states);
 }
@@ -109,6 +118,7 @@ void GameMap::draw(sf::RenderTarget & window, sf::RenderStates states) const
 
 GameMap::GameMap()
 {
+	
 }
 
 GameMap::GameMap(sf::Vector2i size)
@@ -118,6 +128,19 @@ GameMap::GameMap(sf::Vector2i size)
 	board = new Field**[size.x];
 	for (int i = 0; i < size.x; i++)
 		board[i] = new Field*[size.y];
+
+	try
+	{
+		Tileset& test_tileset = Textures::tilesetTest();
+		test.setTexture(test_tileset.getTileset());
+		test.setTextureRect(test_tileset.getTile(1));
+	}
+	catch (TextureOutOfRangeException ex)
+	{
+		std::cout << ex.what() << std::endl;
+	}
+	test.setPosition(0, 0);
+	test.scale(3, 3);
 }
 
 GameMap::~GameMap()

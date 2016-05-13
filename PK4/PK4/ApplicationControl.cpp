@@ -11,13 +11,15 @@ void ApplicationControl::Run()
 
 		Textures::init();
 	}
-	catch(std::exception ex)
+	catch(std::exception const& ex)
 	{
 		std::cout << ex.what() << std::endl;
 		std::cin.get();
 		return;
 	}
 	startNewGame();
+
+	Textures::end();
 }
 
 bool ApplicationControl::movingWorld(sf::Vector2f & offset)
@@ -65,6 +67,7 @@ void ApplicationControl::gameLoop()
 		}
 
 		sf::Vector2f move_offset;
+		
 		bool moved = movingWorld(move_offset);
 
 		game_state->moveWorld(move_offset);
@@ -96,4 +99,5 @@ ApplicationControl::ApplicationControl()
 
 ApplicationControl::~ApplicationControl()
 {
+	Textures::end();
 }

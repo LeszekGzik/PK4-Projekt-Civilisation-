@@ -10,9 +10,9 @@ sf::IntRect Tileset::getTile(int num)
 {
 	if (num > 0 && num <= items)
 	{
-		int row = num / items_per_row;
+		int row = (num - 1) / items_per_row;
 		int col = (num - 1) % items_per_row;
-		return sf::IntRect(sf::Vector2i(col, row), tile_size);
+		return sf::IntRect(sf::Vector2i(col * tile_size.x, row * tile_size.y), tile_size);
 	}
 	else
 	{
@@ -35,8 +35,11 @@ Tileset::~Tileset()
 
 void Tileset::setTexture(TilesetLoadData tileset_data)
 {
-	if (!texture.loadFromFile(tileset_data.path))
+	sf::Image image;
+	if (!image.loadFromFile(tileset_data.path))
 		throw TextureLoadException(tileset_data.path);
+	image.createMaskFromColor(MASK_COLOR);
+	texture.loadFromImage(image);
 	name = tileset_data.path;
 	items_per_row = tileset_data.items;
 	tile_size = tileset_data.size;

@@ -5,7 +5,6 @@
 template <typename TOut, typename... TIn>
 using Delegate = TOut(*) (TIn...);
 
-
 template <class TSender, class... TArgs>
 class Event
 {

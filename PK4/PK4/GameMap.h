@@ -2,6 +2,9 @@
 #include <SFML/Graphics.hpp>
 #include <math.h>
 #include "Field.h"
+#include "Hex.h"
+#include "TexturedHex.h"
+#include "Textures.h"
 
 const float DEFAULT_HEX_EDGE = 60;
 const float DEFAULT_HEX_OUTLINE_THICKNESS = 2;
@@ -16,6 +19,7 @@ private:
 	//float hex_outline_thickness = DEFAULT_HEX_OUTLINE_THICKNESS;
 	sf::Color hex_outline_color = DEFAULT_HEX_OUTLINE_COLOR;
 	sf::Vector2i grid_size;
+	sf::Sprite test;
 
 	float hexHorizontalSize() const;
 	float hexVerticalSize() const;
