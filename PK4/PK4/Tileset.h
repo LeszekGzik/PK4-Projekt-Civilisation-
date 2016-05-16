@@ -22,6 +22,7 @@ private:
 public:
 	sf::IntRect getTile(int num);
 	sf::Texture& getTileset() { return texture; }
+	sf::Vector2i getTileSize() { return tile_size; }
 	Tileset(TilesetLoadData tileset_data);
 	Tileset();
 	~Tileset();

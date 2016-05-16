@@ -1,7 +1,7 @@
 #include "Archer.h"
 
 
-Archer::Archer(OffsetCoords position) : Unit(ID, position)
+Archer::Archer(OffsetCoords position, Player& owner) : Unit(Archer::ID, position, owner)
 {
 }
 

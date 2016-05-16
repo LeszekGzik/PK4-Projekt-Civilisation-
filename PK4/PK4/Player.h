@@ -3,7 +3,7 @@
 #include <SFML\Graphics.hpp>
 #include "GameDefinitions.h"
 
-class PlayerState
+class Player
 {
 private:
 	int id;
@@ -11,7 +11,7 @@ private:
 	std::string name;
 
 public:
-	PlayerState();
-	~PlayerState();
+	Player();
+	~Player();
 };
 

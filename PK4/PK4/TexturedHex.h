@@ -6,6 +6,9 @@
 class TexturedHex :
 	public Hex
 {
+private:
+	static const sf::Color DEFAULT_MASK_COLOR;
+
 public:
 	TexturedHex(float _edge = Hex::DEFAULT_EDGE, sf::Color _outline_color = Hex::DEFAULT_OUTLINE_COLOR);
 	~TexturedHex();

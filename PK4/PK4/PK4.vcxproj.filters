@@ -102,9 +102,6 @@
     <ClCompile Include="Event.cpp">
       <Filter>Source Files\Event</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerState.cpp">
-      <Filter>Source Files\Player</Filter>
-    </ClCompile>
     <ClCompile Include="TextureOutOfRangeException.cpp">
       <Filter>Source Files\Exception</Filter>
     </ClCompile>
@@ -144,6 +141,12 @@
     <ClCompile Include="Archer.cpp">
       <Filter>Source Files\Objects\Units</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Flag.cpp">
+      <Filter>Source Files\Board</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainMenu.h">
@@ -166,9 +169,6 @@
     </ClInclude>
     <ClInclude Include="GameDefinitions.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerState.h">
-      <Filter>Header Files\Player</Filter>
     </ClInclude>
     <ClInclude Include="TextureLoadException.h">
       <Filter>Header Files\Exceptions</Filter>
@@ -220,6 +220,15 @@
     </ClInclude>
     <ClInclude Include="Archer.h">
       <Filter>Header Files\Objects\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Units.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Flag.h">
+      <Filter>Header Files\Board</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

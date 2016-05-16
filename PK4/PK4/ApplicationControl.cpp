@@ -4,10 +4,13 @@ void ApplicationControl::Run()
 {
 	try
 	{
+		sf::ContextSettings context_settings;
+		context_settings.antialiasingLevel = 8;
+
 		current_vmode = sf::VideoMode::getDesktopMode();
 		current_vmode.height = current_vmode.height * 0.75;
 		current_vmode.width = current_vmode.width * 0.75;
-		window.create(current_vmode, "WORKS!");
+		window.create(current_vmode, "WORKS!", sf::Style::Default, context_settings);
 
 		Textures::init();
 	}

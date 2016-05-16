@@ -6,10 +6,10 @@ class Archer :
 	public Unit
 {
 private:
-	static const int ID = 2;
+	static const int ID = 1;
 
 public:
-	Archer(OffsetCoords position);
+	Archer(OffsetCoords position, Player& owner);
 	~Archer();
 };
 

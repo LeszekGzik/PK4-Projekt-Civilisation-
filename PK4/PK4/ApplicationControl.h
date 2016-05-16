@@ -8,13 +8,12 @@
 #include "GameExceptions.h"
 #include "Textures.h"
 
-const float DEFAULT_SCROLL_SPEED = 0.3f;
+const float DEFAULT_SCROLL_SPEED = 3.f;
 const float DEFAULT_SCROLL_DISTANCE = 30.f;
 
 class ApplicationControl
 {
 private:
-
 	GameState * game_state;
 	sf::VideoMode current_vmode;
 	sf::RenderWindow window;

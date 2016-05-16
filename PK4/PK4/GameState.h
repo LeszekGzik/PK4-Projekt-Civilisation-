@@ -3,7 +3,7 @@
 #include <vector>
 #include "GameMap.h"
 #include "GameDefinitions.h"
-#include "PlayerState.h"
+#include "Player.h"
 
 
 class GameState
@@ -13,7 +13,7 @@ private:
 	sf::RenderWindow * window;
 	sf::View world;
 	sf::View gui;
-	std::vector<PlayerState> players;
+	std::vector<Player> players;
 
 public:
 	GameMap * getGameMap();

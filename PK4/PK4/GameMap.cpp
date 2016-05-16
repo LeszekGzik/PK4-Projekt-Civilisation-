@@ -105,6 +105,8 @@ GameMap::GameMap(sf::Vector2i size)
 			setFieldOffset(i, j, new Grass(sf::Vector2i(i, j)));
 		}
 	}
+	Player * p = new Player();
+	getFieldOffset(5, 5).addObject(new Archer(OffsetCoords(5, 5), *p));
 }
 
 GameMap::~GameMap()

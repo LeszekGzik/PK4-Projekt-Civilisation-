@@ -5,6 +5,7 @@
 #include "Hex.h"
 #include "TexturedHex.h"
 #include "Textures.h"
+#include "Units.h"
 
 class GameMap : public sf::Drawable
 {

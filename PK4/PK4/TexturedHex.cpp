@@ -1,5 +1,6 @@
 #include "TexturedHex.h"
 
+const sf::Color TexturedHex::DEFAULT_MASK_COLOR = sf::Color::White;
 
 TexturedHex::TexturedHex(float _edge, sf::Color _outline_color) : Hex(_edge, _outline_color)
 {
