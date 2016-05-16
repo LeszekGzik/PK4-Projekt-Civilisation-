@@ -34,4 +34,7 @@ GameState::GameState(sf::RenderWindow * target)
 
 GameState::~GameState()
 {
+	if (game_map != NULL)
+		delete game_map;
 }
+

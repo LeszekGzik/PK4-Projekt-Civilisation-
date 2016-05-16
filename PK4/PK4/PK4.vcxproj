@@ -129,13 +129,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ApplicationControl.cpp" />
+    <ClCompile Include="Archer.cpp" />
     <ClCompile Include="BorderMenu.cpp" />
-    <ClCompile Include="DrawStack.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="Grass.cpp" />
     <ClCompile Include="Hex.cpp" />
+    <ClCompile Include="Improvement.cpp" />
     <ClCompile Include="InGameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
@@ -146,19 +148,23 @@
     <ClCompile Include="TextureOutOfRangeException.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Tileset.cpp" />
+    <ClCompile Include="Unit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ApplicationControl.h" />
+    <ClInclude Include="Archer.h" />
     <ClInclude Include="BorderMenu.h" />
-    <ClInclude Include="DrawStack.h" />
+    <ClInclude Include="EngineDefinitions.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="Field.h" />
+    <ClInclude Include="Fields.h" />
     <ClInclude Include="GameExceptions.h" />
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameDefinitions.h" />
+    <ClInclude Include="Grass.h" />
     <ClInclude Include="Hex.h" />
-    <ClInclude Include="IDrawStack.h" />
+    <ClInclude Include="Improvement.h" />
     <ClInclude Include="InGameObject.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="ObjectStack.h" />
@@ -169,6 +175,7 @@
     <ClInclude Include="Textures.h" />
     <ClInclude Include="Tileset.h" />
     <ClInclude Include="TilesetLoadData.h" />
+    <ClInclude Include="Unit.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

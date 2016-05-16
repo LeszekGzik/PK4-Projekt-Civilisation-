@@ -10,11 +10,12 @@ class Textures
 {
 private:
 	static const TilesetLoadData FIELDS;
-	static const TilesetLoadData TEST;
+	static const TilesetLoadData UNITS;
+	static const TilesetLoadData MISC;
 
 	static Tileset* fields;
 	static Tileset* units;
-	static Tileset* test;
+	static Tileset* misc;
 
 public:
 	static void init();
@@ -22,7 +23,7 @@ public:
 
 	static Tileset& tilesetFields() { return *fields; }
 	static Tileset& tilesetUnits() { return *units; }
-	static Tileset& tilesetTest() { return *test; }
+	static Tileset& tilesetMisc() { return *misc; }
 
 	Textures();
 	~Textures();

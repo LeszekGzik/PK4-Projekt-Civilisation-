@@ -12,7 +12,7 @@ Event<TSender, TArgs...>::~Event()
 }
 
 template<class TSender, class... TArgs>
-void Event<TSender, TArgs...>::invoke(TSender* sender, TArgs... event_args)
+void Event<TSender, TArgs...>::invoke(TSender& sender, TArgs... event_args)
 {
 	/*for (std::vector<EventDelegate>::iterator it = event_delegate.begin(); it != event_delegate.end(); it++)
 	{

@@ -9,7 +9,12 @@ TexturedHex::~TexturedHex()
 {
 }
 
-sf::VertexArray TexturedHex::create(sf::Vector2i position, Tileset& tileset, int texture)
+sf::VertexArray TexturedHex::create(OffsetCoords position, Tileset& tileset, int texture)
+{
+	return create(coords(position), tileset, texture);
+}
+
+sf::VertexArray TexturedHex::create(PixelCoords position, Tileset& tileset, int texture)
 {
 	float edge = edgeSize();
 	float horizontal = horizontalSize();

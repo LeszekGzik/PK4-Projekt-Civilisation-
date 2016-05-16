@@ -1,19 +1,28 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "EngineDefinitions.h"
 #include "ObjectStack.h"
+#include "TexturedHex.h"
+#include "Textures.h"
+#include "Improvement.h"
 
 class Field : public sf::Drawable
 {
 private:
 	int id;
 	ObjectStack object_stack;
+	Improvement improvement;
+	DrawableObject vertex;
 
-protected:
+	static TexturedHex hex_style;
 
 public:
-	void draw(sf::RenderTarget & window, sf::RenderStates states) const;
+	static Tileset tileset() { return Textures::tilesetFields(); }
+	void addObject(InGameObject * object) { object_stack.add(object); }
 
-	Field();
+	Field(int id, OffsetCoords position);
 	~Field();
+
+	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 };
 

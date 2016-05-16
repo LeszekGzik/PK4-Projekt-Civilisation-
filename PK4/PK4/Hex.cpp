@@ -3,22 +3,35 @@
 const float Hex::DEFAULT_EDGE = 60;
 const sf::Color Hex::DEFAULT_OUTLINE_COLOR(255, 0, 0, 255);
 
-float Hex::horizontalSize()
+float Hex::horizontalSize() const
 {
 	return horizontal;
 }
 
-float Hex::verticalSize()
+float Hex::verticalSize() const
 {
 	return vertical;
 }
 
-float Hex::edgeSize()
+float Hex::edgeSize() const
 {
 	return edge;
 }
 
-sf::VertexArray Hex::create(sf::Vector2i position)
+PixelCoords Hex::coords(OffsetCoords position) const
+{
+	float x = position.x * horizontal + ((position.y % 2) * horizontal * 0.5);
+	float y = position.y * edge * 1.5;
+	return sf::Vector2f(x, y);
+}
+
+sf::VertexArray Hex::create(OffsetCoords position) const
+{
+	PixelCoords position_px = coords(position);
+	return create(position_px);
+}
+
+sf::VertexArray Hex::create(PixelCoords position) const
 {
 	sf::VertexArray hex(sf::LinesStrip, 7);
 

@@ -4,11 +4,10 @@
 class InGameObject : public sf::Drawable
 {
 private:
-	bool covers_stack;
 	
 public:
 	InGameObject();
-	bool coversStack();
 	virtual ~InGameObject();
+	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) abstract;
 };
 

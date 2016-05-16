@@ -61,6 +61,24 @@
     <Filter Include="Source Files\Graphics">
       <UniqueIdentifier>{98e4875f-5afe-40c9-88df-806f650a7ed3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Board\Fields">
+      <UniqueIdentifier>{e3b75997-d02d-47f7-884e-3b426343e022}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Board\Fields">
+      <UniqueIdentifier>{bb52a405-a958-4324-926a-a1232faf5498}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Objects\Structures">
+      <UniqueIdentifier>{4f2f0218-2a06-4c84-96dc-9ce4a0d76cdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Structures">
+      <UniqueIdentifier>{b2d99a63-5021-42ff-a68a-dc72c5355dee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Board\Improvements">
+      <UniqueIdentifier>{064f12ad-7dfd-4de1-a7ad-d0ab26f2bfb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Board\Improvements">
+      <UniqueIdentifier>{07c609ea-5c1d-43d0-8eff-d7ca6afd87b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -77,9 +95,6 @@
     </ClCompile>
     <ClCompile Include="ApplicationControl.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Field.cpp">
-      <Filter>Source Files\Board</Filter>
     </ClCompile>
     <ClCompile Include="GameMap.cpp">
       <Filter>Source Files\Board</Filter>
@@ -114,8 +129,20 @@
     <ClCompile Include="ObjectStack.cpp">
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="DrawStack.cpp">
-      <Filter>Source Files\Graphics</Filter>
+    <ClCompile Include="Grass.cpp">
+      <Filter>Source Files\Board\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="Field.cpp">
+      <Filter>Source Files\Board\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="Improvement.cpp">
+      <Filter>Source Files\Board\Improvements</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit.cpp">
+      <Filter>Source Files\Objects\Units</Filter>
+    </ClCompile>
+    <ClCompile Include="Archer.cpp">
+      <Filter>Source Files\Objects\Units</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -126,9 +153,6 @@
       <Filter>Header Files\Menus</Filter>
     </ClInclude>
     <ClInclude Include="GameMap.h">
-      <Filter>Header Files\Board</Filter>
-    </ClInclude>
-    <ClInclude Include="Field.h">
       <Filter>Header Files\Board</Filter>
     </ClInclude>
     <ClInclude Include="GameState.h">
@@ -176,11 +200,26 @@
     <ClInclude Include="ObjectStack.h">
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="DrawStack.h">
-      <Filter>Header Files\Graphics</Filter>
+    <ClInclude Include="Grass.h">
+      <Filter>Header Files\Board\Fields</Filter>
     </ClInclude>
-    <ClInclude Include="IDrawStack.h">
-      <Filter>Header Files\Graphics</Filter>
+    <ClInclude Include="Fields.h">
+      <Filter>Header Files\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="Field.h">
+      <Filter>Header Files\Board\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineDefinitions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Improvement.h">
+      <Filter>Header Files\Board\Improvements</Filter>
+    </ClInclude>
+    <ClInclude Include="Unit.h">
+      <Filter>Header Files\Objects\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="Archer.h">
+      <Filter>Header Files\Objects\Units</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
