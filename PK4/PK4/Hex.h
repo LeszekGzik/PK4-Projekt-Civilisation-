@@ -6,17 +6,18 @@ class Hex
 {
 public:
 	static const float DEFAULT_EDGE;
-	static const sf::Color DEFAULT_OUTLINE_COLOR;
+	static const sf::Color DEFAULT_COLOR;
 
-	float horizontalSize() const;
-	float verticalSize() const;
-	float edgeSize() const;
+	float horizontalSize() const { return horizontal; }
+	float verticalSize() const { return vertical; }
+	float edgeSize() const { return edge; }
+	sf::Color getColor() const { return color; }
 	PixelCoords coords(OffsetCoords position) const;
 
 	virtual DrawableObject create(PixelCoords position) const sealed;
 	virtual DrawableObject create(OffsetCoords position) const sealed;
 
-	Hex(float _edge = DEFAULT_EDGE, sf::Color _outline_color = DEFAULT_OUTLINE_COLOR);
+	Hex(float edge = DEFAULT_EDGE, sf::Color color = DEFAULT_COLOR);
 	~Hex();
 
 private:
@@ -24,6 +25,6 @@ private:
 	float edge;
 	float horizontal;
 	float vertical;
-	sf::Color outline_color;
+	sf::Color color;
 };
 

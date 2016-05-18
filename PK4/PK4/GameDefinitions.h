@@ -4,6 +4,21 @@
 
 enum Color {Red, Blue, Green};
 
+class ColorUtils
+{
+private:
+	static const sf::Color COLOR_RED;
+	static const sf::Color COLOR_BLUE;
+	static const sf::Color COLOR_GREEN;
+	static const sf::Color COLOR_TRANSPARENT;
+	static const int ALPHA = 127;
+
+public:
+	static sf::Color sfColor(Color color);
+	static sf::Color sfMask(Color color);
+
+};
+
 struct MapSettings
 {
 	sf::Vector2i size;

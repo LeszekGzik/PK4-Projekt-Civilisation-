@@ -134,6 +134,7 @@
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="Flag.cpp" />
+    <ClCompile Include="GameDefinitions.cpp" />
     <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Grass.cpp" />
@@ -178,7 +179,6 @@
     <ClInclude Include="Tileset.h" />
     <ClInclude Include="TilesetLoadData.h" />
     <ClInclude Include="Unit.h" />
-    <ClInclude Include="Units.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

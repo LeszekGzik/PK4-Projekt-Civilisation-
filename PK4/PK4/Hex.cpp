@@ -1,22 +1,7 @@
 #include "Hex.h"
 
 const float Hex::DEFAULT_EDGE = _ENGINE::default_unit / 2;
-const sf::Color Hex::DEFAULT_OUTLINE_COLOR(255, 0, 0, 255);
-
-float Hex::horizontalSize() const
-{
-	return horizontal;
-}
-
-float Hex::verticalSize() const
-{
-	return vertical;
-}
-
-float Hex::edgeSize() const
-{
-	return edge;
-}
+const sf::Color Hex::DEFAULT_COLOR(255, 0, 0, 255);
 
 PixelCoords Hex::coords(OffsetCoords position) const
 {
@@ -45,17 +30,14 @@ sf::VertexArray Hex::create(PixelCoords position) const
 
 	for (int k = 0; k < 7; k++)
 	{
-		hex[k].color = outline_color;
+		hex[k].color = color;
 	}
 
 	return hex;
 }
 
-Hex::Hex(float _edge, sf::Color _outline_color)
+Hex::Hex(float edge, sf::Color color) : edge(edge), color(color)
 {
-	edge = _edge;
-	outline_color = _outline_color;
-
 	horizontal = edge * sqrt(3);
 	vertical = edge * 2;
 }

@@ -1,9 +1,11 @@
 #include "TexturedHex.h"
+#include <iostream>
 
-const sf::Color TexturedHex::DEFAULT_MASK_COLOR = sf::Color::White;
+const sf::Color TexturedHex::DEFAULT_MASK_COLOR = sf::Color(255, 255, 255, 255);
 
-TexturedHex::TexturedHex(float _edge, sf::Color _outline_color) : Hex(_edge, _outline_color)
+TexturedHex::TexturedHex(float edge, sf::Color color) : Hex(edge, color)
 {
+	sf::Color c = DEFAULT_MASK_COLOR;
 }
 
 TexturedHex::~TexturedHex()
@@ -46,6 +48,13 @@ sf::VertexArray TexturedHex::create(PixelCoords position, Tileset& tileset, int 
 	hex[5].texCoords = sf::Vector2f(position.x + 0.5 * horizontal, position.y + 2 * edge);
 	hex[6].texCoords = sf::Vector2f(position.x, position.y + 1.5 * edge);
 	hex[7].texCoords = sf::Vector2f(position.x, position.y + 0.5 * edge);
+
+	sf::Color color = getColor();
+
+	for (int k = 0; k < 8; k++)
+	{
+		hex[k].color = color;
+	}
 
 	return hex;
 }

@@ -7,6 +7,8 @@
 #include "TexturedHex.h"
 #include "Player.h"
 #include "Flag.h"
+#include <algorithm>
+#include <list>
 
 class Unit : public InGameObject
 {
