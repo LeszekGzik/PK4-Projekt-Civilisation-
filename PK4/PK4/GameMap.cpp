@@ -96,6 +96,8 @@ GameMap::GameMap(sf::Vector2i size)
 {
 	grid_size.x = size.x;
 	grid_size.y = size.y;
+	//sf::Color clr = Field::hex().getColor();
+
 	board = new Field**[size.x];
 	for (int i = 0; i < size.x; i++)
 	{

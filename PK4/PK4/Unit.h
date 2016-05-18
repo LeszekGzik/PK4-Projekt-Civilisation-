@@ -32,6 +32,7 @@ public:
 	static Tileset& miscTileset() { return Textures::tilesetMisc(); }
 
 	Player& getOwner() { return owner; }
+	static TexturedHex& hex() { return hex_style; }
 
 	Unit(int id, OffsetCoords position, Player& owner);
 	~Unit();

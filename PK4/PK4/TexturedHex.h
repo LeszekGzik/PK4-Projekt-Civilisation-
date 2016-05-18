@@ -3,14 +3,17 @@
 #include "Tileset.h"
 #include "GameExceptions.h"
 
+const sf::Color DEFAULT_MASK_COLOR = sf::Color(255, 255, 255, 255);
+
 class TexturedHex :
 	public Hex
 {
 private:
-	static const sf::Color DEFAULT_MASK_COLOR;
 
 public:
-	TexturedHex(float edge = Hex::DEFAULT_EDGE, sf::Color color = TexturedHex::DEFAULT_MASK_COLOR);
+	void wake() { sf::Color clr = DEFAULT_MASK_COLOR; };
+
+	TexturedHex(float edge = Hex::DEFAULT_EDGE, sf::Color color = DEFAULT_MASK_COLOR);
 	~TexturedHex();
 
 	DrawableObject create(PixelCoords position, Tileset& tileset, int texture);
