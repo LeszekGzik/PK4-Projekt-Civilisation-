@@ -8,19 +8,19 @@ class Component : public sf::Drawable
 {
 public:
 	typedef Event<Component, sf::Event::MouseButtonEvent> Clicked;
+	typedef Event<Component, sf::Event::TextEvent> TextEnter;
 	typedef Event<Component> FocusChange;
-	typedef Event<Component, sf::Event::KeyEvent> KeyDown;
 	typedef Event<Component, sf::Event::MouseMoveEvent> MouseEnter;
 	typedef Event<Component, sf::Event::MouseMoveEvent> MouseLeave;
 
 	Clicked& eventClicked() { return event_clicked; }
 	FocusChange& eventFocusChange() { return event_focus_change; }
-	KeyDown& eventKeyDown() { return event_key_down; }
+	TextEnter& eventKeyDown() { return event_text_enter; }
 	MouseEnter& eventMouseEnter() { return event_mouse_enter; }
 	MouseLeave& eventMouseLeave() { return event_mouse_leave; }
 	virtual void clicked(sf::Event::MouseButtonEvent& mouse);
 	virtual void focusChange();
-	virtual void keyDown(sf::Event::KeyEvent& args);
+	virtual void textEnter(sf::Event::TextEvent& args);
 	virtual void mouseEnter(sf::Event::MouseMoveEvent& args);
 	virtual void mouseLeave(sf::Event::MouseMoveEvent& args);
 
@@ -36,6 +36,8 @@ public:
 	void setTextColor(sf::Color color) { this->text_color = color; }
 	void setTextPosition(sf::Vector2u position) { this->text_position = position; }
 
+	std::string& getCaption() { return this->caption; }
+
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 	virtual void update();
 	virtual void refresh() { }
@@ -48,7 +50,7 @@ public:
 private:
 	Clicked event_clicked;
 	FocusChange event_focus_change;
-	KeyDown event_key_down;
+	TextEnter event_text_enter;
 	MouseEnter event_mouse_enter;
 	MouseLeave event_mouse_leave;
 

@@ -12,9 +12,9 @@ void PageControl::click(sf::Event::MouseButtonEvent mouse)
 	current().click(mouse);
 }
 
-void PageControl::keyDown(sf::Event::KeyEvent key)
+void PageControl::text(sf::Event::TextEvent key)
 {
-	current().keyDown(key);
+	current().text(key);
 }
 
 Page & PageControl::current()

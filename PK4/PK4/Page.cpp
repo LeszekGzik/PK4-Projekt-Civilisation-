@@ -58,10 +58,10 @@ void Page::click(sf::Event::MouseButtonEvent mouse)
 	}
 }
 
-void Page::keyDown(sf::Event::KeyEvent key)
+void Page::text(sf::Event::TextEvent key)
 {
 	if (focused_component != NULL)
-		focused_component->
+		focused_component->textEnter(key);
 }
 
 void Page::mouse(sf::Event::MouseMoveEvent mouse)

@@ -21,9 +21,9 @@ void Component::focusChange()
 	event_focus_change.invoke(*this);
 }
 
-void Component::keyDown(sf::Event::KeyEvent & args)
+void Component::textEnter(sf::Event::TextEvent & args)
 {
-	event_key_down.invoke(*this, args);
+	event_text_enter.invoke(*this, args);
 }
 
 void Component::setFocus(bool focused)

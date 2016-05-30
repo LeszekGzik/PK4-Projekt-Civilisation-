@@ -11,10 +11,11 @@ public:
 	~TextBox();
 
 	virtual void focusChange();
-	virtual void keyDown(sf::Event::KeyEvent& args);
+	virtual void textEnter(sf::Event::TextEvent& args);
 
 	void refresh();
 	void setBackColor(sf::Color color) { this->back_color = color; }
+	void setMaxLength(int32_t length) { this->max_length = length; }
 	void setTextColor(sf::Color color) { this->text_color = color; }
 	void setHighlightBackColor(sf::Color color) { this->highlight_back_color = color; }
 	void setHighlightTextColor(sf::Color color) { this->highlight_text_color = color; }
@@ -24,11 +25,14 @@ protected:
 	virtual void highlightOn();
 	virtual void highlightOff();
 
+	void inputText(sf::Uint32 character);
+
 private:
 	sf::Color highlight_back_color;
 	sf::Color highlight_text_color;
 	sf::Color back_color;
 	sf::Color text_color;
+	int32_t max_length;
 
 	bool highlighted;
 	bool highlights;

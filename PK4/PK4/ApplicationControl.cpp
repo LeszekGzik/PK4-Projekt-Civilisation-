@@ -12,6 +12,7 @@ void ApplicationControl::run()
 		current_vmode.height = current_vmode.height * 0.75;
 		current_vmode.width = current_vmode.width * 0.75;
 		window.create(current_vmode, "WORKS!", sf::Style::Default, context_settings);
+		window.setVerticalSyncEnabled(true);
 
 		Textures::init();
 		Fonts::init();
@@ -57,8 +58,16 @@ bool ApplicationControl::movingWorld(sf::Vector2f & offset)
 	return moved;
 }
 
-LoopExitCode ApplicationControl::gameLoop()
+LoopExitCode ApplicationControl::gameLoop(InitSettings * settings)
 {
+	if (game_state != NULL)
+		return LoopExitCode::Exit;
+
+	settings = new InitSettings(MapSettings(sf::Vector2i(12, 6)), PlayerSettings(0, NULL, NULL));
+
+	game_state = new GameState(&window);
+	game_state->initializeSession(*settings);
+
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -87,40 +96,37 @@ LoopExitCode ApplicationControl::gameLoop()
 	return LoopExitCode::Exit;
 }
 
-LoopExitCode ApplicationControl::menuLoop()
+LoopExitCode ApplicationControl::menuLoop(InitSettings *& settings)
 {
 	MainMenu menu(window, current_vmode);
-	return menu.loop();
+	LoopExitCode exit = menu.loop();
+	settings = menu.getInitSettings();
+	return exit;
 }
 
 void ApplicationControl::loop()
 {
+	InitSettings * settings = NULL;
+
 	LoopExitCode loop = LoopExitCode::Menu;
 	while (loop != LoopExitCode::Exit)
 	{
 		switch (loop)
 		{
 		case Menu:
-			loop = menuLoop();
+			loop = menuLoop(settings);
 			break;
 		case Play:
-			loop = gameLoop();
+			loop = gameLoop(settings);
 			break;
 		default:
 			loop = LoopExitCode::Exit;
 			break;
 		}
+
+		if (settings != NULL)
+			delete settings;
 	}
-
-	/*if (game_state != NULL)
-		return;
-
-	game_state = new GameState(&window);
-	game_state->initializeSession(InitSettings
-		(MapSettings(sf::Vector2i(12, 6)),
-		(PlayerSettings(0, NULL, NULL))
-		));
-	gameLoop();*/
 }
 
 ApplicationControl::ApplicationControl()

@@ -15,7 +15,7 @@ public:
 
 	int add();
 	void click(sf::Event::MouseButtonEvent mouse);
-	void keyDown(sf::Event::KeyEvent key);
+	void text(sf::Event::TextEvent key);
 	void mouse(sf::Event::MouseMoveEvent mouse);
 	Page& current();
 	void set(uint16_t index);

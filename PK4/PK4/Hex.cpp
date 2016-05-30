@@ -16,6 +16,7 @@ sf::VertexArray Hex::create(OffsetCoords position) const
 	return create(position_px);
 }
 
+
 sf::VertexArray Hex::create(PixelCoords position) const
 {
 	sf::VertexArray hex(sf::LinesStrip, 7);

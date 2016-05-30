@@ -13,7 +13,7 @@ public:
 	void addComponent(Component* item);
 	void addShape(sf::Shape* item);
 	void click(sf::Event::MouseButtonEvent mouse);
-	void keyDown(sf::Event::KeyEvent key);
+	void text(sf::Event::TextEvent key);
 	void mouse(sf::Event::MouseMoveEvent mouse);
 	void leave();
 	void refresh();
