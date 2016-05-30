@@ -1,6 +1,7 @@
 #include "ApplicationControl.h"
 
-void ApplicationControl::Run()
+
+void ApplicationControl::run()
 {
 	try
 	{
@@ -13,6 +14,7 @@ void ApplicationControl::Run()
 		window.create(current_vmode, "WORKS!", sf::Style::Default, context_settings);
 
 		Textures::init();
+		Fonts::init();
 	}
 	catch(std::exception const& ex)
 	{
@@ -20,9 +22,11 @@ void ApplicationControl::Run()
 		std::cin.get();
 		return;
 	}
-	startNewGame();
+
+	loop();
 
 	Textures::end();
+	Fonts::end();
 }
 
 bool ApplicationControl::movingWorld(sf::Vector2f & offset)
@@ -53,7 +57,7 @@ bool ApplicationControl::movingWorld(sf::Vector2f & offset)
 	return moved;
 }
 
-void ApplicationControl::gameLoop()
+LoopExitCode ApplicationControl::gameLoop()
 {
 	while (window.isOpen())
 	{
@@ -79,11 +83,36 @@ void ApplicationControl::gameLoop()
 		game_state->draw();
 		window.display();
 	}
+
+	return LoopExitCode::Exit;
 }
 
-void ApplicationControl::startNewGame()
+LoopExitCode ApplicationControl::menuLoop()
 {
-	if (game_state != NULL)
+	MainMenu menu(window, current_vmode);
+	return menu.loop();
+}
+
+void ApplicationControl::loop()
+{
+	LoopExitCode loop = LoopExitCode::Menu;
+	while (loop != LoopExitCode::Exit)
+	{
+		switch (loop)
+		{
+		case Menu:
+			loop = menuLoop();
+			break;
+		case Play:
+			loop = gameLoop();
+			break;
+		default:
+			loop = LoopExitCode::Exit;
+			break;
+		}
+	}
+
+	/*if (game_state != NULL)
 		return;
 
 	game_state = new GameState(&window);
@@ -91,7 +120,7 @@ void ApplicationControl::startNewGame()
 		(MapSettings(sf::Vector2i(12, 6)),
 		(PlayerSettings(0, NULL, NULL))
 		));
-	gameLoop();
+	gameLoop();*/
 }
 
 ApplicationControl::ApplicationControl()
@@ -103,4 +132,5 @@ ApplicationControl::ApplicationControl()
 ApplicationControl::~ApplicationControl()
 {
 	Textures::end();
+	delete game_state;
 }

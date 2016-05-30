@@ -9,14 +9,16 @@ class TexturedHex :
 	public Hex
 {
 private:
+	float xs;
 
 public:
-	void wake() { sf::Color clr = DEFAULT_MASK_COLOR; };
-
 	TexturedHex(float edge = Hex::DEFAULT_EDGE, sf::Color color = DEFAULT_MASK_COLOR);
 	~TexturedHex();
 
 	DrawableObject create(PixelCoords position, Tileset& tileset, int texture);
 	DrawableObject create(OffsetCoords position, Tileset& tileset, int texture);
+
+	DrawableObject create(PixelCoords position, Tileset& tileset, int texture, sf::Color color);
+	DrawableObject create(OffsetCoords position, Tileset& tileset, int texture, sf::Color color);
 };
 

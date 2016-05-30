@@ -10,8 +10,8 @@
 #define BUFSIZE MAX_PATH
 
 const std::string WINDOW_CAPTION = "PK4";
+const std::string EXE_ERR = "Couldn't setup path ";
 
-	TCHAR buffer[BUFSIZE];
 std::string ExePath()
 {
 	char buffer[MAX_PATH];
@@ -19,15 +19,21 @@ std::string ExePath()
 	std::string::size_type pos = std::string(buffer).find_last_of("\\/");
 	return std::string(buffer).substr(0, pos);
 }
+
 int main()
 {
-	DWORD dwRet;
+	std::string path = ExePath();
+	BOOL result = SetCurrentDirectory(path.c_str());
 
-	std::cout << ExePath() << std::endl;
-	SetCurrentDirectory(ExePath().c_str());
+	if (result == FALSE)
+	{
+		std::cout << EXE_ERR << path << std::endl;
+		std::cin.get();
+		return 0;
+	}
 
 	ApplicationControl applicationControl;
-	applicationControl.Run();
+	applicationControl.run();
 
 	return 0;
 }

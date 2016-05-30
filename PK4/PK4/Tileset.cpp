@@ -16,7 +16,7 @@ sf::IntRect Tileset::getTile(int num)
 	}
 	else
 	{
-		throw TextureOutOfRangeException(name, num);
+		throw IndexOutOfRangeException(name, num);
 	}
 }
 
@@ -37,7 +37,7 @@ void Tileset::setTexture(TilesetLoadData tileset_data)
 {
 	sf::Image image;
 	if (!image.loadFromFile(tileset_data.path))
-		throw TextureLoadException(tileset_data.path);
+		throw FileLoadException(tileset_data.path);
 	image.createMaskFromColor(MASK_COLOR);
 	texture.loadFromImage(image);
 	name = tileset_data.path;

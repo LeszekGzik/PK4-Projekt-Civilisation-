@@ -5,34 +5,28 @@
 #include "EngineDefinitions.h"
 #include "Textures.h"
 #include "TexturedHex.h"
+#include "ObjectStyle.h"
 #include "Player.h"
-#include "Flag.h"
 #include <algorithm>
 #include <list>
 
 class Unit : public InGameObject
 {
 private:
-	static const sf::Vector2f DEfAULT_FLAG_SIZE;
-	static const int DEFAULT_MISC_ID = 1;
 
 	int id;
 	int misc_id;
 	Player& owner;
-	DrawableObject vertex;
 	sf::Sprite flag;
+	sf::Sprite token;
 
-	static TexturedHex hex_style;
-	static Flag flag_style;
-
-	void initFlag(OffsetCoords position);
-
+	static ObjectStyle * object_style;
 public:
 	static Tileset& unitTileset() { return Textures::tilesetUnits(); }
 	static Tileset& miscTileset() { return Textures::tilesetMisc(); }
+	static void setStyle(TexturedHex * style);
 
 	Player& getOwner() { return owner; }
-	static TexturedHex& hex() { return hex_style; }
 
 	Unit(int id, OffsetCoords position, Player& owner);
 	~Unit();

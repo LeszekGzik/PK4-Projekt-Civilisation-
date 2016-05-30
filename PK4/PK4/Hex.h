@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "EngineDefinitions.h"
+#include "GameDefinitions.h"
 
 class Hex
 {

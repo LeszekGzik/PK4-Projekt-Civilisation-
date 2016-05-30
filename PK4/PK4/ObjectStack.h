@@ -4,7 +4,6 @@
 #include <iterator>
 #include "InGameObject.h"
 #include "Event.h"
-#include "Event.cpp"
 
 class ObjectStack 
 {

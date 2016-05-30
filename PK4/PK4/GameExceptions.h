@@ -1,4 +1,4 @@
 #pragma once
 
-#include "TextureLoadException.h"
-#include "TextureOutOfRangeException.h"
+#include "FileLoadException.h"
+#include "IndexOutOfRangeException.h"

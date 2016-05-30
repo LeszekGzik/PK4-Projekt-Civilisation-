@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Menus">
-      <UniqueIdentifier>{5d6a5cbf-abc4-45c4-bc5d-e970f86d34bd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Menus">
       <UniqueIdentifier>{58c234d7-74cc-4a2b-b389-fb6aa77b553d}</UniqueIdentifier>
     </Filter>
@@ -27,9 +24,6 @@
     </Filter>
     <Filter Include="Source Files\Board">
       <UniqueIdentifier>{f1ec0a91-4d41-4c6a-9982-be4b2c101653}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Event">
-      <UniqueIdentifier>{8e836014-2753-46c6-9cd6-a8caf826cd84}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Objects">
       <UniqueIdentifier>{d2b33ae6-8e88-4ffc-bc7f-68b517e761a9}</UniqueIdentifier>
@@ -79,16 +73,19 @@
     <Filter Include="Source Files\Board\Improvements">
       <UniqueIdentifier>{07c609ea-5c1d-43d0-8eff-d7ca6afd87b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Component">
+      <UniqueIdentifier>{8fcd5e8b-0ca5-4342-bcdb-c3c5728790d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component">
+      <UniqueIdentifier>{518e51e3-f1c4-4d37-b988-130cb2cd705e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Menus">
+      <UniqueIdentifier>{5d6a5cbf-abc4-45c4-bc5d-e970f86d34bd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MainMenu.cpp">
-      <Filter>Source Files\Menus</Filter>
-    </ClCompile>
-    <ClCompile Include="BorderMenu.cpp">
-      <Filter>Source Files\Menus</Filter>
     </ClCompile>
     <ClCompile Include="GameState.cpp">
       <Filter>Source Files</Filter>
@@ -99,20 +96,11 @@
     <ClCompile Include="GameMap.cpp">
       <Filter>Source Files\Board</Filter>
     </ClCompile>
-    <ClCompile Include="Event.cpp">
-      <Filter>Source Files\Event</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureOutOfRangeException.cpp">
-      <Filter>Source Files\Exception</Filter>
-    </ClCompile>
     <ClCompile Include="Textures.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Tileset.cpp">
       <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureLoadException.cpp">
-      <Filter>Source Files\Exception</Filter>
     </ClCompile>
     <ClCompile Include="InGameObject.cpp">
       <Filter>Source Files\Objects</Filter>
@@ -144,20 +132,47 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Flag.cpp">
-      <Filter>Source Files\Board</Filter>
-    </ClCompile>
     <ClCompile Include="GameDefinitions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectStyle.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineDefinitions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Source Files\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="PageControl.cpp">
+      <Filter>Source Files\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source Files\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="FileLoadException.cpp">
+      <Filter>Source Files\Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="Fonts.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="IndexOutOfRangeException.cpp">
+      <Filter>Source Files\Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Source Files\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Page.cpp">
+      <Filter>Source Files\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Label.cpp">
+      <Filter>Source Files\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="TextBox.cpp">
+      <Filter>Source Files\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MainMenu.h">
-      <Filter>Header Files\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="BorderMenu.h">
-      <Filter>Header Files\Menus</Filter>
-    </ClInclude>
     <ClInclude Include="GameMap.h">
       <Filter>Header Files\Board</Filter>
     </ClInclude>
@@ -167,14 +182,8 @@
     <ClInclude Include="ApplicationControl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Event.h">
-      <Filter>Header Files\Event</Filter>
-    </ClInclude>
     <ClInclude Include="GameDefinitions.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureLoadException.h">
-      <Filter>Header Files\Exceptions</Filter>
     </ClInclude>
     <ClInclude Include="Textures.h">
       <Filter>Header Files\Graphics</Filter>
@@ -186,9 +195,6 @@
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="GameExceptions.h">
-      <Filter>Header Files\Exceptions</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureOutOfRangeException.h">
       <Filter>Header Files\Exceptions</Filter>
     </ClInclude>
     <ClInclude Include="InGameObject.h">
@@ -227,8 +233,47 @@
     <ClInclude Include="Player.h">
       <Filter>Header Files\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Flag.h">
-      <Filter>Header Files\Board</Filter>
+    <ClInclude Include="ObjectStyle.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="PageControl.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Fonts.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="FileLoadException.h">
+      <Filter>Header Files\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexOutOfRangeException.h">
+      <Filter>Header Files\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>Header Files\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Components.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Event3.h">
+      <Filter>Header Files\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Header Files\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Page.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Label.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="TextBox.h">
+      <Filter>Header Files\Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,8 +3,7 @@
 #include <iostream>
 #include <string>
 #include "Tileset.h"
-#include "TextureLoadException.h"
-#include "TilesetLoadData.h"
+#include "GameExceptions.h"
 
 class Textures
 {

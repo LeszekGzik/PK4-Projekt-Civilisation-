@@ -1,8 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <string>
-#include "TextureLoadException.h"
-#include "TextureOutOfRangeException.h"
+#include "GameExceptions.h"
 #include "TilesetLoadData.h"
 
 

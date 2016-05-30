@@ -1,6 +1,6 @@
 #include "Hex.h"
 
-const float Hex::DEFAULT_EDGE = _ENGINE::default_unit / 2;
+const float Hex::DEFAULT_EDGE = ENGINE::basic_unit / 2;
 const sf::Color Hex::DEFAULT_COLOR(255, 0, 0, 255);
 
 PixelCoords Hex::coords(OffsetCoords position) const

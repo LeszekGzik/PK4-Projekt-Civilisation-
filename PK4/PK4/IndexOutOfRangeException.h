@@ -3,7 +3,7 @@
 #include <string>
 #include <string.h>
 
-class TextureOutOfRangeException :
+class IndexOutOfRangeException :
 	public std::exception
 {
 private:
@@ -16,7 +16,7 @@ private:
 public:
 	virtual const char * what() const override;
 
-	TextureOutOfRangeException(std::string _error_source, int _error_index);
-	~TextureOutOfRangeException();
+	IndexOutOfRangeException(std::string _error_source, int _error_index);
+	~IndexOutOfRangeException();
 };
 

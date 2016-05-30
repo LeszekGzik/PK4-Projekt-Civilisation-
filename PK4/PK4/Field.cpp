@@ -1,6 +1,6 @@
 #include "Field.h"
 
-TexturedHex Field::hex_style;
+TexturedHex * Field::hex_style = NULL;
 
 
 void Field::draw(sf::RenderTarget & target, sf::RenderStates states) const
@@ -16,7 +16,7 @@ void Field::draw(sf::RenderTarget & target, sf::RenderStates states) const
 Field::Field(int id, OffsetCoords position)
 {
 	this->id = id;
-	vertex = hex_style.create(position, tileset(), id);
+	vertex = hex_style->create(position, tileset(), id);
 }
 
 Field::~Field()

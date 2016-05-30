@@ -1,30 +1,24 @@
 #include "Unit.h"
 
-const sf::Vector2f Unit::DEfAULT_FLAG_SIZE = sf::Vector2f(20, 20);
-
-TexturedHex Unit::hex_style;
-Flag Unit::flag_style;
+ObjectStyle * Unit::object_style = NULL;
 
 void Unit::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	target.draw(vertex, &miscTileset().getTileset());
+	target.draw(token);
 	target.draw(flag);
 }
 
-void Unit::initFlag(OffsetCoords position)
+
+void Unit::setStyle(TexturedHex * style)
 {
-	PixelCoords position_px = flag_style.getPosition(hex_style, position);
-	Tileset& tileset = unitTileset();
-	flag.move(position_px);
-	flag.setTexture(tileset.getTileset());
-	flag.setTextureRect(tileset.getTile(id));
-	flag.setScale(flag_style.getScale());
+	Hex * hex = style;
+	object_style = new ObjectStyle(*hex);
 }
 
-Unit::Unit(int id, OffsetCoords position, Player& _owner) : owner(_owner), misc_id(DEFAULT_MISC_ID), id(id), InGameObject()
+Unit::Unit(int id, OffsetCoords position, Player& owner) : owner(owner), id(id), InGameObject()
 {
-	vertex = hex_style.create(position, miscTileset(), misc_id);
-	initFlag(position);
+	flag = object_style->createFlag(position, id);
+	token = object_style->createToken(position, id, owner);
 }
 
 Unit::~Unit()

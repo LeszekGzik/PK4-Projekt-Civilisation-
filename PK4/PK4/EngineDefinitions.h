@@ -1,9 +1,12 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-const static struct _ENGINE
+const static struct ENGINE
 {
-	const static int default_unit = 120;
+	static const float basic_unit;
+	static const float flag_size_factor;
+	static const float scroll_speed;
+	static const float scroll_distance;
 };
 
 typedef sf::Vector2i OffsetCoords;

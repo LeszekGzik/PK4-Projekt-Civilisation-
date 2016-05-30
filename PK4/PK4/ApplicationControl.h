@@ -2,34 +2,37 @@
 #include <vector>
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <string>
+#include <cmath>
 #include "GameState.h"
 #include "MainMenu.h"
 #include "GameDefinitions.h"
+#include "EngineDefinitions.h"
 #include "GameExceptions.h"
 #include "Textures.h"
 #include "TexturedHex.h"
-
-const float DEFAULT_SCROLL_SPEED = 3.f;
-const float DEFAULT_SCROLL_DISTANCE = 30.f;
+#include "Fonts.h"
+#include "PageControl.h"
+#include "Button.h"
 
 class ApplicationControl
 {
 private:
+
 	GameState * game_state;
 	sf::VideoMode current_vmode;
 	sf::RenderWindow window;
+	float scroll_speed = ENGINE::scroll_speed;
+	float scroll_distance = ENGINE::scroll_distance;
 
-	float scroll_speed = DEFAULT_SCROLL_SPEED;
-	float scroll_distance = DEFAULT_SCROLL_DISTANCE;
-
+	LoopExitCode gameLoop();
+	LoopExitCode menuLoop();
 	bool movingWorld(sf::Vector2f& offset);
-	void gameLoop();
 public:
-	void startNewGame();
-
+	void run();
+	void loop();
 	sf::VideoMode const & getCurrentVideoMode() { return current_vmode; }
 
-	void Run();
 	ApplicationControl();
 	~ApplicationControl();
 };

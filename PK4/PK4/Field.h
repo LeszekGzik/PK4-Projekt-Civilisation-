@@ -14,12 +14,12 @@ private:
 	Improvement improvement;
 	DrawableObject vertex;
 
-	static TexturedHex hex_style;
+	static TexturedHex * hex_style;
 
 public:
 	static Tileset tileset() { return Textures::tilesetFields(); }
+	static void setStyle(TexturedHex * style) { Field::hex_style = style; }
 	void addObject(InGameObject * object) { object_stack.add(object); }
-	static TexturedHex& hex() { return hex_style; }
 
 	Field(int id, OffsetCoords position);
 	~Field();

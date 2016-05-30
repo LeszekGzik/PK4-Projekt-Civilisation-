@@ -13,8 +13,8 @@ private:
 	bool show_grid;
 	Field *** board;
 	Hex hex_style;
+	TexturedHex tex_hex_style;
 	sf::Vector2i grid_size;
-	static TexturedHex hex;
 
 	sf::IntRect visibilityCheck(sf::View view) const;
 	void drawGrid(sf::RenderTarget& window, sf::RenderStates states, sf::IntRect visibility) const;

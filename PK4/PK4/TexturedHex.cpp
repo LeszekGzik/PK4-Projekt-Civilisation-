@@ -11,12 +11,24 @@ TexturedHex::~TexturedHex()
 {
 }
 
-sf::VertexArray TexturedHex::create(OffsetCoords position, Tileset& tileset, int texture)
+
+DrawableObject TexturedHex::create(OffsetCoords position, Tileset & tileset, int texture)
 {
 	return create(coords(position), tileset, texture);
 }
 
-sf::VertexArray TexturedHex::create(PixelCoords position, Tileset& tileset, int texture)
+sf::VertexArray TexturedHex::create(OffsetCoords position, Tileset& tileset, int texture, sf::Color color)
+{
+	return create(coords(position), tileset, texture, color);
+}
+
+DrawableObject TexturedHex::create(PixelCoords position, Tileset & tileset, int texture)
+{
+	return create(position, tileset, texture, getColor());
+}
+
+
+sf::VertexArray TexturedHex::create(PixelCoords position, Tileset& tileset, int texture, sf::Color color)
 {
 	float edge = edgeSize();
 	float horizontal = horizontalSize();
@@ -47,8 +59,6 @@ sf::VertexArray TexturedHex::create(PixelCoords position, Tileset& tileset, int 
 	hex[5].texCoords = sf::Vector2f(position.x + 0.5 * horizontal, position.y + 2 * edge);
 	hex[6].texCoords = sf::Vector2f(position.x, position.y + 1.5 * edge);
 	hex[7].texCoords = sf::Vector2f(position.x, position.y + 0.5 * edge);
-
-	sf::Color color = getColor();
 
 	for (int k = 0; k < 8; k++)
 	{

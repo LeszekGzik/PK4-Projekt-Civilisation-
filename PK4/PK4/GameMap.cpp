@@ -89,14 +89,13 @@ void GameMap::draw(sf::RenderTarget & window, sf::RenderStates states) const
 
 GameMap::GameMap()
 {
-	
+	//implementowaæ w konstruktorze z argumentem
 }
 
-GameMap::GameMap(sf::Vector2i size)
+GameMap::GameMap(sf::Vector2i size) : grid_size(size)
 {
-	grid_size.x = size.x;
-	grid_size.y = size.y;
-	//sf::Color clr = Field::hex().getColor();
+	Field::setStyle(&tex_hex_style);
+	Unit::setStyle(&tex_hex_style);
 
 	board = new Field**[size.x];
 	for (int i = 0; i < size.x; i++)
