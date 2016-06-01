@@ -28,22 +28,24 @@ void Component::textEnter(sf::Event::TextEvent & args)
 
 void Component::setFocus(bool focused)
 {
-	this->focused = focused;
-	focusChange();
+	if (focused != this->focused)
+	{
+		this->focused = focused;
+		focusChange();
+	}
 }
 
 void Component::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	target.draw(rectangle, states);
-	target.draw(text, states);
+	if (visible)
+	{
+		target.draw(rectangle, states);
+		target.draw(text, states);
+	}
 }
 
 void Component::update()
 {
-	this->rectangle.setFillColor(this->back_color);
-	this->text.setColor(this->text_color);
-	this->text.setFont(this->font);
-	this->text.setString(this->caption);
 	this->rectangle.setPosition(position.left, position.top);
 	this->rectangle.setSize(sf::Vector2f(position.width, position.height));
 
@@ -51,14 +53,13 @@ void Component::update()
 }
 
 
-Component::Component() : font(Fonts::fontText())
+Component::Component()
 {
 }
 
 
 Component::Component(std::string caption, sf::Color back_color, sf::Color border_color, sf::Color text_color, float border_thickness,
 					 sf::Font & font, sf::Vector2u text_position, sf::IntRect position, int32_t font_size)
-	: font(font)
 {
 	setCaption(caption);
 	setBackColor(back_color);

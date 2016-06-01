@@ -47,9 +47,12 @@ void Page::click(sf::Event::MouseButtonEvent mouse)
 	{
 		if (focused_component != NULL)
 			focused_component->setFocus(false);
-		focused_component = *it;
-		focused_component->setFocus(true);
-		(*it)->clicked(mouse);
+		if ((*it)->getEnabled())
+		{
+			focused_component = *it;
+			focused_component->setFocus(true);
+			(*it)->clicked(mouse);
+		}
 	}
 	else if (focused_component != NULL)
 	{
@@ -60,7 +63,7 @@ void Page::click(sf::Event::MouseButtonEvent mouse)
 
 void Page::text(sf::Event::TextEvent key)
 {
-	if (focused_component != NULL)
+	if (focused_component != NULL && focused_component->getFocused())
 		focused_component->textEnter(key);
 }
 
@@ -69,10 +72,10 @@ void Page::mouse(sf::Event::MouseMoveEvent mouse)
 	sf::Vector2i pos(mouse.x, mouse.y);
 	ComponentList::iterator it = std::find_if(components.begin(), components.end(), [&pos](Component*& o) { return o->getPosition().contains(pos); });
 	
-	if (mouse_cursor.is_valid && mouse_cursor != it)
+	if (mouse_cursor.is_valid && mouse_cursor != it && (*mouse_cursor)->getEnabled())
 		(*mouse_cursor)->mouseLeave(mouse);
 
-	if (it != components.end())
+	if (it != components.end() && (*it)->getEnabled())
 	{
 		mouse_cursor = it;
 		(*mouse_cursor)->mouseEnter(mouse);

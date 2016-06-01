@@ -6,6 +6,10 @@
 class TextBox : public Component
 {
 public:
+	typedef Event<Component, std::string&> TextChange;
+
+	TextChange& eventTextChange() { return event_text_change; }
+
 	TextBox(std::string caption, sf::IntRect position);
 	TextBox();
 	~TextBox();
@@ -28,11 +32,15 @@ protected:
 	void inputText(sf::Uint32 character);
 
 private:
+	TextChange event_text_change;
+
+	bool caption_changed = false;
 	sf::Color highlight_back_color;
 	sf::Color highlight_text_color;
 	sf::Color back_color;
 	sf::Color text_color;
 	int32_t max_length;
+	std::string old_caption;
 
 	bool highlighted;
 	bool highlights;

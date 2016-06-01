@@ -14,7 +14,7 @@ const int32_t CARRIAGE_RET = 13;
 
 TextBox::TextBox(std::string caption, sf::IntRect position)
 	: Component(caption, BACK_COLOR, BORDER_COLOR, TEXT_COLOR, BORDER_THICKNESS, Fonts::fontText(), TEXT_POS, position, FONT_SIZE),
-	highlights(true), highlighted(false)
+	highlights(true), highlighted(false), old_caption(caption)
 {
 	setHighlightBackColor(HL_BACK_COLOR);
 	setHighlightTextColor(HL_TEXT_COLOR);
@@ -35,12 +35,21 @@ TextBox::~TextBox()
 void TextBox::focusChange()
 {
 	eventFocusChange().invoke(*this);
+	if (!getFocused())
+	{
+		if (this->caption_changed)
+			event_text_change.invoke(*this, this->old_caption);
+	}
+	else
+	{
+		this->old_caption = getCaption();
+	}
 	(highlights && highlighted) ? highlightOff() : highlightOn();
 }
 
 void TextBox::textEnter(sf::Event::TextEvent& args)
 {
-	eventKeyDown().invoke(*this, args);
+	eventTextEnter().invoke(*this, args);
 	inputText(args.unicode);
 }
 
@@ -69,16 +78,24 @@ void TextBox::highlightOff()
 
 void TextBox::inputText(sf::Uint32 character)
 {
-	std::string& caption = getCaption();
+	std::string caption = getCaption();
+
 	if (character == BACKSPACE)
 	{
 		if (caption.length() > 0)
+		{
 			caption.pop_back();
+			this->caption_changed = true;
+			setCaption(caption);
+		}
 	}
 	else if (character != CARRIAGE_RET)
 	{
 		if (caption.length() < max_length)
+		{
 			caption += (char)character;
+			this->caption_changed = true;
+			setCaption(caption);
+		}
 	}
-	update();
 }

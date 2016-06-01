@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
-enum Color {Red, Blue, Green};
+enum Color {Red, Blue, Green, Yellow};
 
 class ColorUtils
 {

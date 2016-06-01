@@ -62,32 +62,47 @@ void MainMenu::setPage(int page)
 
 void MainMenu::addButton(std::string const& caption, Button::Clicked::EventDelegate func, int i)
 {
-	Button * btn = new Button(caption, sf::IntRect(_main_btn_left, _main_btn_top + INIT.MAIN_BTN_HEIGHT * i++, INIT.MAIN_BTN_WIDTH, INIT.MAIN_BTN_HEIGHT));
-	btn->setFontSize(INIT.MAIN_BTN_FONT_SIZE);
+	Button * btn = new Button(caption, sf::IntRect(_main_btn_left, _main_btn_top + INIT.POSITIONS.MAIN_BTN_HEIGHT * i++, INIT.POSITIONS.MAIN_BTN_WIDTH, INIT.POSITIONS.MAIN_BTN_HEIGHT));
+	btn->setFontSize(INIT.MISC.MAIN_BTN_FONT_SIZE);
 	btn->setTextPosition(sf::Vector2u(48, 8));
 	btn->eventClicked().reg(func);
 	btn->update();
 	page_control.current().addComponent(btn);
 }
 
+void MainMenu::addTextBox(sf::Vector2f & rect, int i)
+{
+	Page & page = page_control.current();
+	sf::Vector2f position = INIT.POSITIONS.GAME_PLAYERS(rect);
+	position.y += (INIT.GAME.STRIP_SIZE + INIT.POSITIONS.STRIPS_INTERVAL) * i;
+	TextBox * edit = INIT.GAME.EDIT_PLAYER_NAME(position);
+	players[i] = edit;
+	if (i >= INIT.GAME.DEFAULT_PLAYERS)
+	{
+		edit->setVisible(false);
+		edit->setEnable(false);
+	}
+	page.addComponent(edit);
+}
+
 void MainMenu::addGameSettings()
 {
-	float _top = current_vmode.height * 0.25;
-	float _left = current_vmode.width * 0.25;
-	float _width = current_vmode.width - _left * 2;
-	float _height = current_vmode.height - _top * 2;
-
 	Page & page = page_control.current();
+	sf::Vector2f position = INIT.POSITIONS.GAME_RECT_POS(sf::Vector2f(current_vmode.width, current_vmode.height));
+	sf::Vector2f size = INIT.POSITIONS.GAME_RECT_SIZE(sf::Vector2f(current_vmode.width, current_vmode.height));
 
-	sf::RectangleShape * rect = new sf::RectangleShape();
-	rect->setFillColor(INIT.RECT_GAME_SETTINGS_COLOR);
-	rect->setPosition(_left, _top);
-	rect->setSize(sf::Vector2f(_width, _height));
-	page.addShape(rect);
+	page.addShape(INIT.GAME.RECT(position, size));
+	page.addShape(INIT.GAME.RECT_PLAYERS(position));
 
-	Component * component = new Label("TEST", sf::IntRect(_left + 32, _top + 32, 1, 1));
-	page.addComponent(component);
-	page.addComponent(new TextBox("BOX", sf::IntRect(_left + 32, _top + 64, 50, 50)));
+	page.addComponent(INIT.GAME.LABEL_PLAYERS_NUMBER(position));
+	TextBox * box = INIT.GAME.EDIT_PLAYERS_NUMBER(position);
+	box->eventTextChange().reg(&textbox_edit_players_number);
+	page.addComponent(box);
+
+	for (int i = 0; i < PLAYERS_SIZE; i++)
+	{
+		addTextBox(position, i);
+	}
 }
 
 void MainMenu::buttonClick_exit(Component &, sf::Event::MouseButtonEvent)
@@ -110,6 +125,55 @@ void MainMenu::buttonClick_start(Component &, sf::Event::MouseButtonEvent)
 	this->exit = LoopExitCode::Play;
 }
 
+void MainMenu::textboxEdit_playersNumber(Component & sender, std::string & old)
+{
+	std::string text = sender.getCaption();
+	int i;
+	bool result = false;
+	try
+	{
+		i = std::stoi(text);
+		if (i <= ENGINE::max_players && i >= ENGINE::min_players)
+			result = true;
+	}
+	catch (std::invalid_argument& ex)
+	{
+	}
+
+	if (!result)
+	{
+		sender.setCaption(old);
+	}
+	else
+	{
+		setPlayersNumber(i);
+	}
+}
+
+void MainMenu::setPlayersNumber(int number)
+{
+	int diff = number - this->players_number;
+
+	if (diff > 0)
+	{
+		for (int i = this->players_number; i < number; i++)
+		{
+			players[i]->setVisible(true);
+			players[i]->setEnable(true);
+		}
+	}
+	else if (diff < 0)
+	{
+		for (int i = this->players_number - 1; i > number - 1; i--)
+		{
+			players[i]->setVisible(false);
+			players[i]->setEnable(false);
+		}
+	}
+
+	this->players_number = number;
+}
+
 void MainMenu::setupComponents()
 {
 	_main_btn_left = current_vmode.width * 0;
@@ -119,23 +183,23 @@ void MainMenu::setupComponents()
 	page_main = page_control.add();
 	page_control.set(page_main);
 
-	addButton(INIT.BTN_NEWGAME_CAPTION, &button_click_newgame, 0);
-	addButton(INIT.BTN_OPTIONS_CAPTION, NULL, 1);
-	addButton(INIT.BTN_EXIT_CAPTION, &button_click_exit, 2);
+	addButton(INIT.STRINGS.MAIN_BTN_NEWGAME, &button_click_newgame, 0);
+	addButton(INIT.STRINGS.MAIN_BTN_OPTIONS, NULL, 1);
+	addButton(INIT.STRINGS.MAIN_BTN_EXIT, &button_click_exit, 2);
 	
 	// NEW GAME PAGE
 	page_newgame = page_control.add();
 	page_control.set(page_newgame);
 
-	addButton(INIT.BTN_START_CAPTION, &button_click_start, 0);
-	addButton(INIT.BTN_BACK_CAPTION, &button_click_back_to_main, 2);
+	addButton(INIT.STRINGS.START_BTN_START, &button_click_start, 0);
+	addButton(INIT.STRINGS.START_BTN_BACK, &button_click_back_to_main, 2);
 	addGameSettings();
 }
 
 void MainMenu::setupImage()
 {
-	if (!background_tex.loadFromFile(INIT.MENU_IMG))
-		throw FileLoadException(INIT.MENU_IMG);
+	if (!background_tex.loadFromFile(INIT.STRINGS.MENU_IMG))
+		throw FileLoadException(INIT.STRINGS.MENU_IMG);
 
 	sf::Vector2u tex_size = background_tex.getSize();
 	float scale_x = float(current_vmode.width) / tex_size.x;
@@ -153,6 +217,7 @@ MainMenu::MainMenu(sf::RenderWindow& window, sf::VideoMode& vmode) : window(wind
 	this->button_click_newgame.set(this, &MainMenu::buttonClick_newgame);
 	this->button_click_back_to_main.set(this, &MainMenu::buttonClick_backToMain);
 	this->button_click_start.set(this, &MainMenu::buttonClick_start);
+	this->textbox_edit_players_number.set(this, &MainMenu::textboxEdit_playersNumber);
 }
 
 
