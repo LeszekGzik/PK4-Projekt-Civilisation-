@@ -25,9 +25,9 @@ Page & PageControl::current()
 		return *pages[current_page];
 }
 
-void PageControl::mouse(sf::Event::MouseMoveEvent mouse)
+bool PageControl::mouse(sf::Event::MouseMoveEvent mouse)
 {
-	current().mouse(mouse);
+	return current().mouse(mouse);
 }
 
 void PageControl::set(uint16_t index)

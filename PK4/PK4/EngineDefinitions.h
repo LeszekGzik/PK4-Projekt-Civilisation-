@@ -28,7 +28,13 @@ public:
 	{
 	}
 
+	OffsetCoords(sf::Vector2i const& vec) : sf::Vector2i(vec)
+	{
+	}
+
 	operator AxialCoords() const;
+	bool operator> (OffsetCoords const& arg) const;
+	bool operator< (OffsetCoords const& arg) const;
 
 	//PixelCoords toPixel()
 };
@@ -51,6 +57,16 @@ public:
 inline OffsetCoords::operator AxialCoords() const
 {
 	return AxialCoords(x - y / 2, y);
+}
+
+inline bool OffsetCoords::operator> (OffsetCoords const& arg) const
+{
+	return (this->x > arg.x && this->y > arg.y);
+}
+
+inline bool OffsetCoords::operator< (OffsetCoords const& arg) const
+{
+	return (this->x < arg.x && this->y < arg.y);
 }
 
 inline AxialCoords::operator OffsetCoords() const

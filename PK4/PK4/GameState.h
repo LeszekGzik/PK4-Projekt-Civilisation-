@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "PageControl.h"
 #include "Components.h"
+#include "ContextInfo.h"
 
 
 class GameState
@@ -78,6 +79,7 @@ private:
 	LoopExitCode exit = Play;
 	GameMap * game_map;
 	PageControl page_control;
+	ContextInfo context_info;
 	sf::VideoMode current_vmode;
 	sf::View gui;
 	sf::View world;
@@ -89,8 +91,9 @@ private:
 	void init(InitSettings * settings);
 	void initGui();
 	void click(sf::Event::MouseButtonEvent&);
+	void move(sf::Event::MouseMoveEvent&);
+	PixelCoords worldPosition(PixelCoords window_pos);
 
 	void buttonClick_back(Component&, sf::Event::MouseButtonEvent);
 	void buttonClick_exit(Component&, sf::Event::MouseButtonEvent);
 };
-

@@ -75,7 +75,7 @@ bool Page::text(sf::Event::TextEvent key)
 	return false;
 }
 
-void Page::mouse(sf::Event::MouseMoveEvent mouse)
+bool Page::mouse(sf::Event::MouseMoveEvent mouse)
 {
 	sf::Vector2i pos(mouse.x, mouse.y);
 	ComponentList::iterator it = std::find_if(components.begin(), components.end(), [&pos](Component*& o) { return o->contains(pos); });
@@ -91,9 +91,14 @@ void Page::mouse(sf::Event::MouseMoveEvent mouse)
 			(*mouse_cursor)->mouseEnter(mouse);
 		}
 		(*it)->mouseMove(mouse);
+		return true;
 	}
 	else
+	{
 		mouse_cursor.is_valid = false;
+		return false;
+	}
+		
 }
 
 void Page::leave()

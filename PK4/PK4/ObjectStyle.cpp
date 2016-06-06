@@ -48,10 +48,10 @@ void ObjectStyle::move(OffsetCoords position, sf::Sprite& sprite)
 	sprite.move(hex_style.toPixel(position) - pos);
 }
 
-void ObjectStyle::move(PixelCoords position, sf::Sprite& sprite)
+void ObjectStyle::move(PixelCoords to, AxialCoords from, sf::Sprite& sprite)
 {
-	PixelCoords pos = sprite.getPosition();
-	sprite.move(hex_style.toPixel(hex_style.toAxial(position)) - pos);
+	PixelCoords pos = hex_style.toPixel(from);
+	sprite.move(hex_style.toPixel(hex_style.toAxial(to)) - pos);
 }
 
 ObjectStyle::ObjectStyle(Hex& hex_style) 

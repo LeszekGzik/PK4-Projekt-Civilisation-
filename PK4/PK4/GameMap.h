@@ -24,9 +24,8 @@ public:
 	bool showGrid() { return show_grid; }
 	void showGrid(bool show) { show_grid = show; }
 	void setField(OffsetCoords pos, Field * field);
-	Field& getField(OffsetCoords pos) const;
-	Field& getField(AxialCoords pos) const;
-	Field& getField(PixelCoords pos) const;
+	Field * getField(OffsetCoords pos) const;
+	Field * getField(PixelCoords pos) const;
 	sf::Vector2f getSizeInPixel();
 	void draw(sf::RenderTarget& window, sf::RenderStates states) const;
 

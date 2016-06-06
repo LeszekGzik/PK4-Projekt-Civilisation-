@@ -22,7 +22,7 @@ void GameMap::drawMap(sf::RenderTarget & window, sf::RenderStates states, sf::In
 	{
 		for (int i = visibility.left; i < visibility.width; i++)
 		{
-			getField(OffsetCoords(i, j)).draw(window, states);
+			getField(OffsetCoords(i, j))->draw(window, states);
 		}
 	}
 }
@@ -62,17 +62,16 @@ sf::IntRect GameMap::visibilityCheck(sf::View view) const
 	return visibility_hex;
 }
 
-Field & GameMap::getField(OffsetCoords pos) const
+Field * GameMap::getField(OffsetCoords pos) const
 {
-	return *board[pos.x][pos.y];
+	if (OffsetCoords(grid_size) > pos)
+		return board[pos.x][pos.y];
+	else
+		return nullptr;
 }
 
-Field & GameMap::getField(AxialCoords pos) const
-{
-	return *board[pos.x + pos.y / 2][pos.y];
-}
 
-Field & GameMap::getField(PixelCoords pos) const
+Field * GameMap::getField(PixelCoords pos) const
 {
 	return getField(hex_style.toAxial(pos));
 }
@@ -117,8 +116,8 @@ GameMap::GameMap(sf::Vector2i size) : grid_size(size)
 		}
 	}
 	Player * p = new Player();
-	getField(OffsetCoords(5, 5)).objects().add(new Archer(OffsetCoords(5, 5), *p));
-	getField(OffsetCoords(7, 7)).objects().add(new Archer(OffsetCoords(7, 7), *p));
+	getField(OffsetCoords(5, 5))->objects().add(new Archer(OffsetCoords(5, 5), *p));
+	getField(OffsetCoords(7, 7))->objects().add(new Archer(OffsetCoords(7, 7), *p));
 }
 
 GameMap::~GameMap()

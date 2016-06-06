@@ -133,6 +133,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ComboButton.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="ContextInfo.cpp" />
     <ClCompile Include="EngineDefinitions.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="Fonts.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="ComboButton.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Components.h" />
+    <ClInclude Include="ContextInfo.h" />
     <ClInclude Include="EngineDefinitions.h" />
     <ClInclude Include="Event3.h" />
     <ClInclude Include="Event.h" />

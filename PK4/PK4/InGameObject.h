@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include "EngineDefinitions.h"
+#include "ContextInfo.h"
 
 class InGameObject : public sf::Drawable
 {
@@ -14,6 +15,7 @@ public:
 	virtual void move(AxialCoords coords) abstract;
 	virtual void move(PixelCoords coords) abstract;
 	virtual void select(bool selected) abstract;
+	virtual ContextInfoContent getContextInfoContent() abstract;
 
 	virtual AxialCoords const& getPosition() const { return position; }
 	virtual void setPosition(AxialCoords coords) { position = coords; }

@@ -12,6 +12,14 @@ void Field::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	}
 }
 
+ContextInfoContent Field::getContextInfoContent()
+{
+	if (object_stack.empty())
+		return ContextInfoContent();
+	else
+		return object_stack.top()->getContextInfoContent();
+}
+
 Field::Field(int id, OffsetCoords position)
 {
 	this->id = id;

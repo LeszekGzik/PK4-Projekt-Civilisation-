@@ -14,7 +14,7 @@ public:
 	void addShape(sf::Shape* item);
 	bool click(sf::Event::MouseButtonEvent mouse);
 	bool text(sf::Event::TextEvent key);
-	void mouse(sf::Event::MouseMoveEvent mouse);
+	bool mouse(sf::Event::MouseMoveEvent mouse);
 	void leave();
 	void refresh();
 

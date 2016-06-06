@@ -55,7 +55,8 @@ LoopExitCode GameState::loop()
 				window.close();
 				break;
 			case sf::Event::MouseMoved:
-				page_control.mouse(event.mouseMove);
+				if (!page_control.mouse(event.mouseMove))
+					move(event.mouseMove);
 				break;
 			case sf::Event::MouseButtonPressed:
 				if (!page_control.click(event.mouseButton))
@@ -74,6 +75,7 @@ LoopExitCode GameState::loop()
 		window.draw(*game_map);
 		window.setView(gui);
 		window.draw(page_control);
+		window.draw(context_info);
 		window.display();
 	}
 
@@ -111,17 +113,12 @@ void GameState::initGui()
 
 void GameState::click(sf::Event::MouseButtonEvent & mouse)
 {
-	sf::Vector2f center = world.getCenter();
-	sf::Vector2f offset;
-	offset.x = center.x - current_vmode.width / 2;
-	offset.y = center.y - current_vmode.height / 2;
-	PixelCoords position(mouse.x + offset.x, mouse.y + offset.y);
-
-	Field& field = game_map->getField(position);
+	PixelCoords position = worldPosition(PixelCoords(mouse.x, mouse.y));
+	Field * field = game_map->getField(position);
 
 	if (mouse.button == sf::Mouse::Button::Left)
 	{
-		InGameObject * object = field.objects().top();
+		InGameObject * object = field->objects().top();
 
 		if (this->selected_object != object)
 		{
@@ -139,13 +136,37 @@ void GameState::click(sf::Event::MouseButtonEvent & mouse)
 		if (this->selected_object != nullptr)
 		{
 			AxialCoords sel_pos = this->selected_object->getPosition();
-			game_map->getField(sel_pos).objects().pop();
-			field.objects().add(this->selected_object);
+			game_map->getField(sel_pos)->objects().pop();
+			field->objects().add(this->selected_object);
 			this->selected_object->move(position);
 			this->selected_object->select(false);
 			this->selected_object = nullptr;
 		}
 	}
+}
+
+void GameState::move(sf::Event::MouseMoveEvent & mouse)
+{
+	PixelCoords position = worldPosition(PixelCoords(mouse.x, mouse.y));
+	Field * field = game_map->getField(position);
+	if (field == nullptr)
+	{
+		context_info.setActive(false);
+	}
+	else
+	{
+		context_info.setActive(true);
+		context_info.set(position, field->getContextInfoContent());
+	}
+}
+
+PixelCoords GameState::worldPosition(PixelCoords window_pos)
+{
+	sf::Vector2f center = world.getCenter();
+	sf::Vector2f offset;
+	offset.x = center.x - current_vmode.width / 2;
+	offset.y = center.y - current_vmode.height / 2;
+	return PixelCoords(window_pos.x + offset.x, window_pos.y + offset.y);
 }
 
 void GameState::buttonClick_back(Component &, sf::Event::MouseButtonEvent)
@@ -171,4 +192,5 @@ GameState::~GameState()
 	if (game_map != nullptr)
 		delete game_map;
 }
+
 

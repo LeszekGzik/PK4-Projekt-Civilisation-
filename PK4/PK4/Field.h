@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "EngineDefinitions.h"
+#include "ContextInfo.h"
 #include "ObjectStack.h"
 #include "TexturedHex.h"
 #include "Textures.h"
@@ -25,5 +26,7 @@ public:
 	~Field();
 
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
+	//virtual ContextInfoContent getFieldContextInfoContent() abstract;
+	ContextInfoContent getContextInfoContent();
 };
 
