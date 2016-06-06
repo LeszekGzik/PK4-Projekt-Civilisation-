@@ -64,7 +64,7 @@ sf::IntRect GameMap::visibilityCheck(sf::View view) const
 
 Field * GameMap::getField(OffsetCoords pos) const
 {
-	if (OffsetCoords(grid_size) > pos)
+	if (OffsetCoords(grid_size) > pos && pos > OffsetCoords(-1,-1))
 		return board[pos.x][pos.y];
 	else
 		return nullptr;
@@ -115,9 +115,6 @@ GameMap::GameMap(sf::Vector2i size) : grid_size(size)
 			setField(OffsetCoords(i, j), new Grass(OffsetCoords(i, j)));
 		}
 	}
-	Player * p = new Player();
-	getField(OffsetCoords(5, 5))->objects().add(new Archer(OffsetCoords(5, 5), *p));
-	getField(OffsetCoords(7, 7))->objects().add(new Archer(OffsetCoords(7, 7), *p));
 }
 
 GameMap::~GameMap()

@@ -45,12 +45,12 @@ void Unit::select(bool selected)
 	}
 }
 
-ContextInfoContent Unit::getContextInfoContent()
+ContextInfoContent * Unit::getContextInfoContent()
 {
-	ContextInfoContent vector;
-	vector.push_back(ContextInfoLine(owner.getName(), ColorUtils::sfColor(owner.getColor())));
-	vector.push_back(ContextInfoLine(std::to_string(health), sf::Color(sf::Color::White)));
-	return ContextInfoContent();
+	ContextInfoContent * vector = new ContextInfoContent();
+	vector->push_back(ContextInfoLine(owner.getName(), ColorUtils::sfColor(owner.getColor())));
+	vector->push_back(ContextInfoLine("HP: " + std::to_string(health), sf::Color(sf::Color::Black)));
+	return vector;
 }
 
 

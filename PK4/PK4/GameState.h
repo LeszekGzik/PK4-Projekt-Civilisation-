@@ -84,7 +84,9 @@ private:
 	sf::View gui;
 	sf::View world;
 	sf::RenderWindow & window;
-	std::vector<Player> players;
+	Player * players;
+
+	int32_t player_count;
 
 	InGameObject * selected_object = nullptr;
 

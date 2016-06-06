@@ -27,6 +27,6 @@ public:
 
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 	//virtual ContextInfoContent getFieldContextInfoContent() abstract;
-	ContextInfoContent getContextInfoContent();
+	ContextInfoContent * getContextInfoContent();
 };
 

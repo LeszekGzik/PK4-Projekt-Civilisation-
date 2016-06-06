@@ -84,10 +84,21 @@ LoopExitCode GameState::loop()
 
 void GameState::init(InitSettings * settings)
 {
-	gui = window.getDefaultView();
-	game_map = new GameMap(settings->map.size);
-	world = window.getDefaultView();
-	game_map->showGrid(true);
+	this->gui = window.getDefaultView();
+	this->world = window.getDefaultView();
+	this->game_map = new GameMap(settings->map.size);
+	this->game_map->showGrid(true);
+	this->player_count = settings->player.count;
+	this->players = new Player[this->player_count];
+	for (int i = 0; i < this->player_count; i++)
+	{
+		this->players[i].setId(i);
+		this->players[i].setColor(settings->player.colors[i]);
+		this->players[i].setName(settings->player.names[i]);
+	}
+
+	game_map->getField(OffsetCoords(5, 5))->objects().add(new Archer(OffsetCoords(5, 5), this->players[0]));
+	game_map->getField(OffsetCoords(7, 7))->objects().add(new Archer(OffsetCoords(7, 7), this->players[1]));
 }
 
 void GameState::initGui()
@@ -155,8 +166,15 @@ void GameState::move(sf::Event::MouseMoveEvent & mouse)
 	}
 	else
 	{
-		context_info.setActive(true);
-		context_info.set(position, field->getContextInfoContent());
+		ContextInfoContent * content = field->getContextInfoContent();
+		if (content != nullptr)
+		{
+			context_info.setActive(true);
+			context_info.set(position, content);
+		}
+		else
+			context_info.setActive(false);
+		delete content;
 	}
 }
 
@@ -191,6 +209,7 @@ GameState::~GameState()
 {
 	if (game_map != nullptr)
 		delete game_map;
+	delete[player_count] players;
 }
 
 

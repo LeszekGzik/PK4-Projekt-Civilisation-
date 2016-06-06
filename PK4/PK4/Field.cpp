@@ -12,10 +12,10 @@ void Field::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	}
 }
 
-ContextInfoContent Field::getContextInfoContent()
+ContextInfoContent * Field::getContextInfoContent()
 {
 	if (object_stack.empty())
-		return ContextInfoContent();
+		return nullptr;
 	else
 		return object_stack.top()->getContextInfoContent();
 }

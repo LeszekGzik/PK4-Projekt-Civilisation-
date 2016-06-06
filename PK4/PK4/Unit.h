@@ -50,6 +50,6 @@ public:
 	virtual void move(AxialCoords coords);
 	virtual void move(PixelCoords coords);
 	virtual void select(bool selected);
-	virtual ContextInfoContent getContextInfoContent();
+	virtual ContextInfoContent * getContextInfoContent();
 };
 

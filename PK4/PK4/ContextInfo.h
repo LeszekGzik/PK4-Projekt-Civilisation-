@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "EngineDefinitions.h"
+#include "Fonts.h"
 
 struct ContextInfoLine
 {
@@ -22,13 +23,16 @@ public:
 	ContextInfo();
 	~ContextInfo();
 
-	void set(PixelCoords coords, ContextInfoContent content);	
+	void set(PixelCoords coords, ContextInfoContent * content);	
 	bool isActive() { return active; }
 	void setActive(bool active) { this->active = active; }
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 
 private:
+	static const float CURSOR_OFFSET;
 	static const float TEXT_INTERVAL;
+	static const float RECT_OFFSET_VERTICAL;
+	static const float RECT_OFFSET_HORIZONTAL;
 	static const int FONT_SIZE;
 	static const sf::Color RECT_COLOR;
 
