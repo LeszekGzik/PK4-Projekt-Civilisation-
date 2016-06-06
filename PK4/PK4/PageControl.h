@@ -14,8 +14,8 @@ public:
 	typedef std::vector<Page*> PageContainer;
 
 	int add();
-	void click(sf::Event::MouseButtonEvent mouse);
-	void text(sf::Event::TextEvent key);
+	bool click(sf::Event::MouseButtonEvent mouse);
+	bool text(sf::Event::TextEvent key);
 	void mouse(sf::Event::MouseMoveEvent mouse);
 	Page& current();
 	void set(uint16_t index);

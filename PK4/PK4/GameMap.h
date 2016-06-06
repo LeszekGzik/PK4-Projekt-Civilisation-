@@ -23,8 +23,10 @@ private:
 public:
 	bool showGrid() { return show_grid; }
 	void showGrid(bool show) { show_grid = show; }
-	void setFieldOffset(int xPos, int yPos, Field * field);
-	Field& getFieldOffset(int xPos, int yPos) const;
+	void setField(OffsetCoords pos, Field * field);
+	Field& getField(OffsetCoords pos) const;
+	Field& getField(AxialCoords pos) const;
+	Field& getField(PixelCoords pos) const;
 	sf::Vector2f getSizeInPixel();
 	void draw(sf::RenderTarget& window, sf::RenderStates states) const;
 

@@ -7,14 +7,14 @@ int PageControl::add()
 	return count++;
 }
 
-void PageControl::click(sf::Event::MouseButtonEvent mouse)
+bool PageControl::click(sf::Event::MouseButtonEvent mouse)
 {
-	current().click(mouse);
+	return current().click(mouse);
 }
 
-void PageControl::text(sf::Event::TextEvent key)
+bool PageControl::text(sf::Event::TextEvent key)
 {
-	current().text(key);
+	return current().text(key);
 }
 
 Page & PageControl::current()

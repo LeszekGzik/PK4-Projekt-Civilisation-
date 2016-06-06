@@ -12,7 +12,6 @@ void Field::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	}
 }
 
-
 Field::Field(int id, OffsetCoords position)
 {
 	this->id = id;

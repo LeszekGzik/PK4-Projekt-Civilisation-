@@ -75,14 +75,22 @@ void MainMenu::addTextBox(sf::Vector2f & rect, int i)
 	Page & page = page_control.current();
 	sf::Vector2f position = INIT.POSITIONS.GAME_PLAYERS(rect);
 	position.y += (INIT.GAME.STRIP_SIZE + INIT.POSITIONS.STRIPS_INTERVAL) * i;
+
 	TextBox * edit = INIT.GAME.EDIT_PLAYER_NAME(position);
-	players[i] = edit;
+	Button * btn = INIT.GAME.BTN_PLAYER_COLOR(position);
+
+	players[i].name = edit;
+	players[i].color = btn;
+
 	if (i >= INIT.GAME.DEFAULT_PLAYERS)
 	{
-		edit->setVisible(false);
-		edit->setEnable(false);
+		players[i].hide();
 	}
+
+	btn->eventClicked().reg(&button_click_color);
+
 	page.addComponent(edit);
+	page.addComponent(btn);
 }
 
 void MainMenu::addGameSettings()
@@ -122,7 +130,28 @@ void MainMenu::buttonClick_backToMain(Component &, sf::Event::MouseButtonEvent)
 
 void MainMenu::buttonClick_start(Component &, sf::Event::MouseButtonEvent)
 {
+	std::string * names = new std::string[this->players_number];
+	Color * colors = new Color[this->players_number];
+	for (int i = 0; i < this->players_number; i++)
+	{
+		names[i] = players[i].name->getCaption();
+		colors[i] = (Color)players[i].color->getTag();
+	}
+	PlayerSettings player(this->players_number, names, colors);
+	MapSettings map(sf::Vector2i(12, 8));
+	this->settings = new InitSettings(map, player);
 	this->exit = LoopExitCode::Play;
+}
+
+void MainMenu::buttonClick_color(Component & obj, sf::Event::MouseButtonEvent mouse)
+{
+	Color color = (Color)obj.getTag();
+	if (mouse.button == sf::Mouse::Button::Left)
+		color = ColorUtils::next(color);
+	else if (mouse.button == sf::Mouse::Button::Right)
+		color = ColorUtils::prev(color);
+	obj.setBackColor(ColorUtils::sfColor(color, 200));
+	obj.setTag(color);
 }
 
 void MainMenu::textboxEdit_playersNumber(Component & sender, std::string & old)
@@ -158,16 +187,14 @@ void MainMenu::setPlayersNumber(int number)
 	{
 		for (int i = this->players_number; i < number; i++)
 		{
-			players[i]->setVisible(true);
-			players[i]->setEnable(true);
+			players[i].show();
 		}
 	}
 	else if (diff < 0)
 	{
 		for (int i = this->players_number - 1; i > number - 1; i--)
 		{
-			players[i]->setVisible(false);
-			players[i]->setEnable(false);
+			players[i].hide();
 		}
 	}
 
@@ -217,10 +244,27 @@ MainMenu::MainMenu(sf::RenderWindow& window, sf::VideoMode& vmode) : window(wind
 	this->button_click_newgame.set(this, &MainMenu::buttonClick_newgame);
 	this->button_click_back_to_main.set(this, &MainMenu::buttonClick_backToMain);
 	this->button_click_start.set(this, &MainMenu::buttonClick_start);
+	this->button_click_color.set(this, &MainMenu::buttonClick_color);
 	this->textbox_edit_players_number.set(this, &MainMenu::textboxEdit_playersNumber);
 }
 
 
 MainMenu::~MainMenu()
 {
+}
+
+void MainMenu::PlayerStrip::show()
+{
+	this->color->setVisible(true);
+	this->color->setEnable(true);
+	this->name->setVisible(true);
+	this->name->setEnable(true);
+}
+
+void MainMenu::PlayerStrip::hide()
+{
+	this->color->setVisible(false);
+	this->color->setEnable(false);
+	this->name->setVisible(false);
+	this->name->setEnable(false);
 }

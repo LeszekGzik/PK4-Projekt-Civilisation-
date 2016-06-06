@@ -24,6 +24,8 @@ private:
 public:
 	sf::Sprite createFlag(OffsetCoords position, int texture_id);
 	sf::Sprite createToken(OffsetCoords position, int texture_id, Player player);
+	void move(OffsetCoords position, sf::Sprite& sprite);
+	void move(PixelCoords position, sf::Sprite& sprite);
 
 	ObjectStyle(Hex& hex_style);
 	~ObjectStyle();

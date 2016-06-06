@@ -1,6 +1,7 @@
 #include "InGameObject.h"
 
-InGameObject::InGameObject()
+
+InGameObject::InGameObject(AxialCoords position) : position(position)
 {
 }
 

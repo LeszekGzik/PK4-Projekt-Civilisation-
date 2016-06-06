@@ -39,13 +39,15 @@ void Page::addShape(sf::Shape * item)
 	shapes.push_back(item);
 }
 
-void Page::click(sf::Event::MouseButtonEvent mouse)
+bool Page::click(sf::Event::MouseButtonEvent mouse)
 {
+	bool processed = false;
+
 	sf::Vector2i click(mouse.x, mouse.y);
-	ComponentList::iterator it = std::find_if(components.begin(), components.end(), [&click](Component*& o) { return o->getPosition().contains(click); });
+	ComponentList::iterator it = std::find_if(components.begin(), components.end(), [&click](Component*& o) { return o->contains(click); });
 	if (it != components.end())
 	{
-		if (focused_component != NULL)
+		if (focused_component != NULL && focused_component != (*it))
 			focused_component->setFocus(false);
 		if ((*it)->getEnabled())
 		{
@@ -53,32 +55,42 @@ void Page::click(sf::Event::MouseButtonEvent mouse)
 			focused_component->setFocus(true);
 			(*it)->clicked(mouse);
 		}
+		processed = true;
 	}
 	else if (focused_component != NULL)
 	{
 		focused_component->setFocus(false);
 		focused_component = NULL;
 	}
+	return processed;
 }
 
-void Page::text(sf::Event::TextEvent key)
+bool Page::text(sf::Event::TextEvent key)
 {
 	if (focused_component != NULL && focused_component->getFocused())
+	{
 		focused_component->textEnter(key);
+		return true;
+	}
+	return false;
 }
 
 void Page::mouse(sf::Event::MouseMoveEvent mouse)
 {
 	sf::Vector2i pos(mouse.x, mouse.y);
-	ComponentList::iterator it = std::find_if(components.begin(), components.end(), [&pos](Component*& o) { return o->getPosition().contains(pos); });
+	ComponentList::iterator it = std::find_if(components.begin(), components.end(), [&pos](Component*& o) { return o->contains(pos); });
 	
 	if (mouse_cursor.is_valid && mouse_cursor != it && (*mouse_cursor)->getEnabled())
 		(*mouse_cursor)->mouseLeave(mouse);
 
 	if (it != components.end() && (*it)->getEnabled())
 	{
-		mouse_cursor = it;
-		(*mouse_cursor)->mouseEnter(mouse);
+		if (mouse_cursor != it)
+		{
+			mouse_cursor = it;
+			(*mouse_cursor)->mouseEnter(mouse);
+		}
+		(*it)->mouseMove(mouse);
 	}
 	else
 		mouse_cursor.is_valid = false;

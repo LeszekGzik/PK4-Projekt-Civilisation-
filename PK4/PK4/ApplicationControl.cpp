@@ -30,70 +30,11 @@ void ApplicationControl::run()
 	Fonts::end();
 }
 
-bool ApplicationControl::movingWorld(sf::Vector2f & offset)
-{
-	bool moved = false;
-	offset = sf::Vector2f(0, 0);
-	sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
-	if (mouse_pos.x < scroll_distance)
-	{
-		offset.x = -scroll_speed;
-		moved = true;
-	}
-	else if (window.getSize().x - mouse_pos.x < scroll_distance)
-	{
-		offset.x = scroll_speed;
-		moved = true;
-	}
-	if (mouse_pos.y < scroll_distance)
-	{
-		offset.y = -scroll_speed;
-		moved = true;
-	}
-	else if (window.getSize().y - mouse_pos.y < scroll_distance)
-	{
-		offset.y = scroll_speed;
-		moved = true;
-	}
-	return moved;
-}
-
 LoopExitCode ApplicationControl::gameLoop(InitSettings * settings)
 {
-	if (game_state != NULL)
-		return LoopExitCode::Exit;
-
-	settings = new InitSettings(MapSettings(sf::Vector2i(12, 6)), PlayerSettings(0, NULL, NULL));
-
-	game_state = new GameState(&window);
-	game_state->initializeSession(*settings);
-
-	while (window.isOpen())
-	{
-		sf::Event event;
-
-		while (window.pollEvent(event))
-		{
-			switch (event.type)
-			{
-			case sf::Event::Closed:
-				window.close();
-				break;
-			}
-		}
-
-		sf::Vector2f move_offset;
-		
-		bool moved = movingWorld(move_offset);
-
-		game_state->moveWorld(move_offset);
-
-		window.clear();
-		game_state->draw();
-		window.display();
-	}
-
-	return LoopExitCode::Exit;
+	GameState game(window, current_vmode, settings);
+	LoopExitCode exit = game.loop();
+	return exit;
 }
 
 LoopExitCode ApplicationControl::menuLoop(InitSettings *& settings)
@@ -124,7 +65,7 @@ void ApplicationControl::loop()
 			break;
 		}
 
-		if (settings != NULL)
+		if (settings != NULL && loop != LoopExitCode::Play)
 			delete settings;
 	}
 }
@@ -138,5 +79,4 @@ ApplicationControl::ApplicationControl()
 ApplicationControl::~ApplicationControl()
 {
 	Textures::end();
-	delete game_state;
 }

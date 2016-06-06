@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "EngineDefinitions.h"
 #include "GameDefinitions.h"
+#include <math.h>
 
 class Hex
 {
@@ -13,7 +14,9 @@ public:
 	float verticalSize() const { return vertical; }
 	float edgeSize() const { return edge; }
 	sf::Color getColor() const { return color; }
-	PixelCoords coords(OffsetCoords position) const;
+	PixelCoords toPixel(OffsetCoords position) const;
+	AxialCoords toAxial(PixelCoords position) const;
+	AxialCoords round(sf::Vector2f pos) const;
 
 	virtual DrawableObject create(PixelCoords position) const sealed;
 	virtual DrawableObject create(OffsetCoords position) const sealed;

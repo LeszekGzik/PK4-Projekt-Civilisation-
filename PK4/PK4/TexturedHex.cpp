@@ -14,12 +14,12 @@ TexturedHex::~TexturedHex()
 
 DrawableObject TexturedHex::create(OffsetCoords position, Tileset & tileset, int texture)
 {
-	return create(coords(position), tileset, texture);
+	return create(toPixel(position), tileset, texture);
 }
 
 sf::VertexArray TexturedHex::create(OffsetCoords position, Tileset& tileset, int texture, sf::Color color)
 {
-	return create(coords(position), tileset, texture, color);
+	return create(toPixel(position), tileset, texture, color);
 }
 
 DrawableObject TexturedHex::create(PixelCoords position, Tileset & tileset, int texture)

@@ -19,7 +19,7 @@ private:
 public:
 	static Tileset tileset() { return Textures::tilesetFields(); }
 	static void setStyle(TexturedHex * style) { Field::hex_style = style; }
-	void addObject(InGameObject * object) { object_stack.add(object); }
+	ObjectStack & objects() { return object_stack; }
 
 	Field(int id, OffsetCoords position);
 	~Field();

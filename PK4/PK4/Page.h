@@ -12,8 +12,8 @@ public:
 
 	void addComponent(Component* item);
 	void addShape(sf::Shape* item);
-	void click(sf::Event::MouseButtonEvent mouse);
-	void text(sf::Event::TextEvent key);
+	bool click(sf::Event::MouseButtonEvent mouse);
+	bool text(sf::Event::TextEvent key);
 	void mouse(sf::Event::MouseMoveEvent mouse);
 	void leave();
 	void refresh();
@@ -34,10 +34,27 @@ private:
 			this->is_valid = true;
 			return *this;
 		}
+
 		Component* & operator* ()
 		{
 			ComponentList::iterator * base = this;
 			return **base;
+		}
+
+		bool operator== (ComponentList::iterator const& arg) 
+		{
+			if (!is_valid)
+				return false;
+			else
+			{
+				ComponentList::iterator * base = this;
+				return (arg == *this);
+			}
+		}
+
+		bool operator != (ComponentList::iterator const& arg)
+		{
+			return !(*this == arg);
 		}
 	};
 

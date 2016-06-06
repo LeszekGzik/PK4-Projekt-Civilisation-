@@ -16,6 +16,11 @@ void Component::mouseLeave(sf::Event::MouseMoveEvent & args)
 	event_mouse_leave.invoke(*this, args);
 }
 
+void Component::mouseMove(sf::Event::MouseMoveEvent & args)
+{
+	event_mouse_move.invoke(*this, args);
+}
+
 void Component::focusChange()
 {
 	event_focus_change.invoke(*this);
@@ -33,6 +38,11 @@ void Component::setFocus(bool focused)
 		this->focused = focused;
 		focusChange();
 	}
+}
+
+bool Component::contains(sf::Vector2i vector)
+{
+	return position.contains(vector);
 }
 
 void Component::draw(sf::RenderTarget & target, sf::RenderStates states) const

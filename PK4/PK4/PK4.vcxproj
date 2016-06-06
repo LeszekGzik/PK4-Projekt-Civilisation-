@@ -131,6 +131,7 @@
     <ClCompile Include="ApplicationControl.cpp" />
     <ClCompile Include="Archer.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="ComboButton.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="EngineDefinitions.cpp" />
     <ClCompile Include="Field.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="ApplicationControl.h" />
     <ClInclude Include="Archer.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="ComboButton.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="EngineDefinitions.h" />

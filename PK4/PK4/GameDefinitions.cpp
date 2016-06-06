@@ -1,23 +1,27 @@
 #include "GameDefinitions.h"
 
-const sf::Color ColorUtils::COLOR_RED = sf::Color(255, 0, 0);
-const sf::Color ColorUtils::COLOR_BLUE = sf::Color(0, 0, 255);
-const sf::Color ColorUtils::COLOR_GREEN = sf::Color(0, 255, 0);
-const sf::Color ColorUtils::COLOR_TRANSPARENT = sf::Color(255, 255, 255, 255);
-
-sf::Color ColorUtils::sfColor(Color color)
+sf::Color ColorUtils::sfColor(Color color, int alpha)
 {
+	sf::Color ret_color;
 	switch (color)
 	{
 	case Red:
-		return COLOR_RED;
+		ret_color = sf::Color::Red;
+		break;
 	case Blue:
-		return COLOR_BLUE;
+		ret_color = sf::Color::Blue;
+		break;
 	case Green:
-		return COLOR_GREEN;
+		ret_color = sf::Color::Green;
+		break;
+	case Yellow:
+		ret_color = sf::Color::Yellow;
+		break;
 	default:
-		return COLOR_RED;
+		return sf::Color::Transparent;
 	}
+	ret_color.a = alpha;
+	return ret_color;
 }
 
 sf::Color ColorUtils::sfMask(Color color)
@@ -25,4 +29,26 @@ sf::Color ColorUtils::sfMask(Color color)
 	sf::Color _color = sfColor(color);
 	_color.a = ALPHA;
 	return _color;
+}
+
+Color ColorUtils::next(Color color)
+{
+	if (color == Color::Yellow)
+		return Color::Red;
+	else
+	{
+		int ret_color = (int)color;
+		return (Color)(++ret_color);
+	}
+}
+
+Color ColorUtils::prev(Color color)
+{
+	if (color == Color::Red)
+		return Color::Yellow;
+	else
+	{
+		int ret_color = (int)color;
+		return (Color)(--ret_color);
+	}
 }

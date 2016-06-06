@@ -171,6 +171,9 @@
     <ClCompile Include="TextBox.cpp">
       <Filter>Source Files\Component</Filter>
     </ClCompile>
+    <ClCompile Include="ComboButton.cpp">
+      <Filter>Source Files\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameMap.h">
@@ -273,6 +276,9 @@
       <Filter>Header Files\Component</Filter>
     </ClInclude>
     <ClInclude Include="TextBox.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ComboButton.h">
       <Filter>Header Files\Component</Filter>
     </ClInclude>
   </ItemGroup>

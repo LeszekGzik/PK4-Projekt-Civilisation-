@@ -2,20 +2,18 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
-enum Color {Red, Blue, Green, Yellow};
+enum Color { Red, Blue, Green, Yellow };
 
 class ColorUtils
 {
-private:
-	static const sf::Color COLOR_RED;
-	static const sf::Color COLOR_BLUE;
-	static const sf::Color COLOR_GREEN;
-	static const sf::Color COLOR_TRANSPARENT;
-	static const int ALPHA = 127;
-
 public:
-	static sf::Color sfColor(Color color);
+	static sf::Color sfColor(Color color, int alpha = 255);
 	static sf::Color sfMask(Color color);
+	static Color next(Color color);
+	static Color prev(Color color);
+
+private:
+	static const int ALPHA = 255;
 
 };
 
@@ -59,13 +57,11 @@ struct WorldSettings
 
 struct InitSettings
 {
-	MapSettings map_settings;
-	PlayerSettings player_settings;
+	MapSettings map;
+	PlayerSettings player;
 	
-	InitSettings(MapSettings _map_settings, PlayerSettings _player_settings)
+	InitSettings(MapSettings _map_settings, PlayerSettings _player_settings) : map(_map_settings), player(_player_settings)
 	{
-		map_settings = _map_settings;
-		player_settings = _player_settings;
 	}
 };
 

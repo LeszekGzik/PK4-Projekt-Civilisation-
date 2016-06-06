@@ -3,7 +3,7 @@
 
 PixelCoords ObjectStyle::flagPosition(OffsetCoords position)
 {
-	PixelCoords position_px = hex_style.coords(position);
+	PixelCoords position_px = hex_style.toPixel(position);
 	position_px.x += (hex_style.horizontalSize() - flag_size.x) / 2;
 	position_px.y += (hex_style.verticalSize() - flag_size.y) / 2;
 
@@ -33,12 +33,25 @@ sf::Sprite ObjectStyle::createFlag(OffsetCoords position, int texture_id)
 
 sf::Sprite ObjectStyle::createToken(OffsetCoords position, int texture_id, Player player)
 {
-	PixelCoords position_px = hex_style.coords(position);
+	PixelCoords position_px = hex_style.toPixel(position);
 	sf::Sprite token(miscTileset.getTileset(), miscTileset.getTile(texture_id));
-	token.move(position_px);
 	token.setColor(ColorUtils::sfColor(player.getColor()));
 	scaleToken(token);
+	float temp = (hex_style.horizontalSize() - miscTileset.getTileSize().x * token.getScale().x) * 0.5;
+	token.setPosition(sf::Vector2f((float)position_px.x + temp, (float)position_px.y));
 	return token;
+}
+
+void ObjectStyle::move(OffsetCoords position, sf::Sprite& sprite)
+{
+	PixelCoords pos = sprite.getPosition();
+	sprite.move(hex_style.toPixel(position) - pos);
+}
+
+void ObjectStyle::move(PixelCoords position, sf::Sprite& sprite)
+{
+	PixelCoords pos = sprite.getPosition();
+	sprite.move(hex_style.toPixel(hex_style.toAxial(position)) - pos);
 }
 
 ObjectStyle::ObjectStyle(Hex& hex_style) 

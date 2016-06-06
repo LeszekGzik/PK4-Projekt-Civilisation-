@@ -8,12 +8,7 @@
 class ObjectStack 
 {
 private:
-	typedef Event<ObjectStack, InGameObject*> EventObjectAdded;
-	typedef Event<ObjectStack, InGameObject*> EventObjectRemoved;
-
 	std::list<InGameObject*> stack;
-	EventObjectAdded event_object_added;
-	EventObjectRemoved event_object_removed;
 
 public:
 	// iterator dla pêtli foreach
@@ -23,11 +18,8 @@ public:
 
 	bool empty() const { return stack.empty(); }
 	void add(InGameObject* object);
-	void event_objectAddedReg(EventObjectAdded::EventDelegate event_handler) { event_object_added.reg(event_handler); }
-	void event_objectAddedUnreg(EventObjectAdded::EventDelegate event_handler) { event_object_added.unreg(event_handler); }
-	void event_objectRemovedReg(EventObjectRemoved::EventDelegate event_handler) { event_object_removed.reg(event_handler); }
-	void event_objectRemovedUnreg(EventObjectRemoved::EventDelegate event_handler) { event_object_removed.unreg(event_handler); }
-	InGameObject* top() const { return stack.front(); }
+	void pop();
+	InGameObject* top() const;
 	ObjectStack();
 	~ObjectStack();
 

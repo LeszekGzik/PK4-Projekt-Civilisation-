@@ -7,7 +7,7 @@ class Player
 {
 private:
 	int id;
-	Color color;
+	Color color = Red;
 	std::string name;
 
 public:

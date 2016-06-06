@@ -1,12 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <set>
 #include "Components.h"
 #include "PageControl.h"
 #include "GameDefinitions.h"
 #include "EngineDefinitions.h"
-
-enum LoopExitCode { Exit, Menu, Play };
 
 class MainMenu
 {
@@ -63,6 +62,17 @@ public:
 				edit->update();
 				return edit;
 			}
+
+			Button * BTN_PLAYER_COLOR(sf::Vector2f const& pos)
+			{
+				Button * btn = new Button("", sf::IntRect(pos.x + STRIP_CONTENT_LENGTH + 16, pos.y, STRIP_SIZE, STRIP_SIZE));
+				btn->setBackColor(ColorUtils::sfColor(Color::Red, 200));
+				btn->setHighlights(false);
+				btn->setBorderColor(sf::Color(0, 0, 0, 127));
+				btn->setBorderThickness(2);
+				btn->setTag(Color::Red);
+				return btn;
+			}
 		};
 
 		struct Miscellaneous
@@ -106,10 +116,18 @@ public:
 	~MainMenu();
 
 private:
-	static ConstantInitializers INIT;
+	struct PlayerStrip
+	{
+		TextBox * name = NULL;
+		Button * color = NULL;
+		void show();
+		void hide();
+	};
 
+	static ConstantInitializers INIT;
 	const int PLAYERS_SIZE = ENGINE::max_players;
-	TextBox * players[ENGINE::max_players] = { NULL };
+	PlayerStrip players[ENGINE::max_players];
+
 	int _main_btn_left;
 	int _main_btn_top;
 	int page_main;
@@ -128,6 +146,7 @@ private:
 	Button::Clicked::Callback<MainMenu> button_click_newgame;
 	Button::Clicked::Callback<MainMenu> button_click_back_to_main;
 	Button::Clicked::Callback<MainMenu> button_click_start;
+	Button::Clicked::Callback<MainMenu> button_click_color;
 	TextBox::TextChange::Callback<MainMenu> textbox_edit_players_number;
 
 	void addButton(std::string const& caption, Button::Clicked::EventDelegate func, int i);
@@ -137,6 +156,7 @@ private:
 	void buttonClick_newgame(Component&, sf::Event::MouseButtonEvent);
 	void buttonClick_backToMain(Component&, sf::Event::MouseButtonEvent);
 	void buttonClick_start(Component&, sf::Event::MouseButtonEvent);
+	void buttonClick_color(Component&, sf::Event::MouseButtonEvent);
 	void textboxEdit_playersNumber(Component&, std::string& old);
 	void setPlayersNumber(int number);
 	void setupComponents();

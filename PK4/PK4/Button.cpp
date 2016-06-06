@@ -34,7 +34,6 @@ void Button::mouseEnter(sf::Event::MouseMoveEvent & args)
 	eventMouseEnter().invoke(*this, args);
 	if (highlights)
 		highlightOn();
-
 }
 
 void Button::mouseLeave(sf::Event::MouseMoveEvent & args)
@@ -49,20 +48,30 @@ void Button::refresh()
 	highlightOff();
 }
 
+void Button::setBackColor(sf::Color color)
+{
+	this->back_color = color;
+	if (!highlighted)
+		getRect().setFillColor(color);
+}
+
+void Button::setTextColor(sf::Color color)
+{
+	this->text_color = color;
+	if (!highlighted)
+		getText().setColor(color);
+}
+
 void Button::highlightOn()
 {
-	Component * base = this;
 	this->highlighted = true;
-	base->setBackColor(this->highlight_back_color);
-	base->setTextColor(this->highlight_text_color);
-	update();
+	getRect().setFillColor(this->highlight_back_color);
+	getText().setColor(this->highlight_text_color);
 }
 
 void Button::highlightOff()
 {
-	Component * base = this;
 	this->highlighted = false;
-	base->setBackColor(this->back_color);
-	base->setTextColor(this->text_color);
-	update();
+	getRect().setFillColor(this->back_color);
+	getText().setColor(this->text_color);
 }

@@ -9,7 +9,7 @@ private:
 	static const int ID = 1;
 
 public:
-	Archer(OffsetCoords position, Player& owner);
+	Archer(AxialCoords position, Player & owner);
 	~Archer();
 };
 
