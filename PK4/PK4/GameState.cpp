@@ -97,8 +97,8 @@ void GameState::init(InitSettings * settings)
 		this->players[i].setName(settings->player.names[i]);
 	}
 
-	game_map->getField(OffsetCoords(5, 5))->objects().add(new Archer(OffsetCoords(5, 5), this->players[0]));
-	game_map->getField(OffsetCoords(7, 7))->objects().add(new Archer(OffsetCoords(7, 7), this->players[1]));
+	for (int i = 0; i < this->player_count; i++)
+		game_map->getField(OffsetCoords(5 + i, 5))->objects().add(new Archer(OffsetCoords(5 + i, 5), this->players[i]));
 }
 
 void GameState::initGui()
@@ -127,6 +127,9 @@ void GameState::click(sf::Event::MouseButtonEvent & mouse)
 	PixelCoords position = worldPosition(PixelCoords(mouse.x, mouse.y));
 	Field * field = game_map->getField(position);
 
+	if (field == nullptr)
+		return;
+
 	if (mouse.button == sf::Mouse::Button::Left)
 	{
 		InGameObject * object = field->objects().top();
@@ -140,6 +143,12 @@ void GameState::click(sf::Event::MouseButtonEvent & mouse)
 				object->select(true);
 
 			this->selected_object = object;
+		}
+		else if (object != nullptr)
+		{
+			this->selected_object->select(false);
+			this->selected_object = field->objects().next();
+			this->selected_object->select(true);
 		}
 	}
 	else if (mouse.button == sf::Mouse::Button::Right)
@@ -170,7 +179,7 @@ void GameState::move(sf::Event::MouseMoveEvent & mouse)
 		if (content != nullptr)
 		{
 			context_info.setActive(true);
-			context_info.set(position, content);
+			context_info.set(PixelCoords(mouse.x, mouse.y), content);
 		}
 		else
 			context_info.setActive(false);

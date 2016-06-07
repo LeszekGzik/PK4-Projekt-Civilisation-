@@ -2,8 +2,6 @@
 #include "Textures.h"
 
 
-
-
 void GameMap::drawGrid(sf::RenderTarget & window, sf::RenderStates states, sf::IntRect visibility) const
 {
 	for (int j = visibility.top; j < visibility.height; j++)
@@ -34,10 +32,10 @@ sf::IntRect GameMap::visibilityCheck(sf::View view) const
 	sf::IntRect visibility_px;
 	sf::IntRect visibility_hex;
 
-	visibility_px.left = floorf((center.x - size.x / 2) / hex_style.horizontalSize());
+	visibility_px.left = floorf((center.x - size.x / 2) / hex_style.horizontalSize() - 1);
 	visibility_px.top = floorf((center.y - size.y / 2) / hex_style.verticalSize());
 	visibility_px.width = ceilf((center.x + size.x / 2) / hex_style.horizontalSize());
-	visibility_px.height = ceilf((center.y + size.y / 2) / hex_style.verticalSize());
+	visibility_px.height = ceilf((center.y + size.y / 2) / hex_style.verticalSize() + 2);
 
 	if (visibility_px.left < 0)
 		visibility_hex.left = 0;
@@ -54,10 +52,10 @@ sf::IntRect GameMap::visibilityCheck(sf::View view) const
 	else
 		visibility_hex.width = visibility_px.width;
 
-	if (visibility_px.height + 1 > grid_size.y) // poprawka +1 gdy¿ punkt wskazuje na górny wierzcho³ek hexa??
+	if (visibility_px.height > grid_size.y) // poprawka +1 gdy¿ punkt wskazuje na górny wierzcho³ek hexa??
 		visibility_hex.height = grid_size.y;
 	else
-		visibility_hex.height = visibility_px.height + 1;
+		visibility_hex.height = visibility_px.height;
 
 	return visibility_hex;
 }

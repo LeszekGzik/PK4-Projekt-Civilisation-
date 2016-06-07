@@ -12,6 +12,19 @@ void ObjectStack::pop()
 	stack.pop_back();
 }
 
+InGameObject * ObjectStack::next()
+{
+	if (empty())
+		return nullptr;
+	else
+	{
+		InGameObject * temp = stack.back();
+		stack.pop_back();
+		stack.push_front(temp);
+		return stack.back();
+	}
+}
+
 InGameObject * ObjectStack::top() const
 {
 	if (empty())

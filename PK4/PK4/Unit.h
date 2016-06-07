@@ -23,6 +23,7 @@ private:
 	std::string name;
 
 	int health = 100;
+	int strength;
 	int speed;
 
 	static ObjectStyle * object_style;
@@ -33,17 +34,20 @@ public:
 
 	void init();
 
-	void setName(std::string& name) { this->name = name; }
-	std::string & getName() { return name; }
-	void setHealth(int health) { this->health = health; }
-	int getHealth() { return this->health; }
-	void setOwner(Player & owner) { this->owner = owner; }
-	Player & getOwner() { return owner; }
-	void setSpeed(int speed) { this->speed = speed; }
-	int getSpeed() { return this->speed; }
+	virtual void setHealth(int health) { this->health = health; }
+	virtual void setName(std::string& name) { this->name = name; }
+	virtual void setOwner(Player & owner) { this->owner = owner; }
+	virtual void setSpeed(int speed) { this->speed = speed; }
+	virtual void setStrength(int strength) { this->strength = strength; }
+
+	virtual int getHealth() { return this->health; }
+	virtual std::string & getName() { return name; }
+	virtual Player & getOwner() { return owner; }
+	virtual int getSpeed() { return this->speed; }
+	virtual int getStrength() { return this->strength; }
 
 	Unit(int id, AxialCoords position, Player& owner);
-	Unit(int id, AxialCoords position, Player& owner, std::string const& name, int speed);
+	Unit(int id, AxialCoords position, Player& owner, std::string const& name, int speed, int strength);
 	~Unit();
 
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;

@@ -50,6 +50,7 @@ ContextInfoContent * Unit::getContextInfoContent()
 	ContextInfoContent * vector = new ContextInfoContent();
 	vector->push_back(ContextInfoLine(owner.getName(), ColorUtils::sfColor(owner.getColor())));
 	vector->push_back(ContextInfoLine("HP: " + std::to_string(health), sf::Color(sf::Color::Black)));
+	vector->push_back(ContextInfoLine("STR: " + std::to_string(strength), sf::Color(sf::Color::Black)));
 	return vector;
 }
 
@@ -71,8 +72,8 @@ Unit::Unit(int id, AxialCoords position, Player& owner) : owner(owner), id(id), 
 	init();
 }
 
-Unit::Unit(int id, AxialCoords position, Player & owner, std::string const& name, int speed) 
-	: owner(owner), id(id), name(name), speed(speed), InGameObject(position)
+Unit::Unit(int id, AxialCoords position, Player & owner, std::string const& name, int speed, int strength) 
+	: owner(owner), id(id), name(name), speed(speed), strength(strength), InGameObject(position)
 {
 	init();
 }

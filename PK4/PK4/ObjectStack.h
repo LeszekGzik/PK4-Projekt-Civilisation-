@@ -19,6 +19,7 @@ public:
 	bool empty() const { return stack.empty(); }
 	void add(InGameObject* object);
 	void pop();
+	InGameObject* next();
 	InGameObject* top() const;
 	ObjectStack();
 	~ObjectStack();
