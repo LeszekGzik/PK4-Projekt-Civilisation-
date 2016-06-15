@@ -41,6 +41,7 @@ GameMap * GameState::getGameMap()
 LoopExitCode GameState::loop()
 {
 	initGui();
+	nextTurn();
 
 	while (window.isOpen() && exit == LoopExitCode::Play)
 	{
@@ -86,7 +87,7 @@ void GameState::init(InitSettings * settings)
 {
 	this->gui = window.getDefaultView();
 	this->world = window.getDefaultView();
-	this->game_map = new GameMap(settings->map.size);
+	this->game_map = new GameMap(settings->map.size, hex_style);
 	this->game_map->showGrid(true);
 	this->player_count = settings->player.count;
 	this->players = new Player[this->player_count];
@@ -97,6 +98,8 @@ void GameState::init(InitSettings * settings)
 		this->players[i].setName(settings->player.names[i]);
 	}
 
+	this->turn_cycle = -1;
+	
 	for (int i = 0; i < this->player_count; i++)
 		game_map->getField(OffsetCoords(5 + i, 5))->objects().add(new Archer(OffsetCoords(5 + i, 5), this->players[i]));
 }
@@ -120,6 +123,25 @@ void GameState::initGui()
 	btn->addItem(item);
 	page.addComponent(btn);
 
+	Component * cmp = INIT.GUI.TURN_BTN(current_vmode);
+	cmp->eventClicked().reg(&button_click_turn);
+	page.addComponent(cmp);
+
+	this->label_turn = INIT.GUI.TURN_LABEL(current_vmode);
+	page.addComponent(this->label_turn);
+}
+
+void GameState::nextTurn()
+{
+	if (++this->turn_cycle == this->player_count)
+	{
+		this->turn_cycle = 0;
+		this->game_map->newTurn();
+	}
+
+	this->active_player = &(this->players[this->turn_cycle]);
+	this->label_turn->setCaption(this->active_player->getName() + " turn");
+	this->label_turn->setTextColor(ColorUtils::sfColor(this->active_player->getColor()));
 }
 
 void GameState::click(sf::Event::MouseButtonEvent & mouse)
@@ -155,11 +177,9 @@ void GameState::click(sf::Event::MouseButtonEvent & mouse)
 	{
 		if (this->selected_object != nullptr)
 		{
-			AxialCoords sel_pos = this->selected_object->getPosition();
-			game_map->getField(sel_pos)->objects().pop();
-			field->objects().add(this->selected_object);
-			this->selected_object->move(position);
 			this->selected_object->select(false);
+			AxialCoords sel_pos = this->selected_object->getPosition();
+			game_map->moveUnit(sel_pos, field->getPosition());
 			this->selected_object = nullptr;
 		}
 	}
@@ -206,12 +226,18 @@ void GameState::buttonClick_exit(Component &, sf::Event::MouseButtonEvent)
 	exit = LoopExitCode::Exit;
 }
 
+void GameState::buttonClick_turn(Component &, sf::Event::MouseButtonEvent)
+{
+	nextTurn();
+}
+
 GameState::GameState(sf::RenderWindow &window, sf::VideoMode vmode, InitSettings * settings) 
 	: window(window), current_vmode(vmode)
 {
 	init(settings);
 	this->button_click_back.set(this, &GameState::buttonClick_back);
 	this->button_click_exit.set(this, &GameState::buttonClick_exit);
+	this->button_click_turn.set(this, &GameState::buttonClick_turn);
 }
 
 GameState::~GameState()

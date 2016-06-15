@@ -177,6 +177,9 @@
     <ClCompile Include="ContextInfo.cpp">
       <Filter>Source Files\Menus</Filter>
     </ClCompile>
+    <ClCompile Include="Desert.cpp">
+      <Filter>Source Files\Board\Fields</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameMap.h">
@@ -286,6 +289,9 @@
     </ClInclude>
     <ClInclude Include="ContextInfo.h">
       <Filter>Header Files\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Desert.h">
+      <Filter>Header Files\Board\Fields</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

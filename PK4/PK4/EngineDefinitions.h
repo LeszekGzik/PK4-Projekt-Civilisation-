@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#define HEX_NEIGHBOURS 6
 
 enum LoopExitCode { Exit, Menu, Play };
 
@@ -9,11 +10,13 @@ const static struct ENGINE
 	static const float flag_size_factor;
 	static const float scroll_speed;
 	static const float scroll_distance;
+	static const int dijsktra_max_steps = 500;
 	static const int min_players = 2;
 	static const int max_players = 4;
 };
 
-
+typedef sf::Vector2f PixelCoords;
+typedef sf::VertexArray DrawableObject;
 class AxialCoords;
 
 class OffsetCoords : public sf::Vector2i 
@@ -25,10 +28,6 @@ public:
 	}
 
 	OffsetCoords(int x, int y) : sf::Vector2i(x, y)
-	{
-	}
-
-	OffsetCoords(sf::Vector2i const& vec) : sf::Vector2i(vec)
 	{
 	}
 
@@ -74,7 +73,10 @@ inline AxialCoords::operator OffsetCoords() const
 	return OffsetCoords(x + y / 2, y);
 }
 
-/*typedef sf::Vector2i OffsetCoords;
-typedef sf::Vector2i AxialCoords;*/
-typedef sf::Vector2f PixelCoords;
-typedef sf::VertexArray DrawableObject;
+class Neighbours
+{
+public:
+	static const sf::Vector2i neighbours[2][6];
+
+	static OffsetCoords get(OffsetCoords field, int32_t n);
+};

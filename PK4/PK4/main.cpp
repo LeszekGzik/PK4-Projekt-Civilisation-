@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <windows.h>
+#include <ctime>
+#include <cstdlib>
 #include <string>
 #include <iostream>
 #include <tchar.h>
@@ -24,6 +26,7 @@ int main()
 {
 	std::string path = ExePath();
 	BOOL result = SetCurrentDirectory(path.c_str());
+	srand(time(NULL));
 
 	if (result == FALSE)
 	{

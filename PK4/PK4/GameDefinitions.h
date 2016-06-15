@@ -3,6 +3,9 @@
 #include <string>
 
 enum Color { Red, Blue, Green, Yellow };
+enum FieldType { Impassable, Land, Sea };
+enum Occupied { Empty, Full, Enemy };
+enum CombatResult { Lose, Tie, Win };
 
 class ColorUtils
 {

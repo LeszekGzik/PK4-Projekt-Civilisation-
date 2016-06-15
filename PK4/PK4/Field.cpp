@@ -12,15 +12,33 @@ void Field::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	}
 }
 
-ContextInfoContent * Field::getContextInfoContent()
+void Field::newTurn()
 {
-	if (object_stack.empty())
-		return nullptr;
-	else
-		return object_stack.top()->getContextInfoContent();
+	for each (InGameObject * obj in object_stack)
+	{
+		obj->newTurn();
+	}
 }
 
-Field::Field(int id, OffsetCoords position)
+ContextInfoContent * Field::getContextInfoContent()
+{
+	ContextInfoContent * content = nullptr;
+
+	if (!object_stack.empty())
+	{
+		content = object_stack.top()->getContextInfoContent();
+		int items = object_stack.size();
+		if (items > 1)
+		{
+			content->push_back(ContextInfoLine::empty());
+			content->push_back(ContextInfoLine("+" + std::to_string(--items) + " MORE", sf::Color::Black));
+		}
+	}
+
+	return content;
+}
+
+Field::Field(int id, OffsetCoords position, int movement_cost, FieldType type) : position(position), movement_cost(movement_cost), type(type)
 {
 	this->id = id;
 	vertex = hex_style->create(position, tileset(), id);

@@ -34,6 +34,8 @@ AxialCoords Hex::round(sf::Vector2f pos) const
 	else
 		r.z = -r.x - r.y;
 
+	AxialCoords c(r.x, r.z);
+	OffsetCoords ff = c;
 	return AxialCoords(r.x, r.z);
 }
 

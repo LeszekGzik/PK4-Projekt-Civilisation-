@@ -16,9 +16,10 @@ public:
 	iterator begin() { return stack.begin(); }
 	iterator end() { return stack.end(); }
 
-	bool empty() const { return stack.empty(); }
 	void add(InGameObject* object);
+	bool empty() const { return stack.empty(); }
 	void pop();
+	int size() const { return stack.size(); }
 	InGameObject* next();
 	InGameObject* top() const;
 	ObjectStack();

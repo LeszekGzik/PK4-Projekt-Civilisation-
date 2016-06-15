@@ -11,8 +11,13 @@ struct ContextInfoLine
 	std::string string;
 	sf::Color color;
 
-	ContextInfoLine(std::string& string, sf::Color& color) : string(string), color(color)
+	ContextInfoLine(const std::string & string, const sf::Color & color) : string(string), color(color)
 	{ }
+
+	static ContextInfoLine empty()
+	{
+		return ContextInfoLine(std::string(" "), sf::Color(sf::Color::Transparent));
+	}
 };
 
 typedef std::vector<ContextInfoLine> ContextInfoContent;

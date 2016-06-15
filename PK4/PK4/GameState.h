@@ -8,6 +8,8 @@
 #include "PageControl.h"
 #include "Components.h"
 #include "ContextInfo.h"
+#include "Hex.h"
+
 
 
 class GameState
@@ -66,6 +68,25 @@ private:
 				btn->setFontSize(24);
 				return btn;
 			}
+
+			Button * TURN_BTN(sf::VideoMode vmode)
+			{
+				Button * btn = new Button("END TURN", sf::IntRect(vmode.width - 200, 10, 190, 60));
+				btn->setBackColor(sf::Color(233, 116, 81, 255));
+				btn->setBorderColor(sf::Color(136, 45, 23, 255));
+				btn->setBorderThickness(4);
+				btn->setTextPosition(sf::Vector2u(12, 8));
+				btn->update();
+				return btn;
+			}
+
+			Label * TURN_LABEL(sf::VideoMode vmode)
+			{
+				Label * label = new Label("", sf::IntRect(vmode.width - 400, 10, 100, 60));
+				label->setBackColor(sf::Color::Transparent);
+				label->setFontSize(28);
+				return label;
+			}
 		};
 
 		Gui GUI;
@@ -75,9 +96,12 @@ private:
 
 	Button::Clicked::Callback<GameState> button_click_back;
 	Button::Clicked::Callback<GameState> button_click_exit;
+	Button::Clicked::Callback<GameState> button_click_turn;
 
+	
 	LoopExitCode exit = Play;
 	GameMap * game_map;
+	Hex hex_style;
 	PageControl page_control;
 	ContextInfo context_info;
 	sf::VideoMode current_vmode;
@@ -89,13 +113,18 @@ private:
 	int32_t player_count;
 
 	InGameObject * selected_object = nullptr;
+	Player * active_player;
+	Label * label_turn;
+	int turn_cycle;
 
 	void init(InitSettings * settings);
 	void initGui();
+	void nextTurn();
 	void click(sf::Event::MouseButtonEvent&);
 	void move(sf::Event::MouseMoveEvent&);
 	PixelCoords worldPosition(PixelCoords window_pos);
 
 	void buttonClick_back(Component&, sf::Event::MouseButtonEvent);
 	void buttonClick_exit(Component&, sf::Event::MouseButtonEvent);
+	void buttonClick_turn(Component &, sf::Event::MouseButtonEvent);
 };
