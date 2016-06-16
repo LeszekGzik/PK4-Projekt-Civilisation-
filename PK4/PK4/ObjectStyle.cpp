@@ -42,6 +42,16 @@ sf::Sprite ObjectStyle::createToken(OffsetCoords position, int texture_id, Playe
 	return token;
 }
 
+sf::Sprite ObjectStyle::createGround(OffsetCoords position, int texture_id)
+{
+	PixelCoords position_px = hex_style.toPixel(position);
+	sf::Sprite ground(impTileset.getTileset(), impTileset.getTile(texture_id));
+	scaleToken(ground);
+	float temp = (hex_style.horizontalSize() - miscTileset.getTileSize().x * ground.getScale().x) * 0.5;
+	ground.setPosition(sf::Vector2f((float)position_px.x + temp, (float)position_px.y));
+	return ground;
+}
+
 void ObjectStyle::move(OffsetCoords position, sf::Sprite& sprite)
 {
 	PixelCoords pos = sprite.getPosition();
@@ -55,7 +65,7 @@ void ObjectStyle::move(PixelCoords to, AxialCoords from, sf::Sprite& sprite)
 }
 
 ObjectStyle::ObjectStyle(Hex& hex_style) 
-	: hex_style(hex_style), unitTileset(Textures::tilesetUnits()), miscTileset(Textures::tilesetMisc())
+	: hex_style(hex_style), unitTileset(Textures::tilesetUnits()), miscTileset(Textures::tilesetMisc()), impTileset(Textures::tilesetImprovements())
 {
 	float _size_u = hex_style.verticalSize();
 	float _factor = ENGINE::flag_size_factor;

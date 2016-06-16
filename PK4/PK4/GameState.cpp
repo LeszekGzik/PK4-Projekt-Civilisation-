@@ -99,9 +99,12 @@ void GameState::init(InitSettings * settings)
 	}
 
 	this->turn_cycle = -1;
+
+	InGameObject::setStyle(&hex_style);
 	
 	for (int i = 0; i < this->player_count; i++)
-		game_map->getField(OffsetCoords(5 + i, 5))->objects().add(new Archer(OffsetCoords(5 + i, 5), this->players[i]));
+		game_map->getField(OffsetCoords(5 + i, 5))->newUnit<Archer>(this->players[i]);
+	game_map->getField(OffsetCoords(2, 2))->newImprovement<Farm>(this->players[0]);
 }
 
 void GameState::initGui()
@@ -156,7 +159,30 @@ void GameState::click(sf::Event::MouseButtonEvent & mouse)
 	{
 		InGameObject * object = field->objects().top();
 
-		if (this->selected_object != object)
+		if (object != nullptr && object->getOwner() == *active_player)
+		{
+			if (this->selected_object != nullptr)
+			{
+				this->selected_object->select(false);
+				if (this->selected_object == object)
+				{
+					this->selected_object = field->objects().next();
+				}
+				else
+					this->selected_object = object;
+			}
+			else
+				this->selected_object = object;
+
+			this->selected_object->select(true);
+		} 
+		else if (this->selected_object != nullptr)
+		{
+			this->selected_object->select(false);
+			this->selected_object = nullptr;
+		}
+
+		/*if (this->selected_object != object)
 		{
 			if (this->selected_object != nullptr)
 				this->selected_object->select(false);
@@ -171,7 +197,7 @@ void GameState::click(sf::Event::MouseButtonEvent & mouse)
 			this->selected_object->select(false);
 			this->selected_object = field->objects().next();
 			this->selected_object->select(true);
-		}
+		}*/
 	}
 	else if (mouse.button == sf::Mouse::Button::Right)
 	{
@@ -242,6 +268,7 @@ GameState::GameState(sf::RenderWindow &window, sf::VideoMode vmode, InitSettings
 
 GameState::~GameState()
 {
+	InGameObject::clear();
 	if (game_map != nullptr)
 		delete game_map;
 	delete[player_count] players;

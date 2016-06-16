@@ -31,6 +31,7 @@ public:
 	bool showGrid() { return show_grid; }
 	void showGrid(bool show) { show_grid = show; }
 	void setField(OffsetCoords pos, Field * field);
+	template<typename TField> void newField(OffsetCoords position);
 	int getDistance(const AxialCoords& from, const AxialCoords& to) const;
 	Field * getField(OffsetCoords pos) const;
 	Field * getField(PixelCoords pos) const;
@@ -45,3 +46,10 @@ public:
 	~GameMap();
 };
 
+template<typename TField>
+inline void GameMap::newField(OffsetCoords position)
+{
+	static_assert(std::is_base_of<Field, TField>::value, "Input type must derive from Field type");
+	TField * field = new TField(position);
+	this->board[position.x][position.y] = field;
+}

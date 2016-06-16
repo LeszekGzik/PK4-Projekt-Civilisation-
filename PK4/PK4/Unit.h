@@ -31,12 +31,9 @@ private:
 	int speed;
 	int movement_points;
 
-	static ObjectStyle * object_style;
 public:
-
 	static Tileset& unitTileset() { return Textures::tilesetUnits(); }
 	static Tileset& miscTileset() { return Textures::tilesetMisc(); }
-	static void setStyle(TexturedHex * style);
 
 	void init();
 

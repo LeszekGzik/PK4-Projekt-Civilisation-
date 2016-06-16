@@ -136,6 +136,7 @@
     <ClCompile Include="ContextInfo.cpp" />
     <ClCompile Include="Desert.cpp" />
     <ClCompile Include="EngineDefinitions.cpp" />
+    <ClCompile Include="Farm.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="Fonts.cpp" />
     <ClCompile Include="GameDefinitions.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="EngineDefinitions.h" />
     <ClInclude Include="Event3.h" />
     <ClInclude Include="Event.h" />
+    <ClInclude Include="Farm.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="Fields.h" />
     <ClInclude Include="Fonts.h" />
@@ -183,6 +185,7 @@
     <ClInclude Include="Grass.h" />
     <ClInclude Include="Hex.h" />
     <ClInclude Include="Improvement.h" />
+    <ClInclude Include="Improvements.h" />
     <ClInclude Include="InGameObject.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="MainMenu.h" />

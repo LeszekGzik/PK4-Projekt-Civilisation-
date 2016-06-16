@@ -1,16 +1,18 @@
 #include "Textures.h"
 
+const TilesetLoadData Textures::IMPROVEMENTS = TilesetLoadData("gfx\\imps.png", sf::Vector2i(40, 40), 1);
 const TilesetLoadData Textures::FIELDS = TilesetLoadData("gfx\\fields.png", sf::Vector2i(40, 40), 2);
 const TilesetLoadData Textures::UNITS = TilesetLoadData("gfx\\units.png", sf::Vector2i(20, 20), 1);
 const TilesetLoadData Textures::MISC = TilesetLoadData("gfx\\misc.png", sf::Vector2i(40, 40), 1);
 
-Tileset * Textures::fields = NULL;
-Tileset * Textures::units = NULL;
-Tileset * Textures::misc = NULL;
-
+Tileset * Textures::improvements = nullptr;
+Tileset * Textures::fields = nullptr;
+Tileset * Textures::units = nullptr;
+Tileset * Textures::misc = nullptr;
 
 void Textures::init()
 {	
+	improvements = new Tileset(IMPROVEMENTS);
 	fields = new Tileset(FIELDS);
 	units = new Tileset(UNITS);
 	misc = new Tileset(MISC);
@@ -26,8 +28,8 @@ void Textures::end()
 
 Textures::Textures()
 {
-
 }
+
 Textures::~Textures()
 {
 }

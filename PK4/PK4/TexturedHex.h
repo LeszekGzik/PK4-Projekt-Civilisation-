@@ -12,6 +12,7 @@ private:
 	float xs;
 
 public:
+	TexturedHex(const Hex & style);
 	TexturedHex(float edge = Hex::DEFAULT_EDGE, sf::Color color = DEFAULT_MASK_COLOR);
 	~TexturedHex();
 

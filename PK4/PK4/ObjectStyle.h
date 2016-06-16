@@ -18,12 +18,14 @@ private:
 	PixelCoords flagPosition(OffsetCoords position);
 	Tileset& unitTileset;
 	Tileset& miscTileset;
+	Tileset& impTileset;
 	void scaleFlag(sf::Sprite& sprite);
 	void scaleToken(sf::Sprite& sprite);
 
 public:
 	sf::Sprite createFlag(OffsetCoords position, int texture_id);
 	sf::Sprite createToken(OffsetCoords position, int texture_id, Player player);
+	sf::Sprite createGround(OffsetCoords position, int texture_id);
 	void move(OffsetCoords position, sf::Sprite& sprite);
 	void move(PixelCoords to, AxialCoords from, sf::Sprite& sprite);
 	Hex const& hex() { return hex_style; }

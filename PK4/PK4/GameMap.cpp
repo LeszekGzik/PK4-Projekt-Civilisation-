@@ -18,13 +18,21 @@ void GameMap::drawGrid(sf::RenderTarget & window, sf::RenderStates states, sf::I
 
 void GameMap::drawMap(sf::RenderTarget & window, sf::RenderStates states, sf::IntRect visibility) const
 {
-	for (int j = visibility.top; j < visibility.height; j++)
+	for (int i = visibility.left; i < visibility.width; i++)
 	{
-		for (int i = visibility.left; i < visibility.width; i++)
+		for (int j = visibility.height - 1; j > visibility.top - 1; j--)
 		{
 			getField(OffsetCoords(i, j))->draw(window, states);
 		}
 	}
+
+	/*for (int j = visibility.top; j < visibility.height; j++)
+	{
+		for (int i = visibility.left; i < visibility.width; i++)
+		{
+			
+		}
+	}*/
 }
 
 sf::IntRect GameMap::visibilityCheck(sf::View view) const
@@ -243,12 +251,9 @@ GameMap::GameMap(sf::Vector2i size, Hex& style) : grid_size(size), hex_style(sty
 		{
 			Field * field;
 			if (i > 2 && i < 8 && j > 2 && j < 5)
-				field = new Desert(OffsetCoords(i, j));
+				newField<Desert>(OffsetCoords(i, j));
 			else
-				field = new Grass(OffsetCoords(i, j));
-
-
-			setField(OffsetCoords(i, j), field);
+				newField<Grass>(OffsetCoords(i, j));
 		}
 	}
 }

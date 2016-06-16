@@ -6,6 +6,8 @@ TexturedHex * Field::hex_style = NULL;
 void Field::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(vertex, &(tileset().getTileset()));
+	if (improvement != nullptr)
+		target.draw(*improvement, states);
 	if (!object_stack.empty())
 	{
 		target.draw(*object_stack.top(), states);
@@ -27,6 +29,8 @@ ContextInfoContent * Field::getContextInfoContent()
 	if (!object_stack.empty())
 	{
 		content = object_stack.top()->getContextInfoContent();
+		if (content == nullptr)
+			return content;
 		int items = object_stack.size();
 		if (items > 1)
 		{

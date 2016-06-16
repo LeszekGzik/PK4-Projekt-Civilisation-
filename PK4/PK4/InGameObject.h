@@ -3,14 +3,23 @@
 #include "EngineDefinitions.h"
 #include "Player.h"
 #include "ContextInfo.h"
+#include "ObjectStyle.h"
+#include "TexturedHex.h"
 
 class InGameObject : public sf::Drawable
 {
 private:
+	static ObjectStyle * object_style;
+
 	AxialCoords position;
 	Player& owner;
 
 public:
+	static ObjectStyle * getStyle() { return object_style; }
+	static void setStyle(ObjectStyle * style) { object_style = style; }
+	static void setStyle(Hex * style);
+	static void clear();
+
 	InGameObject(AxialCoords position, Player& owner);
 	virtual ~InGameObject();
 	virtual CombatResult attacked(float strength, int & counter_damage) abstract;

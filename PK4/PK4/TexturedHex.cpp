@@ -2,9 +2,12 @@
 #include <iostream>
 
 
+TexturedHex::TexturedHex(const Hex & style) : Hex(style)
+{
+}
+
 TexturedHex::TexturedHex(float edge, sf::Color color) : Hex(edge, color)
 {
-	sf::Color c = DEFAULT_MASK_COLOR;
 }
 
 TexturedHex::~TexturedHex()

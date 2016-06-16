@@ -8,8 +8,8 @@
 #include "PageControl.h"
 #include "Components.h"
 #include "ContextInfo.h"
+//#include "Improvements.h"
 #include "Hex.h"
-
 
 
 class GameState
@@ -27,6 +27,8 @@ private:
 	{
 		struct Gui
 		{
+			const float BOT_BAR_THICK = 40;
+
 			sf::Shape * TOP_BAR(sf::VideoMode vmode)
 			{
 				sf::RectangleShape * shape = new sf::RectangleShape(sf::Vector2f(vmode.width, 80));
@@ -36,8 +38,8 @@ private:
 
 			sf::Shape * BOT_BAR(sf::VideoMode vmode)
 			{
-				sf::RectangleShape * shape = new sf::RectangleShape(sf::Vector2f(vmode.width, 20));
-				shape->setPosition(0, vmode.height - 20);
+				sf::RectangleShape * shape = new sf::RectangleShape(sf::Vector2f(vmode.width, BOT_BAR_THICK));
+				shape->setPosition(0, vmode.height - BOT_BAR_THICK);
 				shape->setFillColor(sf::Color(117, 58, 40, 255));
 				return shape;
 			}
@@ -82,9 +84,11 @@ private:
 
 			Label * TURN_LABEL(sf::VideoMode vmode)
 			{
-				Label * label = new Label("", sf::IntRect(vmode.width - 400, 10, 100, 60));
+				Label * label = new Label("", sf::IntRect(vmode.width - 400, vmode.height - BOT_BAR_THICK, 100, 30));
 				label->setBackColor(sf::Color::Transparent);
 				label->setFontSize(28);
+				label->setTextPosition(sf::Vector2u(4, 4));
+				label->update();
 				return label;
 			}
 		};

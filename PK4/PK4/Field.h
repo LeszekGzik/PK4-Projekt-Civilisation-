@@ -5,7 +5,7 @@
 #include "ObjectStack.h"
 #include "TexturedHex.h"
 #include "Textures.h"
-#include "Improvement.h"
+#include "Improvements.h"
 #include "Player.h"
 
 class Field : public sf::Drawable
@@ -15,7 +15,7 @@ private:
 	int movement_cost;
 	FieldType type;
 	ObjectStack object_stack;
-	Improvement improvement;
+	Improvement * improvement = nullptr;
 	DrawableObject vertex;
 	OffsetCoords position;
 
@@ -26,7 +26,8 @@ public:
 	static Tileset tileset() { return Textures::tilesetFields(); }
 	static void setStyle(TexturedHex * style) { Field::hex_style = style; }
 
-	template <typename TUnit> inline void newObject(Player& owner);
+	template <typename TUnit> inline void newUnit(Player& owner);
+	template <typename TImp> inline void newImprovement(Player& owner);
 
 	ObjectStack & objects() { return object_stack; }
 	OffsetCoords & getPosition() { return position; }
@@ -40,10 +41,17 @@ public:
 	virtual void newTurn();
 	ContextInfoContent * getContextInfoContent();
 };
-
+	
 template<typename TUnit>
-inline void Field::newObject(Player & owner)
+inline void Field::newUnit(Player & owner)
 {
-	TUnit * unit = new TUnit(position, owner);
-	object_stack.add(unit);
+	static_assert(std::is_base_of<Unit, TUnit>::value, "Input type must derive from Unit class");
+	this->object_stack.add(new TUnit(this->position, owner));
+}
+
+template<typename TImp>
+inline void Field::newImprovement(Player & owner)
+{
+	//static_assert(std::is_base_of<Improvement, TImp)::value, "Input type must derive from Improvement class");
+	improvement = new TImp(this->position, owner);
 }

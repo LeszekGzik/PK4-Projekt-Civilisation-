@@ -1,8 +1,5 @@
 #include "Unit.h"
 
-ObjectStyle * Unit::object_style = NULL;
-
-
 void Unit::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(token);
@@ -11,17 +8,19 @@ void Unit::draw(sf::RenderTarget & target, sf::RenderStates states) const
 
 void Unit::move(AxialCoords coords)
 {
-	PixelCoords pixels = object_style->hex().toPixel(coords);
-	pixels.x += object_style->hex().horizontalSize() / 2;
-	pixels.y += object_style->hex().verticalSize() / 2;
+	ObjectStyle * style = getStyle();
+	PixelCoords pixels = style->hex().toPixel(coords);
+	pixels.x += style->hex().horizontalSize() / 2;
+	pixels.y += style->hex().verticalSize() / 2;
 	move(pixels);
 }
 
 void Unit::move(PixelCoords coords)
 {
-	object_style->move(coords, getPosition(), token);
-	object_style->move(coords, getPosition(), flag);
-	setPosition(object_style->hex().toAxial(coords));
+	ObjectStyle * style = getStyle();
+	style->move(coords, getPosition(), token);
+	style->move(coords, getPosition(), flag);
+	setPosition(style->hex().toAxial(coords));
 }
 
 void Unit::newTurn()
@@ -63,17 +62,10 @@ ContextInfoContent * Unit::getContextInfoContent()
 	return vector;
 }
 
-
-void Unit::setStyle(TexturedHex * style)
-{
-	Hex * hex = style;
-	object_style = new ObjectStyle(*hex);
-}
-
 void Unit::init()
 {
-	flag = object_style->createFlag(getPosition(), id);
-	token = object_style->createToken(getPosition(), id, getOwner());
+	flag = getStyle()->createFlag(getPosition(), id);
+	token = getStyle()->createToken(getPosition(), id, getOwner());
 }
 
 Unit::Unit(int id, AxialCoords position, Player& owner) : id(id), InGameObject(position, owner)
