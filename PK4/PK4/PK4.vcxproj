@@ -128,6 +128,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Ability.cpp" />
     <ClCompile Include="ApplicationControl.cpp" />
     <ClCompile Include="Archer.cpp" />
     <ClCompile Include="Button.cpp" />
@@ -163,6 +164,7 @@
     <ClCompile Include="Unit.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Ability.h" />
     <ClInclude Include="ApplicationControl.h" />
     <ClInclude Include="Archer.h" />
     <ClInclude Include="Button.h" />

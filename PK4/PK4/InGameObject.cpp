@@ -21,3 +21,8 @@ InGameObject::InGameObject(AxialCoords position, Player& owner) : position(posit
 InGameObject::~InGameObject()
 {
 }
+
+void InGameObject::grantAbility(Ability * ability)
+{
+	this->abilities.push_back(ability);
+}

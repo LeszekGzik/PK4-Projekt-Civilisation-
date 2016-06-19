@@ -8,7 +8,7 @@
 #include "PageControl.h"
 #include "Components.h"
 #include "ContextInfo.h"
-//#include "Improvements.h"
+#include "Improvements.h"
 #include "Hex.h"
 
 
@@ -93,7 +93,23 @@ private:
 			}
 		};
 
+		struct Buttons
+		{
+			sf::Vector2i TOP_POS = sf::Vector2i(220, 8);
+			sf::Vector2i TOP_SIZE = sf::Vector2i(64, 64);
+			int TOP_INTERVAL = 4;
+
+			Button * GRID()
+			{
+				Button * btn = new Button("", sf::IntRect(220, 8, 64, 64));
+				btn->setDisplayStyle(DisplayStyle::Image);
+				btn->setImage(Textures::tilesetButtons(), 1);
+				return btn;
+			}
+		};
+
 		Gui GUI;
+		Buttons BUTTONS;
 	};
 
 	static ConstantInitializers INIT;
@@ -101,6 +117,7 @@ private:
 	Button::Clicked::Callback<GameState> button_click_back;
 	Button::Clicked::Callback<GameState> button_click_exit;
 	Button::Clicked::Callback<GameState> button_click_turn;
+	Button::Clicked::Callback<GameState> button_click_grid;
 
 	
 	LoopExitCode exit = Play;
@@ -128,7 +145,10 @@ private:
 	void move(sf::Event::MouseMoveEvent&);
 	PixelCoords worldPosition(PixelCoords window_pos);
 
+	void addTopButton(int32_t img_id, Button::Clicked::Callback<GameState> & callback, int position);
+
 	void buttonClick_back(Component&, sf::Event::MouseButtonEvent);
 	void buttonClick_exit(Component&, sf::Event::MouseButtonEvent);
-	void buttonClick_turn(Component &, sf::Event::MouseButtonEvent);
+	void buttonClick_turn(Component&, sf::Event::MouseButtonEvent);
+	void buttonClick_grid(Component&, sf::Event::MouseButtonEvent);
 };

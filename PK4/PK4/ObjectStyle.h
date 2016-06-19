@@ -15,17 +15,20 @@ private:
 	sf::Vector2f size;
 	sf::Vector2f flag_size;
 
-	PixelCoords flagPosition(OffsetCoords position);
+	PixelCoords bannerPosition(OffsetCoords position);
+	PixelCoords flagPosition(OffsetCoords position, sf::Vector2i flag_size);
 	Tileset& unitTileset;
 	Tileset& miscTileset;
 	Tileset& impTileset;
-	void scaleFlag(sf::Sprite& sprite);
+	void scaleBanner(sf::Sprite& sprite);
 	void scaleToken(sf::Sprite& sprite);
+	void scaleFlag(sf::Sprite& sprite);
 
 public:
-	sf::Sprite createFlag(OffsetCoords position, int texture_id);
-	sf::Sprite createToken(OffsetCoords position, int texture_id, Player player);
+	sf::Sprite createBanner(OffsetCoords position, int texture_id);
+	sf::Sprite createToken(OffsetCoords position, int texture_id, Player &player);
 	sf::Sprite createGround(OffsetCoords position, int texture_id);
+	sf::Sprite createFlag(OffsetCoords position, int texture_id, Player &player);
 	void move(OffsetCoords position, sf::Sprite& sprite);
 	void move(PixelCoords to, AxialCoords from, sf::Sprite& sprite);
 	Hex const& hex() { return hex_style; }

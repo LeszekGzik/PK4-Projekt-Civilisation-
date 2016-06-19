@@ -22,7 +22,7 @@ private:
 	int id;
 	int misc_id;
 	bool selected;
-	sf::Sprite flag;
+	sf::Sprite banner;
 	sf::Sprite token;
 	std::string name;
 

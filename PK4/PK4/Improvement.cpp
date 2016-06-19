@@ -1,5 +1,7 @@
 #include "Improvement.h"
 
+const int Improvement::FLAG_ID = 2;
+
 Improvement::Improvement(OffsetCoords position, Player & owner, int id) : id(id), InGameObject(position, owner)
 {
 	init();
@@ -12,7 +14,8 @@ Improvement::~Improvement()
 
 void Improvement::init()
 {
-	this->sprite = getStyle()->createGround(getPosition(), id);
+	this->ground = getStyle()->createGround(getPosition(), id);
+	this->flag = getStyle()->createFlag(getPosition(), FLAG_ID, getOwner());
 }
 
 CombatResult Improvement::attacked(float strength, int & counter_damage)
@@ -22,7 +25,8 @@ CombatResult Improvement::attacked(float strength, int & counter_damage)
 
 void Improvement::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	target.draw(sprite, states);
+	target.draw(ground, states);
+	target.draw(flag, states);
 }
 
 void Improvement::move(AxialCoords coords)

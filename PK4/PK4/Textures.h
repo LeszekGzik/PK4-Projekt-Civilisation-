@@ -8,11 +8,13 @@
 class Textures
 {
 private:
+	static const TilesetLoadData BUTTONS;
 	static const TilesetLoadData IMPROVEMENTS;
 	static const TilesetLoadData FIELDS;
 	static const TilesetLoadData UNITS;
 	static const TilesetLoadData MISC;
 
+	static Tileset* buttons;
 	static Tileset* improvements;
 	static Tileset* fields;
 	static Tileset* units;
@@ -22,6 +24,7 @@ public:
 	static void init();
 	static void end();
 
+	static Tileset& tilesetButtons() { return *buttons; }
 	static Tileset& tilesetImprovements() { return *improvements; }
 	static Tileset& tilesetFields() { return *fields; }
 	static Tileset& tilesetUnits() { return *units; }

@@ -88,7 +88,6 @@ void GameState::init(InitSettings * settings)
 	this->gui = window.getDefaultView();
 	this->world = window.getDefaultView();
 	this->game_map = new GameMap(settings->map.size, hex_style);
-	this->game_map->showGrid(true);
 	this->player_count = settings->player.count;
 	this->players = new Player[this->player_count];
 	for (int i = 0; i < this->player_count; i++)
@@ -132,6 +131,8 @@ void GameState::initGui()
 
 	this->label_turn = INIT.GUI.TURN_LABEL(current_vmode);
 	page.addComponent(this->label_turn);
+
+	addTopButton(1, button_click_grid, 0);
 }
 
 void GameState::nextTurn()
@@ -242,6 +243,20 @@ PixelCoords GameState::worldPosition(PixelCoords window_pos)
 	return PixelCoords(window_pos.x + offset.x, window_pos.y + offset.y);
 }
 
+void GameState::addTopButton(int32_t img_id, Button::Clicked::Callback<GameState>& callback, int position)
+{
+	sf::IntRect pos;
+	pos.top = INIT.BUTTONS.TOP_POS.y;
+	pos.left = INIT.BUTTONS.TOP_POS.x + (INIT.BUTTONS.TOP_SIZE.x + INIT.BUTTONS.TOP_INTERVAL) * position;
+	pos.height = INIT.BUTTONS.TOP_SIZE.y;
+	pos.width = INIT.BUTTONS.TOP_SIZE.x;
+	Button * btn = new Button("", pos);
+	btn->setDisplayStyle(DisplayStyle::Image);
+	btn->setImage(Textures::tilesetButtons(), img_id);
+	btn->eventClicked().reg(&callback);
+	page_control.current().addComponent(btn);
+}
+
 void GameState::buttonClick_back(Component &, sf::Event::MouseButtonEvent)
 {
 	exit = LoopExitCode::Menu;
@@ -257,6 +272,11 @@ void GameState::buttonClick_turn(Component &, sf::Event::MouseButtonEvent)
 	nextTurn();
 }
 
+void GameState::buttonClick_grid(Component &, sf::Event::MouseButtonEvent)
+{
+	game_map->showGrid(!game_map->showGrid());
+}
+
 GameState::GameState(sf::RenderWindow &window, sf::VideoMode vmode, InitSettings * settings) 
 	: window(window), current_vmode(vmode)
 {
@@ -264,6 +284,7 @@ GameState::GameState(sf::RenderWindow &window, sf::VideoMode vmode, InitSettings
 	this->button_click_back.set(this, &GameState::buttonClick_back);
 	this->button_click_exit.set(this, &GameState::buttonClick_exit);
 	this->button_click_turn.set(this, &GameState::buttonClick_turn);
+	this->button_click_grid.set(this, &GameState::buttonClick_grid);
 }
 
 GameState::~GameState()

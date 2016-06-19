@@ -1,16 +1,21 @@
 #pragma once
 #include <SFML\Graphics.hpp>
+#include <vector>
+#include "Ability.h"
 #include "EngineDefinitions.h"
 #include "Player.h"
 #include "ContextInfo.h"
 #include "ObjectStyle.h"
 #include "TexturedHex.h"
 
+typedef std::vector<Ability*> Abilities;
+
 class InGameObject : public sf::Drawable
 {
 private:
 	static ObjectStyle * object_style;
 
+	Abilities abilities;
 	AxialCoords position;
 	Player& owner;
 
@@ -34,5 +39,7 @@ public:
 
 	virtual AxialCoords const& getPosition() const { return position; }
 	virtual void setPosition(AxialCoords coords) { position = coords; }
+
+	void grantAbility(Ability * ability);
 };
 

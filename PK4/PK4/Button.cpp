@@ -16,12 +16,16 @@ Button::Button()
 
 Button::Button(std::string caption, sf::IntRect position)
 	: Component(caption, BACK_COLOR, BORDER_COLOR, TEXT_COLOR, BORDER_THICKNESS, Fonts::fontText(), TEXT_POS, position, FONT_SIZE),
-	  highlights(true), highlighted(false)
+	  highlights(true), highlighted(false), display_style(DisplayStyle::Text)
 {
 	setHighlightBackColor(HL_BACK_COLOR);
 	setHighlightTextColor(HL_TEXT_COLOR);
 	setBackColor(BACK_COLOR);
 	setTextColor(TEXT_COLOR);
+
+	sf::IntRect pos = getPosition();
+	this->image.setPosition(sf::Vector2f(pos.left, pos.top));
+	this->image.setTextureRect(pos);
 }
 
 Button::~Button()
@@ -41,6 +45,34 @@ void Button::mouseLeave(sf::Event::MouseMoveEvent & args)
 	eventMouseLeave().invoke(*this, args);
 	if (highlights)
 		highlightOff();
+}
+
+void Button::setImage(Tileset& tileset, int32_t tile)
+{
+	this->image.setTexture(tileset.getTileset());
+	this->image.setTextureRect(tileset.getTile(tile));
+	sf::Vector2f scale;
+	sf::Vector2i size = tileset.getTileSize();
+	sf::IntRect pos = getPosition();
+	scale.x = (float)pos.width / size.x;
+	scale.y = (float)pos.height / size.y;
+	this->image.setScale(scale);
+}
+
+void Button::draw(sf::RenderTarget & target, sf::RenderStates states) const
+{
+	if (getVisible())
+	{
+		switch (this->display_style)
+		{
+		default:
+		case Text:
+			target.draw(getRect(), states);
+			target.draw(getText(), states);
+		case Image:
+			target.draw(getImage(), states);
+		}
+	}
 }
 
 void Button::refresh()
@@ -65,13 +97,28 @@ void Button::setTextColor(sf::Color color)
 void Button::highlightOn()
 {
 	this->highlighted = true;
-	getRect().setFillColor(this->highlight_back_color);
-	getText().setColor(this->highlight_text_color);
+	if (display_style == DisplayStyle::Text)
+	{
+		getRect().setFillColor(this->highlight_back_color);
+		getText().setColor(this->highlight_text_color);
+	}
+	else if (display_style == DisplayStyle::Image)
+	{
+		this->image.setColor(this->highlight_back_color);
+	}
+
 }
 
 void Button::highlightOff()
 {
 	this->highlighted = false;
-	getRect().setFillColor(this->back_color);
-	getText().setColor(this->text_color);
+	if (display_style == DisplayStyle::Text)
+	{
+		getRect().setFillColor(this->back_color);
+		getText().setColor(this->text_color);
+	}
+	else if (display_style == DisplayStyle::Image)
+	{
+		this->image.setColor(sf::Color::White);
+	}
 }

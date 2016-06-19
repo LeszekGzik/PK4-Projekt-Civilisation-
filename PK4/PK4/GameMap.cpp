@@ -6,9 +6,9 @@
 
 void GameMap::drawGrid(sf::RenderTarget & window, sf::RenderStates states, sf::IntRect visibility) const
 {
-	for (int j = visibility.top; j < visibility.height; j++)
+	for (int i = visibility.left; i < visibility.width; i++)
 	{
-		for (int i = visibility.left; i < visibility.width; i++)
+		for (int j = visibility.top; j < visibility.height; j++)
 		{
 			sf::VertexArray hex = hex_style.create(OffsetCoords(i, j));
 			window.draw(hex);
@@ -20,7 +20,7 @@ void GameMap::drawMap(sf::RenderTarget & window, sf::RenderStates states, sf::In
 {
 	for (int i = visibility.left; i < visibility.width; i++)
 	{
-		for (int j = visibility.height - 1; j > visibility.top - 1; j--)
+		for (int j = visibility.top; j < visibility.height; j++)
 		{
 			getField(OffsetCoords(i, j))->draw(window, states);
 		}
@@ -238,7 +238,7 @@ void GameMap::draw(sf::RenderTarget & window, sf::RenderStates states) const
 }
 
 
-GameMap::GameMap(sf::Vector2i size, Hex& style) : grid_size(size), hex_style(style)
+GameMap::GameMap(sf::Vector2i size, Hex& style) : grid_size(size), hex_style(style), show_grid(false)
 {
 	Field::setStyle(&tex_hex_style);
 	Unit::setStyle(&tex_hex_style);

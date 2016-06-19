@@ -1,6 +1,9 @@
 #pragma once
 
 #include "Component.h"
+#include "Tileset.h"
+
+enum DisplayStyle { Text, Image };
 
 class Button : public Component
 {
@@ -11,6 +14,13 @@ public:
 
 	virtual void mouseEnter(sf::Event::MouseMoveEvent& args);
 	virtual void mouseLeave(sf::Event::MouseMoveEvent& args);
+
+	virtual DisplayStyle getDisplayStyle() { return this->display_style; }
+	virtual sf::Sprite getImage() const { return this->image; }
+	virtual void setDisplayStyle(DisplayStyle style) { this->display_style = style; }
+	virtual void setImage(Tileset& tileset, int32_t tile);
+
+	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 
 	void refresh();
 	void setBackColor(sf::Color color);
@@ -26,11 +36,14 @@ protected:
 	virtual void highlightOff();
 
 private:
+	sf::Sprite image;
+
 	sf::Color highlight_back_color;
 	sf::Color highlight_text_color;
 	sf::Color back_color;
 	sf::Color text_color;
 
+	DisplayStyle display_style;
 	bool highlighted;
 	bool highlights;
 };

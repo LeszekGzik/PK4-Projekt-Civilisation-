@@ -1,7 +1,7 @@
 #include "ObjectStyle.h"
 
 
-PixelCoords ObjectStyle::flagPosition(OffsetCoords position)
+PixelCoords ObjectStyle::bannerPosition(OffsetCoords position)
 {
 	PixelCoords position_px = hex_style.toPixel(position);
 	position_px.x += (hex_style.horizontalSize() - flag_size.x) / 2;
@@ -10,7 +10,16 @@ PixelCoords ObjectStyle::flagPosition(OffsetCoords position)
 	return position_px;
 }
 
-void ObjectStyle::scaleFlag(sf::Sprite & sprite)
+PixelCoords ObjectStyle::flagPosition(OffsetCoords position, sf::Vector2i flag_size)
+{
+	PixelCoords position_px = hex_style.toPixel(position);
+	position_px.x += (hex_style.horizontalSize() - flag_size.x) / 2;
+	position_px.y += hex_style.verticalSize() / 2 - flag_size.y;
+	
+	return position_px;
+}
+
+void ObjectStyle::scaleBanner(sf::Sprite & sprite)
 {
 	sf::Vector2i tile = Textures::tilesetUnits().getTileSize();
 	sprite.scale(flag_size.x / tile.x, flag_size.y / tile.y);
@@ -22,16 +31,22 @@ void ObjectStyle::scaleToken(sf::Sprite & sprite)
 	sprite.setScale(size.x / tile.x, size.y / tile.y);
 }
 
-sf::Sprite ObjectStyle::createFlag(OffsetCoords position, int texture_id)
+void ObjectStyle::scaleFlag(sf::Sprite & sprite)
 {
-	PixelCoords position_px = flagPosition(position);
-	sf::Sprite flag(unitTileset.getTileset(), unitTileset.getTile(texture_id));
-	flag.move(position_px);
-	scaleFlag(flag);
-	return flag;
+	sf::Vector2i tile = miscTileset.getTileSize();
+	sprite.setScale(size.x / tile.x, size.y / tile.y);
 }
 
-sf::Sprite ObjectStyle::createToken(OffsetCoords position, int texture_id, Player player)
+sf::Sprite ObjectStyle::createBanner(OffsetCoords position, int texture_id)
+{
+	PixelCoords position_px = bannerPosition(position);
+	sf::Sprite banner(unitTileset.getTileset(), unitTileset.getTile(texture_id));
+	banner.move(position_px);
+	scaleBanner(banner);
+	return banner;
+}
+
+sf::Sprite ObjectStyle::createToken(OffsetCoords position, int texture_id, Player & player)
 {
 	PixelCoords position_px = hex_style.toPixel(position);
 	sf::Sprite token(miscTileset.getTileset(), miscTileset.getTile(texture_id));
@@ -50,6 +65,15 @@ sf::Sprite ObjectStyle::createGround(OffsetCoords position, int texture_id)
 	float temp = (hex_style.horizontalSize() - miscTileset.getTileSize().x * ground.getScale().x) * 0.5;
 	ground.setPosition(sf::Vector2f((float)position_px.x + temp, (float)position_px.y));
 	return ground;
+}
+
+sf::Sprite ObjectStyle::createFlag(OffsetCoords position, int texture_id, Player & player)
+{
+	sf::Sprite flag(miscTileset.getTileset(), miscTileset.getTile(texture_id));
+	flag.setColor(ColorUtils::sfColor(player.getColor()));
+	scaleFlag(flag);
+	flag.setPosition(flagPosition(position, sf::Vector2i(flag.getGlobalBounds().width, flag.getGlobalBounds().height)));
+	return flag;
 }
 
 void ObjectStyle::move(OffsetCoords position, sf::Sprite& sprite)

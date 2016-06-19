@@ -4,8 +4,10 @@
 class Improvement : public InGameObject
 {
 private:
-	int id;
-	sf::Sprite sprite;
+	static const int FLAG_ID;
+	const int id;
+	sf::Sprite ground;
+	sf::Sprite flag;
 
 public:
 	Improvement(OffsetCoords position, Player & owner, int id);

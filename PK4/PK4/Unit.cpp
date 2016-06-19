@@ -3,7 +3,7 @@
 void Unit::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(token);
-	target.draw(flag);
+	target.draw(banner);
 }
 
 void Unit::move(AxialCoords coords)
@@ -19,7 +19,7 @@ void Unit::move(PixelCoords coords)
 {
 	ObjectStyle * style = getStyle();
 	style->move(coords, getPosition(), token);
-	style->move(coords, getPosition(), flag);
+	style->move(coords, getPosition(), banner);
 	setPosition(style->hex().toAxial(coords));
 }
 
@@ -34,7 +34,7 @@ void Unit::select(bool selected)
 	{
 		this->selected = selected;
 		sf::Color t_color = token.getColor();
-		sf::Color f_color = flag.getColor();
+		sf::Color f_color = banner.getColor();
 
 		if (selected)
 		{
@@ -48,7 +48,7 @@ void Unit::select(bool selected)
 		}
 
 		token.setColor(t_color);
-		flag.setColor(f_color);
+		banner.setColor(f_color);
 	}
 }
 
@@ -64,7 +64,7 @@ ContextInfoContent * Unit::getContextInfoContent()
 
 void Unit::init()
 {
-	flag = getStyle()->createFlag(getPosition(), id);
+	banner = getStyle()->createBanner(getPosition(), id);
 	token = getStyle()->createToken(getPosition(), id, getOwner());
 }
 
