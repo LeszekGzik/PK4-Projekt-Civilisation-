@@ -14,8 +14,11 @@ int Archer::checkMovement(Field * field)
 		return field->getMovementCost();
 }
 
-Archer::Archer(AxialCoords position, Player& owner) : Unit(Archer::ID, position, owner, NAME, 2, STRENGTH)
+Archer::Archer(Field* field, Player& owner) : Unit(Archer::ID, field, owner, NAME, 2, STRENGTH)
 {
+	grantAbility<ConstructFarm>();
+	grantAbility<ConstructBarracks>();
+	grantAbility<Pillage>();
 }
 
 Archer::~Archer()

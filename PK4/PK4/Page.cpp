@@ -119,3 +119,13 @@ void Page::refresh()
 	}
 }
 
+void Page::clear()
+{
+	this->mouse_cursor.is_valid = false;
+	this->focused_component = nullptr;
+	for each (Component * item in components)
+		delete item;
+	this->components.clear();
+	this->shapes.clear();
+}
+

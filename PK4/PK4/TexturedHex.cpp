@@ -66,6 +66,7 @@ sf::VertexArray TexturedHex::create(PixelCoords position, Tileset& tileset, int 
 	for (int k = 0; k < 8; k++)
 	{
 		hex[k].color = color;
+		hex[k].texCoords.x += 1;
 	}
 
 	return hex;

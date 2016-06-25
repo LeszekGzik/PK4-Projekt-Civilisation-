@@ -3,7 +3,6 @@
 #include "Component.h"
 #include "Tileset.h"
 
-enum DisplayStyle { Text, Image };
 
 class Button : public Component
 {

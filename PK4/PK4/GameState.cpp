@@ -95,6 +95,8 @@ void GameState::init(InitSettings * settings)
 		this->players[i].setId(i);
 		this->players[i].setColor(settings->player.colors[i]);
 		this->players[i].setName(settings->player.names[i]);
+		this->players[i].getResources().set(ResourcesSet(6, 12, 0, 12));
+		this->players[i].getResources().eventResourceChange().reg(&this->resources_change);
 	}
 
 	this->turn_cycle = -1;
@@ -103,13 +105,16 @@ void GameState::init(InitSettings * settings)
 	
 	for (int i = 0; i < this->player_count; i++)
 		game_map->getField(OffsetCoords(5 + i, 5))->newUnit<Archer>(this->players[i]);
-	game_map->getField(OffsetCoords(2, 2))->newImprovement<Farm>(this->players[0]);
+	game_map->getField(OffsetCoords(6, 6))->newImprovement<Farm>(this->players[0]);
 }
 
 void GameState::initGui()
 {
-	int i = page_control.add();
-	page_control.set(i);
+	this->main_page = page_control.add();
+	this->ability_page = page_control.add();
+	page_control.set(this->main_page);
+	page_control.merge(this->ability_page);
+
 	Page& page = page_control.current();
 
 	page.addShape(INIT.GUI.TOP_BAR(current_vmode));
@@ -133,6 +138,11 @@ void GameState::initGui()
 	page.addComponent(this->label_turn);
 
 	addTopButton(1, button_click_grid, 0);
+
+	addResourceLabel(1, ResourceType::Food, 0);
+	addResourceLabel(1, ResourceType::Wood, 1);
+	addResourceLabel(1, ResourceType::Iron, 2);
+	addResourceLabel(1, ResourceType::Gems, 3);
 }
 
 void GameState::nextTurn()
@@ -146,6 +156,12 @@ void GameState::nextTurn()
 	this->active_player = &(this->players[this->turn_cycle]);
 	this->label_turn->setCaption(this->active_player->getName() + " turn");
 	this->label_turn->setTextColor(ColorUtils::sfColor(this->active_player->getColor()));
+
+	for (std::unordered_map<ResourceType, Label*>::iterator it = this->resource_labels.begin();
+		it != this->resource_labels.end(); it++)
+	{
+		it->second->setCaption(std::to_string(this->active_player->getResources().get(it->first)));
+	}
 }
 
 void GameState::click(sf::Event::MouseButtonEvent & mouse)
@@ -159,53 +175,19 @@ void GameState::click(sf::Event::MouseButtonEvent & mouse)
 	if (mouse.button == sf::Mouse::Button::Left)
 	{
 		InGameObject * object = field->objects().top();
+		if (this->selected_object == object && object != nullptr)
+			object = field->objects().next();
 
-		if (object != nullptr && object->getOwner() == *active_player)
-		{
-			if (this->selected_object != nullptr)
-			{
-				this->selected_object->select(false);
-				if (this->selected_object == object)
-				{
-					this->selected_object = field->objects().next();
-				}
-				else
-					this->selected_object = object;
-			}
-			else
-				this->selected_object = object;
-
-			this->selected_object->select(true);
-		} 
-		else if (this->selected_object != nullptr)
-		{
-			this->selected_object->select(false);
-			this->selected_object = nullptr;
-		}
-
-		/*if (this->selected_object != object)
-		{
-			if (this->selected_object != nullptr)
-				this->selected_object->select(false);
-
-			if (object != nullptr)
-				object->select(true);
-
-			this->selected_object = object;
-		}
-		else if (object != nullptr)
-		{
-			this->selected_object->select(false);
-			this->selected_object = field->objects().next();
-			this->selected_object->select(true);
-		}*/
+		changeSelection(object);
 	}
 	else if (mouse.button == sf::Mouse::Button::Right)
 	{
 		if (this->selected_object != nullptr)
 		{
 			this->selected_object->select(false);
-			AxialCoords sel_pos = this->selected_object->getPosition();
+			this->page_control.get(this->ability_page).clear();
+
+			AxialCoords sel_pos = this->selected_object->getField()->getPosition();
 			game_map->moveUnit(sel_pos, field->getPosition());
 			this->selected_object = nullptr;
 		}
@@ -225,12 +207,45 @@ void GameState::move(sf::Event::MouseMoveEvent & mouse)
 		ContextInfoContent * content = field->getContextInfoContent();
 		if (content != nullptr)
 		{
+			context_info.setAligment(ContextInfo::Aligment::Down);
 			context_info.setActive(true);
 			context_info.set(PixelCoords(mouse.x, mouse.y), content);
 		}
 		else
 			context_info.setActive(false);
 		delete content;
+	}
+}
+
+void GameState::changeSelection(InGameObject * target)
+{
+	if (this->selected_object != nullptr)
+		this->selected_object->select(false);
+
+	if (target != nullptr && target->getOwner() == *this->active_player)
+	{
+		this->selected_object = target;
+		this->selected_object->select(true);
+		listAbilities(this->selected_object);
+	}
+	else
+	{
+		this->selected_object == nullptr;
+		this->page_control.get(this->ability_page).clear();
+	}
+}
+
+void GameState::listAbilities(InGameObject * object)
+{
+	Page& page = this->page_control.get(this->ability_page);
+	page.clear();
+	this->current_abilities.clear();
+	Abilities const& vector = object->getAbilities();
+	for (size_t i = 0; i < vector.size(); i++)
+	{
+		Ability * ability = vector[i];
+		this->current_abilities.push_back(ability);
+		addBotButton(ability->getTextureId(), button_click_ability, i);
 	}
 }
 
@@ -243,11 +258,11 @@ PixelCoords GameState::worldPosition(PixelCoords window_pos)
 	return PixelCoords(window_pos.x + offset.x, window_pos.y + offset.y);
 }
 
-void GameState::addTopButton(int32_t img_id, Button::Clicked::Callback<GameState>& callback, int position)
+void GameState::addTopButton(uint32_t img_id, Button::Clicked::Callback<GameState>& callback, int position)
 {
 	sf::IntRect pos;
 	pos.top = INIT.BUTTONS.TOP_POS.y;
-	pos.left = INIT.BUTTONS.TOP_POS.x + (INIT.BUTTONS.TOP_SIZE.x + INIT.BUTTONS.TOP_INTERVAL) * position;
+	pos.left = this->current_vmode.width - INIT.BUTTONS.TOP_POS.x - (INIT.BUTTONS.TOP_SIZE.x + INIT.BUTTONS.TOP_INTERVAL) * position;
 	pos.height = INIT.BUTTONS.TOP_SIZE.y;
 	pos.width = INIT.BUTTONS.TOP_SIZE.x;
 	Button * btn = new Button("", pos);
@@ -255,6 +270,42 @@ void GameState::addTopButton(int32_t img_id, Button::Clicked::Callback<GameState
 	btn->setImage(Textures::tilesetButtons(), img_id);
 	btn->eventClicked().reg(&callback);
 	page_control.current().addComponent(btn);
+}
+
+void GameState::addBotButton(uint32_t img_id, Button::Clicked::Callback<GameState>& callback, int position)
+{
+	sf::IntRect pos;
+	pos.top = this->current_vmode.height - INIT.BUTTONS.BOT_POS.y;
+	pos.left = INIT.BUTTONS.BOT_POS.x + (INIT.BUTTONS.BOT_SIZE.x + INIT.BUTTONS.BOT_INTERVAL) * position;
+	pos.height = INIT.BUTTONS.BOT_SIZE.y;
+	pos.width = INIT.BUTTONS.BOT_SIZE.x;
+	Button * btn = new Button("", pos);
+	btn->setDisplayStyle(DisplayStyle::Image);
+	btn->setImage(Textures::tilesetButtons(), img_id);
+	btn->eventClicked().reg(&callback);
+	btn->setTag(position);
+	btn->eventMouseEnter().reg(&this->button_enter_ability);
+	btn->eventMouseLeave().reg(&this->button_leave_ability);
+	page_control.get(this->ability_page).addComponent(btn);
+}
+
+void GameState::addResourceLabel(uint32_t img_id, ResourceType type, int position)
+{
+	sf::IntRect pos;
+	pos.top = INIT.LABELS.POS.y;
+	pos.left = INIT.LABELS.POS.x + position * (INIT.LABELS.INTERVAL + INIT.LABELS.SIZE.x);
+	pos.width = INIT.LABELS.SIZE.x;
+	pos.height = INIT.LABELS.SIZE.y;
+
+	Label * label = new Label("", pos);
+	label->setDisplayStyle(DisplayStyle::Image);
+	label->setImage(Textures::tilesetButtons(), img_id);
+	this->page_control.current().addComponent(label);
+
+	pos.left += INIT.LABELS.OFFSET + pos.width;
+	label = new Label("", pos);
+	this->resource_labels[type] = label;
+	this->page_control.current().addComponent(label);
 }
 
 void GameState::buttonClick_back(Component &, sf::Event::MouseButtonEvent)
@@ -277,6 +328,34 @@ void GameState::buttonClick_grid(Component &, sf::Event::MouseButtonEvent)
 	game_map->showGrid(!game_map->showGrid());
 }
 
+void GameState::buttonClick_ability(Component & sender, sf::Event::MouseButtonEvent)
+{
+	int tag = sender.getTag();
+	if (tag > this->current_abilities.size())
+		throw IndexOutOfRangeException("CurrentAbilites", tag);
+	else
+		this->current_abilities[tag]->use();
+}
+
+void GameState::buttonMouseEnter_ability(Component & sender, sf::Event::MouseMoveEvent)
+{
+	sf::IntRect const& position = sender.getPosition();
+	
+	context_info.setAligment(ContextInfo::Aligment::Up);
+	context_info.set(PixelCoords(position.left, position.top), this->selected_object->getAbilities()[sender.getTag()]->getContextInfoContent());
+	context_info.setActive(true);
+}
+
+void GameState::buttonMouseLeave_ability(Component & sender, sf::Event::MouseMoveEvent)
+{
+	context_info.setActive(false);
+}
+
+void GameState::resourcesChange(ResourcesHandler & sender, ResourceType type)
+{
+	this->resource_labels[type]->setCaption(std::to_string(sender.get(type)));
+}
+
 GameState::GameState(sf::RenderWindow &window, sf::VideoMode vmode, InitSettings * settings) 
 	: window(window), current_vmode(vmode)
 {
@@ -285,6 +364,10 @@ GameState::GameState(sf::RenderWindow &window, sf::VideoMode vmode, InitSettings
 	this->button_click_exit.set(this, &GameState::buttonClick_exit);
 	this->button_click_turn.set(this, &GameState::buttonClick_turn);
 	this->button_click_grid.set(this, &GameState::buttonClick_grid);
+	this->button_click_ability.set(this, &GameState::buttonClick_ability);
+	this->button_enter_ability.set(this, &GameState::buttonMouseEnter_ability);
+	this->button_leave_ability.set(this, &GameState::buttonMouseLeave_ability);
+	this->resources_change.set(this, &GameState::resourcesChange);
 }
 
 GameState::~GameState()

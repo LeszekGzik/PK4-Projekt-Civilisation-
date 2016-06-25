@@ -2,8 +2,9 @@
 #include <list>
 #include <SFML/Graphics.hpp>
 #include <iterator>
-#include "InGameObject.h"
 #include "Event.h"
+
+class InGameObject;
 
 class ObjectStack 
 {
@@ -27,3 +28,4 @@ public:
 
 };
 
+#include "InGameObject.h"

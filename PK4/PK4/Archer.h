@@ -1,6 +1,9 @@
 #pragma once
 #include "Unit.h"
 #include "EngineDefinitions.h"
+#include "ConstructFarm.h"
+#include "ConstructBarracks.h"
+#include "Pillage.h"
 
 class Archer :
 	public Unit
@@ -11,7 +14,7 @@ private:
 public:
 	int checkMovement(Field * field);
 
-	Archer(AxialCoords position, Player & owner);
+	Archer(Field* field, Player & owner);
 	~Archer();
 };
 

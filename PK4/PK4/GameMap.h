@@ -13,12 +13,13 @@ class GameMap : public sf::Drawable
 {
 private:
 	typedef std::pair<OffsetCoords, int> NodePriorityPair;
+	typedef Field*** FieldMap;
 
 	int pathfinding_max_iterations = 100;
 	int pathfinding_hash_bucket = 30;
 
 	bool show_grid;
-	Field *** board;
+	FieldMap board;
 	Hex& hex_style;
 	TexturedHex tex_hex_style;
 	sf::Vector2i grid_size;
@@ -35,6 +36,7 @@ public:
 	int getDistance(const AxialCoords& from, const AxialCoords& to) const;
 	Field * getField(OffsetCoords pos) const;
 	Field * getField(PixelCoords pos) const;
+	FieldMap const& getFields() const { return this->board; }
 	Field * neighbour(OffsetCoords position, int32_t direction) const;
 	sf::Vector2f getSizeInPixel();
 

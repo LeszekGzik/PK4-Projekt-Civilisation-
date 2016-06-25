@@ -6,6 +6,7 @@ enum Color { Red, Blue, Green, Yellow };
 enum FieldType { Impassable, Land, Sea };
 enum Occupied { Empty, Full, Enemy };
 enum CombatResult { Lose, Tie, Win };
+enum ResourceType { Food, Wood, Iron, Gems };
 
 class ColorUtils
 {

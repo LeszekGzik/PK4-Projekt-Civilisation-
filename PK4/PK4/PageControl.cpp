@@ -9,12 +9,24 @@ int PageControl::add()
 
 bool PageControl::click(sf::Event::MouseButtonEvent mouse)
 {
-	return current().click(mouse);
+	bool result = 0;
+	for (auto i : this->merged_pages)
+	{
+		result += pages[i]->click(mouse);
+		if (result)
+			break;
+	}
+	return result;
 }
 
 bool PageControl::text(sf::Event::TextEvent key)
 {
-	return current().text(key);
+	bool result = 0;
+	for (auto i : this->merged_pages)
+	{
+		result += pages[i]->text(key);
+	}
+	return result;
 }
 
 Page & PageControl::current()
@@ -27,17 +39,48 @@ Page & PageControl::current()
 
 bool PageControl::mouse(sf::Event::MouseMoveEvent mouse)
 {
-	return current().mouse(mouse);
+	bool result = 0;
+	for (auto i : this->merged_pages)
+	{
+		result += pages[i]->mouse(mouse);
+	}
+	return result;
 }
 
 void PageControl::set(uint16_t index)
 {
 	if (index < count)
 	{
-		if (current_page > 0) 
+		if (current_page >= 0) 
 			current().leave();
 		current_page = index;
+		this->merged_pages.clear();
+		merge(current_page);
 	}
+	else
+		throw IndexOutOfRangeException("PageControl", index);
+}
+
+Page& PageControl::get(uint16_t index)
+{
+	if (index < count)
+		return *pages[index];
+	else
+		throw IndexOutOfRangeException("PageControl", index);
+}
+
+void PageControl::merge(uint16_t index)
+{
+	if (index < count)
+		this->merged_pages.insert(index);
+	else
+		throw IndexOutOfRangeException("PageControl", index);
+}
+
+void PageControl::remove(uint16_t index)
+{
+	if (index < count)
+		this->merged_pages.erase(index);
 	else
 		throw IndexOutOfRangeException("PageControl", index);
 }
@@ -56,5 +99,8 @@ PageControl::~PageControl()
 
 void PageControl::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	target.draw(*pages[current_page], states);
+	for (auto i : this->merged_pages)
+	{
+		target.draw(*pages[i], states);
+	}
 }

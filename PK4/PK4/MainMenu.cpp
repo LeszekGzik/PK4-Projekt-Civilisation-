@@ -1,4 +1,5 @@
 #include "MainMenu.h"
+#include <Windows.h>
 
 MainMenu::ConstantInitializers MainMenu::INIT;
 
@@ -12,7 +13,7 @@ LoopExitCode MainMenu::loop()
 	}
 	catch (std::exception &ex)
 	{
-
+		MessageBox(NULL, ex.what(), "Run-Time Exception", MB_ICONERROR | MB_OK);
 	}
 
 	while (window.isOpen() && this->exit == LoopExitCode::Menu)

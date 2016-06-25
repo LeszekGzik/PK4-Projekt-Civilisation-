@@ -111,7 +111,7 @@ void GameMap::moveUnit(OffsetCoords start, OffsetCoords goal)
 	Unit * unit = dynamic_cast<Unit*>(obj);
 	bool success = false;
 	
-	if (unit == nullptr || unit->getMovementPoints() == 0 || start == goal || unit->checkMovement(getField(goal)) < 0)
+	if (unit == nullptr || unit->getActionPoints() == 0 || start == goal || unit->checkMovement(getField(goal)) < 0)
 		return;
 
 	auto frontier_compare = [](const NodePriorityPair& left, const NodePriorityPair& right) { return (left.second > right.second); };
@@ -171,7 +171,7 @@ void GameMap::moveUnit(OffsetCoords start, OffsetCoords goal)
 		}
 
 		std::list<Field*>::reverse_iterator target;
-		int movement = unit->getMovementPoints();
+		int movement = unit->getActionPoints();
 
 		std::list<Field*>::reverse_iterator it = path.rbegin();
 		it++;
@@ -186,7 +186,7 @@ void GameMap::moveUnit(OffsetCoords start, OffsetCoords goal)
 			}
 		}
 
-		unit->setMovementPoints(movement);
+		unit->setActionPoints(movement);
 		getField(start)->objects().pop();
 
 		if (unit->checkIfOccupied(*target) == Occupied::Enemy)
@@ -211,8 +211,7 @@ void GameMap::moveUnit(OffsetCoords start, OffsetCoords goal)
 
 		if (unit != nullptr)
 		{
-			(*target)->objects().add(unit);
-			unit->move((*target)->getPosition());
+			unit->move(*target);
 		}
 	}
 }
@@ -251,7 +250,7 @@ GameMap::GameMap(sf::Vector2i size, Hex& style) : grid_size(size), hex_style(sty
 		{
 			Field * field;
 			if (i > 2 && i < 8 && j > 2 && j < 5)
-				newField<Desert>(OffsetCoords(i, j));
+				newField<Water>(OffsetCoords(i, j));
 			else
 				newField<Grass>(OffsetCoords(i, j));
 		}

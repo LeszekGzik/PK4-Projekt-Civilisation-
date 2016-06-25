@@ -1,12 +1,23 @@
 #include "Farm.h"
 
-const int Farm::ID = 1;
+namespace
+{
+	const int ID = 1;
+	const int ACTION_POINTS = 1;
+}
 
-Farm::Farm(OffsetCoords position, Player& owner) : Improvement(position, owner, ID)
+
+Farm::Farm(Field* field, Player& owner) : Improvement(field, owner, ID, ACTION_POINTS)
 {
 }
 
 
 Farm::~Farm()
 {
+}
+
+void Farm::grantLoot(ResourcesHandler & handler)
+{
+	handler.add(ResourceType::Wood, 2);
+	handler.add(ResourceType::Food, 2);
 }

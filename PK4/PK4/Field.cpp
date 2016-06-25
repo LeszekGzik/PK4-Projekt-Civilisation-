@@ -42,6 +42,12 @@ ContextInfoContent * Field::getContextInfoContent()
 	return content;
 }
 
+void Field::deleteImprovement()
+{
+	delete this->improvement;
+	this->improvement = nullptr;
+}
+
 Field::Field(int id, OffsetCoords position, int movement_cost, FieldType type) : position(position), movement_cost(movement_cost), type(type)
 {
 	this->id = id;

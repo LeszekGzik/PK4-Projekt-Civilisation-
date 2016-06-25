@@ -28,6 +28,8 @@ int main()
 	BOOL result = SetCurrentDirectory(path.c_str());
 	srand(time(NULL));
 
+	
+
 	if (result == FALSE)
 	{
 		std::cout << EXE_ERR << path << std::endl;

@@ -6,10 +6,11 @@ void ApplicationControl::run()
 	try
 	{
 		sf::ContextSettings context_settings;
-		context_settings.antialiasingLevel = 8;
+		context_settings.antialiasingLevel = 0;
 
 		current_vmode = sf::VideoMode::getFullscreenModes()[0];
-		window.create(current_vmode, "WORKS!", sf::Style::Fullscreen, context_settings);
+		current_vmode.height *= 0.9;
+		window.create(current_vmode, "WORKS!", sf::Style::Default, context_settings);
 		window.setVerticalSyncEnabled(true);
 
 		Textures::init();

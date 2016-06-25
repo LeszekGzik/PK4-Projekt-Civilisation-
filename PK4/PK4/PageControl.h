@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <list>
+#include <set>
 #include <vector>
 #include <algorithm>
 #include <iterator>
@@ -19,6 +19,10 @@ public:
 	bool mouse(sf::Event::MouseMoveEvent mouse);
 	Page& current();
 	void set(uint16_t index);
+	Page& get(uint16_t index);
+
+	void merge(uint16_t index);
+	void remove(uint16_t index);
 
 	PageControl();
 	~PageControl();
@@ -27,6 +31,7 @@ public:
 
 private:
 	PageContainer pages;
+	std::set<uint16_t> merged_pages;
 	int count;
 	int current_page;
 

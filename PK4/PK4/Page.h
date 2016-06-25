@@ -17,6 +17,7 @@ public:
 	bool mouse(sf::Event::MouseMoveEvent mouse);
 	void leave();
 	void refresh();
+	void clear();
 
 	Component * focused() { return focused_component; }
 

@@ -6,21 +6,26 @@ void Unit::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	target.draw(banner);
 }
 
-void Unit::move(AxialCoords coords)
+/*void Unit::move(AxialCoords coords)
 {
 	ObjectStyle * style = getStyle();
 	PixelCoords pixels = style->hex().toPixel(coords);
 	pixels.x += style->hex().horizontalSize() / 2;
 	pixels.y += style->hex().verticalSize() / 2;
-	move(pixels);
-}
+	//move(pixels);
+}*/
 
-void Unit::move(PixelCoords coords)
+void Unit::move(Field * destination)
 {
 	ObjectStyle * style = getStyle();
-	style->move(coords, getPosition(), token);
-	style->move(coords, getPosition(), banner);
-	setPosition(style->hex().toAxial(coords));
+	Field *& field = getField();
+	PixelCoords coords = style->hex().toPixel(destination->getPosition());
+	coords.x += style->hex().horizontalSize() / 2;
+	coords.y += style->hex().verticalSize() / 2;
+	style->move(coords, field->getPosition(), token);
+	style->move(coords, field->getPosition(), banner);
+	destination->objects().add(this);
+	setField(destination);
 }
 
 void Unit::newTurn()
@@ -64,17 +69,18 @@ ContextInfoContent * Unit::getContextInfoContent()
 
 void Unit::init()
 {
-	banner = getStyle()->createBanner(getPosition(), id);
-	token = getStyle()->createToken(getPosition(), id, getOwner());
+	OffsetCoords & position = getField()->getPosition();
+	banner = getStyle()->createBanner(position, id);
+	token = getStyle()->createToken(position, id, getOwner());
 }
 
-Unit::Unit(int id, AxialCoords position, Player& owner) : id(id), InGameObject(position, owner)
+Unit::Unit(int id, Field* field, Player& owner) : id(id), InGameObject(field, owner)
 {
 	init();
 }
 
-Unit::Unit(int id, AxialCoords position, Player & owner, std::string const& name, int speed, int strength) 
-	: id(id), name(name), speed(speed), strength(strength), movement_points(speed), InGameObject(position, owner)
+Unit::Unit(int id, Field* field, Player & owner, std::string const& name, int speed, int strength)
+	: id(id), name(name), speed(speed), strength(strength), movement_points(speed), InGameObject(field, owner)
 {
 	init();
 }
@@ -123,6 +129,14 @@ CombatResult Unit::attacked(float strength, int & counter_damage)
 		return CombatResult::Tie;
 	else
 		return CombatResult::Win;
+}
+
+void Unit::spendActionPoints(uint32_t points)
+{
+	if (points == max_movement_points)
+		this->movement_points = 0;
+	else
+		this->movement_points -= points;
 }
 
 Occupied Unit::checkIfOccupied(Field * field)

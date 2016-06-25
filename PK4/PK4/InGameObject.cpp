@@ -14,15 +14,14 @@ void InGameObject::clear()
 		delete object_style;
 }
 
-InGameObject::InGameObject(AxialCoords position, Player& owner) : position(position), owner(owner)
+InGameObject::InGameObject(Field* field, Player& owner) : field(field), owner(owner)
 {
 }
 
 InGameObject::~InGameObject()
 {
-}
-
-void InGameObject::grantAbility(Ability * ability)
-{
-	this->abilities.push_back(ability);
+	for each (Ability * ability in abilities)
+	{
+		delete ability;
+	}
 }

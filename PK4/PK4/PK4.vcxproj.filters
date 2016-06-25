@@ -79,6 +79,9 @@
     <Filter Include="Header Files\Objects\Abilities">
       <UniqueIdentifier>{edbbc87b-43c4-4342-92c8-cadd1670cafc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Objects\Abilities">
+      <UniqueIdentifier>{2d3cfb92-f01c-4e02-9f02-fdb6f982e0e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -180,8 +183,29 @@
     <ClCompile Include="Farm.cpp">
       <Filter>Source Files\Objects\Improvements</Filter>
     </ClCompile>
+    <ClCompile Include="ConstructFarm.cpp">
+      <Filter>Source Files\Objects\Abilities</Filter>
+    </ClCompile>
     <ClCompile Include="Ability.cpp">
-      <Filter>Source Files\Objects</Filter>
+      <Filter>Source Files\Objects\Abilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Pillage.cpp">
+      <Filter>Source Files\Objects\Abilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Water.cpp">
+      <Filter>Source Files\Board\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourcesHandler.cpp">
+      <Filter>Source Files\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Barracks.cpp">
+      <Filter>Source Files\Objects\Improvements</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstructBarracks.cpp">
+      <Filter>Source Files\Objects\Abilities</Filter>
+    </ClCompile>
+    <ClCompile Include="TrainArcher.cpp">
+      <Filter>Source Files\Objects\Abilities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -303,7 +327,28 @@
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Ability.h">
-      <Filter>Header Files\Objects</Filter>
+      <Filter>Header Files\Objects\Abilities</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstructFarm.h">
+      <Filter>Header Files\Objects\Abilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Pillage.h">
+      <Filter>Header Files\Objects\Abilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Water.h">
+      <Filter>Header Files\Board\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourcesHandler.h">
+      <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Barracks.h">
+      <Filter>Header Files\Objects\Improvements</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstructBarracks.h">
+      <Filter>Header Files\Objects\Abilities</Filter>
+    </ClInclude>
+    <ClInclude Include="TrainArcher.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

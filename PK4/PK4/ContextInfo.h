@@ -25,12 +25,16 @@ typedef std::vector<ContextInfoLine> ContextInfoContent;
 class ContextInfo : public sf::Drawable
 {
 public:
+	enum Aligment { Down = 1, Up = -1 };
+
 	ContextInfo();
 	~ContextInfo();
 
 	void set(PixelCoords coords, ContextInfoContent * content);	
 	bool isActive() { return active; }
+	Aligment getAligment(Aligment aligment) { return this->aligment; }
 	void setActive(bool active) { this->active = active; }
+	void setAligment(Aligment aligment) { this->aligment = aligment; }
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 
 private:
@@ -44,7 +48,11 @@ private:
 	sf::RectangleShape shape;
 	sf::Text * lines;
 	int32_t count;
+	Aligment aligment;
+
 	bool active = false;
+	float line_height;
 
 	void initRect(PixelCoords coords, float height, float width);
+	void update();
 };

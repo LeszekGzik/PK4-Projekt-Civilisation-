@@ -4,6 +4,8 @@
 #include "Event.h"
 #include "Fonts.h"
 
+enum DisplayStyle { Text, Image };
+
 class Component : public sf::Drawable
 {
 public:

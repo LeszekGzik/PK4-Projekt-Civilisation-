@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include <vector>
+#include <unordered_map>
 #include "GameMap.h"
 #include "GameDefinitions.h"
 #include "EngineDefinitions.h"
@@ -9,6 +10,7 @@
 #include "Components.h"
 #include "ContextInfo.h"
 #include "Improvements.h"
+#include "Ability.h"
 #include "Hex.h"
 
 
@@ -95,21 +97,26 @@ private:
 
 		struct Buttons
 		{
-			sf::Vector2i TOP_POS = sf::Vector2i(220, 8);
+			sf::Vector2i TOP_POS = sf::Vector2i(280, 8);
 			sf::Vector2i TOP_SIZE = sf::Vector2i(64, 64);
 			int TOP_INTERVAL = 4;
 
-			Button * GRID()
-			{
-				Button * btn = new Button("", sf::IntRect(220, 8, 64, 64));
-				btn->setDisplayStyle(DisplayStyle::Image);
-				btn->setImage(Textures::tilesetButtons(), 1);
-				return btn;
-			}
+			sf::Vector2i BOT_POS = sf::Vector2i(12, 36);
+			sf::Vector2i BOT_SIZE = sf::Vector2i(32, 32);
+			int BOT_INTERVAL = 4;
+		};
+
+		struct Labels
+		{
+			sf::Vector2i POS = sf::Vector2i(220, 8);
+			sf::Vector2i SIZE = sf::Vector2i(64, 64);
+			int INTERVAL = 100;
+			int OFFSET = 4;
 		};
 
 		Gui GUI;
 		Buttons BUTTONS;
+		Labels LABELS;
 	};
 
 	static ConstantInitializers INIT;
@@ -118,6 +125,10 @@ private:
 	Button::Clicked::Callback<GameState> button_click_exit;
 	Button::Clicked::Callback<GameState> button_click_turn;
 	Button::Clicked::Callback<GameState> button_click_grid;
+	Button::Clicked::Callback<GameState> button_click_ability;
+	Button::MouseEnter::Callback<GameState> button_enter_ability;
+	Button::MouseLeave::Callback<GameState> button_leave_ability;
+	ResourcesHandler::ResourceChange::Callback<GameState> resources_change;
 
 	
 	LoopExitCode exit = Play;
@@ -131,8 +142,12 @@ private:
 	sf::RenderWindow & window;
 	Player * players;
 
-	int32_t player_count;
+	uint16_t player_count;
+	uint16_t ability_page;
+	uint16_t main_page;
 
+	std::vector<Ability*> current_abilities;
+	std::unordered_map<ResourceType, Label*> resource_labels;
 	InGameObject * selected_object = nullptr;
 	Player * active_player;
 	Label * label_turn;
@@ -143,12 +158,20 @@ private:
 	void nextTurn();
 	void click(sf::Event::MouseButtonEvent&);
 	void move(sf::Event::MouseMoveEvent&);
+	void changeSelection(InGameObject * target);
+	void listAbilities(InGameObject * object);
 	PixelCoords worldPosition(PixelCoords window_pos);
 
-	void addTopButton(int32_t img_id, Button::Clicked::Callback<GameState> & callback, int position);
+	void addTopButton(uint32_t img_id, Button::Clicked::Callback<GameState> & callback, int position);
+	void addBotButton(uint32_t img_id, Button::Clicked::Callback<GameState> & callback, int position);
+	void addResourceLabel(uint32_t img_id, ResourceType type, int position);
 
 	void buttonClick_back(Component&, sf::Event::MouseButtonEvent);
 	void buttonClick_exit(Component&, sf::Event::MouseButtonEvent);
 	void buttonClick_turn(Component&, sf::Event::MouseButtonEvent);
 	void buttonClick_grid(Component&, sf::Event::MouseButtonEvent);
+	void buttonClick_ability(Component&, sf::Event::MouseButtonEvent);
+	void buttonMouseEnter_ability(Component&, sf::Event::MouseMoveEvent);
+	void buttonMouseLeave_ability(Component&, sf::Event::MouseMoveEvent);
+	void resourcesChange(ResourcesHandler&, ResourceType);
 };
