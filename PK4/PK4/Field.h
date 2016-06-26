@@ -8,6 +8,7 @@
 #include "ObjectStack.h"
 
 class Improvement;
+class Unit;
 
 class Field : public sf::Drawable
 {
@@ -27,8 +28,8 @@ public:
 	static Tileset tileset() { return Textures::tilesetFields(); }
 	static void setStyle(TexturedHex * style) { Field::hex_style = style; }
 
-	template <typename TUnit> inline void newUnit(Player& owner);
-	template <typename TImp> inline void newImprovement(Player& owner);
+	template <typename TUnit> inline TUnit * newUnit(Player& owner);
+	template <typename TImp> inline TImp * newImprovement(Player& owner);
 	void deleteImprovement();
 
 	ObjectStack & objects() { return object_stack; }
@@ -48,17 +49,22 @@ public:
 };
 	
 template<typename TUnit>
-inline void Field::newUnit(Player & owner)
+inline TUnit * Field::newUnit(Player & owner)
 {
 	static_assert(std::is_base_of<Unit, TUnit>::value, "Input type must derive from Unit class");
-	this->object_stack.add(new TUnit(this, owner));
+	TUnit * obj = new TUnit(this, owner);
+	this->object_stack.add(obj);
+	return obj;
 }
 
 template<typename TImp>
-inline void Field::newImprovement(Player & owner)
+inline TImp * Field::newImprovement(Player & owner)
 {
 	//static_assert(std::is_base_of<Improvement, TImp)::value, "Input type must derive from Improvement class");
-	improvement = new TImp(this, owner);
+	TImp * obj = new TImp(this, owner);
+	improvement = obj;
+	return obj;
 }
 
 #include "Improvement.h"
+#include "Unit.h"

@@ -7,6 +7,7 @@
 #include "ContextInfo.h"
 #include "ObjectStyle.h"
 #include "TexturedHex.h"
+#include "Ability.h"
 
 class Field;
 
@@ -44,6 +45,7 @@ public:
 	virtual void setField(Field *& field) { this->field = field; }
 	virtual int getActionPoints() abstract;
 	virtual ContextInfoContent * getContextInfoContent() abstract;
+	virtual ContextInfoContent * getContextInfoContent(ContextInfoContent * content) abstract;
 	virtual Player & getOwner() { return owner; }
 	virtual Field *& getField() { return field; }
 

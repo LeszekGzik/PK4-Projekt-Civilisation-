@@ -2,7 +2,7 @@
 
 
 
-void ObjectStack::add(InGameObject * object)
+void ObjectStack::add(Element object)
 {
 	stack.push_back(object);
 }
@@ -12,20 +12,26 @@ void ObjectStack::pop()
 	stack.pop_back();
 }
 
-InGameObject * ObjectStack::next()
+bool ObjectStack::containsUnitType(UnitType type)
+{
+	iterator it = std::find_if(stack.begin(), stack.end(), [&type](Element unit) { return (unit->getType() == type); });
+	return it != stack.end();
+}
+
+Unit * ObjectStack::next()
 {
 	if (empty())
 		return nullptr;
 	else
 	{
-		InGameObject * temp = stack.back();
+		Element temp = stack.back();
 		stack.pop_back();
 		stack.push_front(temp);
 		return stack.back();
 	}
 }
 
-InGameObject * ObjectStack::top() const
+Unit * ObjectStack::top() const
 {
 	if (empty())
 		return nullptr;
@@ -40,7 +46,7 @@ ObjectStack::ObjectStack()
 
 ObjectStack::~ObjectStack()
 {
-	for each (InGameObject * object in stack)
+	for each (Element object in stack)
 		delete object;
 }
 

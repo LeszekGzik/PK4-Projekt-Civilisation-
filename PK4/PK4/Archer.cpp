@@ -1,8 +1,14 @@
 #include "Archer.h"
+#include "Pillage.h"
 
-const std::string NAME = "ARCHER";
-const int SPEED = 2;
-const int STRENGTH = 6;
+namespace
+{
+	const std::string NAME = "ARCHER";
+	const int ID = 1;
+	const int SPEED = 2;
+	const int STRENGTH = 6;
+	const UnitType TYPE = UnitType::Land;
+}
 
 int Archer::checkMovement(Field * field)
 {
@@ -14,10 +20,8 @@ int Archer::checkMovement(Field * field)
 		return field->getMovementCost();
 }
 
-Archer::Archer(Field* field, Player& owner) : Unit(Archer::ID, field, owner, NAME, 2, STRENGTH)
+Archer::Archer(Field* field, Player& owner) : Unit(ID, field, owner, NAME, SPEED, STRENGTH, TYPE)
 {
-	grantAbility<ConstructFarm>();
-	grantAbility<ConstructBarracks>();
 	grantAbility<Pillage>();
 }
 

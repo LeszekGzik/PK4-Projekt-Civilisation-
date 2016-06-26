@@ -207,6 +207,39 @@
     <ClCompile Include="TrainArcher.cpp">
       <Filter>Source Files\Objects\Abilities</Filter>
     </ClCompile>
+    <ClCompile Include="Swordsman.cpp">
+      <Filter>Source Files\Objects\Units</Filter>
+    </ClCompile>
+    <ClCompile Include="Worker.cpp">
+      <Filter>Source Files\Objects\Units</Filter>
+    </ClCompile>
+    <ClCompile Include="TrainWorker.cpp">
+      <Filter>Source Files\Objects\Abilities</Filter>
+    </ClCompile>
+    <ClCompile Include="TrainSwordsman.cpp">
+      <Filter>Source Files\Objects\Abilities</Filter>
+    </ClCompile>
+    <ClCompile Include="LumberjacksHut.cpp">
+      <Filter>Source Files\Objects\Improvements</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstructLumberjacksHut.cpp">
+      <Filter>Source Files\Objects\Abilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Forest.cpp">
+      <Filter>Source Files\Board\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="IronMine.cpp">
+      <Filter>Source Files\Objects\Improvements</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstructIronMine.cpp">
+      <Filter>Source Files\Objects\Abilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Stable.cpp">
+      <Filter>Source Files\Objects\Improvements</Filter>
+    </ClCompile>
+    <ClCompile Include="Hills.cpp">
+      <Filter>Source Files\Board\Fields</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameMap.h">
@@ -347,8 +380,47 @@
     <ClInclude Include="ConstructBarracks.h">
       <Filter>Header Files\Objects\Abilities</Filter>
     </ClInclude>
+    <ClInclude Include="Swordsman.h">
+      <Filter>Header Files\Objects\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="Units.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Worker.h">
+      <Filter>Header Files\Objects\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="Abilities.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="TrainWorker.h">
+      <Filter>Header Files\Objects\Abilities</Filter>
+    </ClInclude>
     <ClInclude Include="TrainArcher.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Objects\Abilities</Filter>
+    </ClInclude>
+    <ClInclude Include="TrainSwordsman.h">
+      <Filter>Header Files\Objects\Abilities</Filter>
+    </ClInclude>
+    <ClInclude Include="LumberjacksHut.h">
+      <Filter>Header Files\Objects\Improvements</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstructLumberjacksHut.h">
+      <Filter>Header Files\Objects\Abilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Forest.h">
+      <Filter>Header Files\Board\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="IronMine.h">
+      <Filter>Header Files\Objects\Improvements</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstructIronMine.h">
+      <Filter>Header Files\Objects\Abilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Hills.h">
+      <Filter>Header Files\Board\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="Stable.h">
+      <Filter>Header Files\Objects\Improvements</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

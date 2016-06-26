@@ -20,6 +20,8 @@ public:
 
 	virtual DrawableObject create(PixelCoords position) const sealed;
 	virtual DrawableObject create(OffsetCoords position) const sealed;
+	virtual DrawableObject create(PixelCoords position, sf::Color color) const sealed;
+	virtual DrawableObject create(OffsetCoords position, sf::Color color) const sealed;
 
 	Hex(float edge = DEFAULT_EDGE, sf::Color color = DEFAULT_COLOR);
 	~Hex();

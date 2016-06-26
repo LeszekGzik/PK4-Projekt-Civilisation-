@@ -2,7 +2,7 @@
 
 namespace
 {
-	const int ID = 1;
+	const int ID = 9;
 }
 
 ConstructBarracks::ConstructBarracks(InGameObject & owner) : Ability(ID, owner)

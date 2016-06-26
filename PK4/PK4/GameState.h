@@ -30,69 +30,19 @@ private:
 		struct Gui
 		{
 			const float BOT_BAR_THICK = 40;
+			const float BOT_BAR_LENGTH = 500;
 
-			sf::Shape * TOP_BAR(sf::VideoMode vmode)
-			{
-				sf::RectangleShape * shape = new sf::RectangleShape(sf::Vector2f(vmode.width, 80));
-				shape->setFillColor(sf::Color(117, 58, 40, 255));
-				return shape;
-			}
+			sf::Color COLOR_FILL = sf::Color(213, 194, 153, 255);
+			sf::Color COLOR_OUTLINE = sf::Color(183, 155, 98, 255);
+			sf::Color COLOR_BUTTON = sf::Color(220, 190, 130, 255);
 
-			sf::Shape * BOT_BAR(sf::VideoMode vmode)
-			{
-				sf::RectangleShape * shape = new sf::RectangleShape(sf::Vector2f(vmode.width, BOT_BAR_THICK));
-				shape->setPosition(0, vmode.height - BOT_BAR_THICK);
-				shape->setFillColor(sf::Color(117, 58, 40, 255));
-				return shape;
-			}
-
-			ComboButton * MENU_BTN()
-			{
-				ComboButton * btn = new ComboButton("MENU", sf::IntRect(10, 10, 190, 60));
-				btn->setBackColor(sf::Color(233, 116, 81, 255));
-				btn->setBorderColor(sf::Color(136, 45, 23, 255));
-				btn->setBorderThickness(4);
-				btn->setTextPosition(sf::Vector2u(48, 8));
-				btn->update();
-				return btn;
-			}
-
-			Button * MENU_BACK_BTN()
-			{
-				Button * btn = new Button("BACK TO MAIN", sf::IntRect(0, 0, 0, 40));
-				btn->setBackColor(sf::Color(233, 116, 81, 200));
-				btn->setFontSize(24);
-				return btn;
-			}
-
-			Button * MENU_EXIT_BTN()
-			{
-				Button * btn = new Button("EXIT", sf::IntRect(0, 0, 0, 40));
-				btn->setBackColor(sf::Color(233, 116, 81, 200));
-				btn->setFontSize(24);
-				return btn;
-			}
-
-			Button * TURN_BTN(sf::VideoMode vmode)
-			{
-				Button * btn = new Button("END TURN", sf::IntRect(vmode.width - 200, 10, 190, 60));
-				btn->setBackColor(sf::Color(233, 116, 81, 255));
-				btn->setBorderColor(sf::Color(136, 45, 23, 255));
-				btn->setBorderThickness(4);
-				btn->setTextPosition(sf::Vector2u(12, 8));
-				btn->update();
-				return btn;
-			}
-
-			Label * TURN_LABEL(sf::VideoMode vmode)
-			{
-				Label * label = new Label("", sf::IntRect(vmode.width - 400, vmode.height - BOT_BAR_THICK, 100, 30));
-				label->setBackColor(sf::Color::Transparent);
-				label->setFontSize(28);
-				label->setTextPosition(sf::Vector2u(4, 4));
-				label->update();
-				return label;
-			}
+			sf::Shape * TOP_BAR(sf::VideoMode vmode);
+			sf::Shape * BOT_BAR(sf::VideoMode vmode);
+			ComboButton * MENU_BTN();
+			Button * MENU_BACK_BTN();
+			Button * MENU_EXIT_BTN();
+			Button * TURN_BTN(sf::VideoMode vmode);
+			Label * TURN_LABEL(sf::VideoMode vmode);
 		};
 
 		struct Buttons
@@ -101,8 +51,8 @@ private:
 			sf::Vector2i TOP_SIZE = sf::Vector2i(64, 64);
 			int TOP_INTERVAL = 4;
 
-			sf::Vector2i BOT_POS = sf::Vector2i(12, 36);
-			sf::Vector2i BOT_SIZE = sf::Vector2i(32, 32);
+			sf::Vector2i BOT_POS = sf::Vector2i(12, 68);
+			sf::Vector2i BOT_SIZE = sf::Vector2i(64, 64);
 			int BOT_INTERVAL = 4;
 		};
 

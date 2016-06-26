@@ -137,20 +137,26 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ConstructBarracks.cpp" />
     <ClCompile Include="ConstructFarm.cpp" />
+    <ClCompile Include="ConstructIronMine.cpp" />
+    <ClCompile Include="ConstructLumberjacksHut.cpp" />
     <ClCompile Include="ContextInfo.cpp" />
     <ClCompile Include="Desert.cpp" />
     <ClCompile Include="EngineDefinitions.cpp" />
     <ClCompile Include="Farm.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="Fonts.cpp" />
+    <ClCompile Include="Forest.cpp" />
     <ClCompile Include="GameDefinitions.cpp" />
     <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Grass.cpp" />
     <ClCompile Include="Hex.cpp" />
+    <ClCompile Include="Hills.cpp" />
     <ClCompile Include="Improvement.cpp" />
     <ClCompile Include="InGameObject.cpp" />
+    <ClCompile Include="IronMine.cpp" />
     <ClCompile Include="Label.cpp" />
+    <ClCompile Include="LumberjacksHut.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="ObjectStyle.cpp" />
@@ -160,6 +166,8 @@
     <ClCompile Include="Pillage.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ResourcesHandler.cpp" />
+    <ClCompile Include="Stable.cpp" />
+    <ClCompile Include="Swordsman.cpp" />
     <ClCompile Include="TextBox.cpp" />
     <ClCompile Include="TexturedHex.cpp" />
     <ClCompile Include="FileLoadException.cpp" />
@@ -167,10 +175,14 @@
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Tileset.cpp" />
     <ClCompile Include="TrainArcher.cpp" />
+    <ClCompile Include="TrainSwordsman.cpp" />
+    <ClCompile Include="TrainWorker.cpp" />
     <ClCompile Include="Unit.cpp" />
     <ClCompile Include="Water.cpp" />
+    <ClCompile Include="Worker.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Abilities.h" />
     <ClInclude Include="Ability.h" />
     <ClInclude Include="ApplicationControl.h" />
     <ClInclude Include="Archer.h" />
@@ -181,6 +193,8 @@
     <ClInclude Include="Components.h" />
     <ClInclude Include="ConstructBarracks.h" />
     <ClInclude Include="ConstructFarm.h" />
+    <ClInclude Include="ConstructIronMine.h" />
+    <ClInclude Include="ConstructLumberjacksHut.h" />
     <ClInclude Include="ContextInfo.h" />
     <ClInclude Include="Desert.h" />
     <ClInclude Include="EngineDefinitions.h" />
@@ -190,16 +204,20 @@
     <ClInclude Include="Field.h" />
     <ClInclude Include="Fields.h" />
     <ClInclude Include="Fonts.h" />
+    <ClInclude Include="Forest.h" />
     <ClInclude Include="GameExceptions.h" />
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameDefinitions.h" />
     <ClInclude Include="Grass.h" />
     <ClInclude Include="Hex.h" />
+    <ClInclude Include="Hills.h" />
     <ClInclude Include="Improvement.h" />
     <ClInclude Include="Improvements.h" />
     <ClInclude Include="InGameObject.h" />
+    <ClInclude Include="IronMine.h" />
     <ClInclude Include="Label.h" />
+    <ClInclude Include="LumberjacksHut.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="ObjectStyle.h" />
     <ClInclude Include="ObjectStack.h" />
@@ -208,6 +226,8 @@
     <ClInclude Include="Pillage.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ResourcesHandler.h" />
+    <ClInclude Include="Stable.h" />
+    <ClInclude Include="Swordsman.h" />
     <ClInclude Include="TextBox.h" />
     <ClInclude Include="TexturedHex.h" />
     <ClInclude Include="FileLoadException.h" />
@@ -216,8 +236,12 @@
     <ClInclude Include="Tileset.h" />
     <ClInclude Include="TilesetLoadData.h" />
     <ClInclude Include="TrainArcher.h" />
+    <ClInclude Include="TrainSwordsman.h" />
+    <ClInclude Include="TrainWorker.h" />
     <ClInclude Include="Unit.h" />
+    <ClInclude Include="Units.h" />
     <ClInclude Include="Water.h" />
+    <ClInclude Include="Worker.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

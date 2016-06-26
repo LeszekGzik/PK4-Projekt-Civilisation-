@@ -4,7 +4,7 @@ class Farm;
 
 namespace
 {
-	const uint32_t ID = 1;
+	const uint32_t ID = 5;
 }
 
 ConstructFarm::ConstructFarm(InGameObject & owner) : Ability(ID, owner)
@@ -22,8 +22,10 @@ void ConstructFarm::use()
 	InGameObject& unit = getOwner();
 	Player& player = unit.getOwner();
 	Field * field = unit.getField();
+	Grass * test_ptr = dynamic_cast<Grass*>(field);
 
-	if (field->getImprovement() == nullptr && player.getResources().isAvailable(ResourceType::Wood, 5))
+	if (field->getImprovement() == nullptr && test_ptr != nullptr
+		&& player.getResources().isAvailable(ResourceType::Wood, 5))
 	{
 		field->newImprovement<Farm>(player);
 		unit.spendActionPoints();

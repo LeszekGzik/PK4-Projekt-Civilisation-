@@ -18,21 +18,13 @@ void GameMap::drawGrid(sf::RenderTarget & window, sf::RenderStates states, sf::I
 
 void GameMap::drawMap(sf::RenderTarget & window, sf::RenderStates states, sf::IntRect visibility) const
 {
-	for (int i = visibility.left; i < visibility.width; i++)
+	for (int j = visibility.top; j < visibility.height; j++)
 	{
-		for (int j = visibility.top; j < visibility.height; j++)
+		for (int i = visibility.left; i < visibility.width; i++)
 		{
 			getField(OffsetCoords(i, j))->draw(window, states);
 		}
 	}
-
-	/*for (int j = visibility.top; j < visibility.height; j++)
-	{
-		for (int i = visibility.left; i < visibility.width; i++)
-		{
-			
-		}
-	}*/
 }
 
 sf::IntRect GameMap::visibilityCheck(sf::View view) const
@@ -62,7 +54,7 @@ sf::IntRect GameMap::visibilityCheck(sf::View view) const
 	else
 		visibility_hex.width = visibility_px.width;
 
-	if (visibility_px.height > grid_size.y) // poprawka +1 gdy¿ punkt wskazuje na górny wierzcho³ek hexa??
+	if (visibility_px.height > grid_size.y)
 		visibility_hex.height = grid_size.y;
 	else
 		visibility_hex.height = visibility_px.height;
@@ -191,8 +183,9 @@ void GameMap::moveUnit(OffsetCoords start, OffsetCoords goal)
 
 		if (unit->checkIfOccupied(*target) == Occupied::Enemy)
 		{
-			InGameObject * foe = (*target)->objects().top();
-			CombatResult result = unit->attack((*target)->objects().top());
+			ObjectStack & stack = (*target)->objects();
+			ObjectStack::iterator foe = std::max_element(stack.begin(), stack.end(), [](const Unit * arg1, const Unit * arg2) { return (arg1->getTotalStrength() < arg2->getTotalStrength()); });
+			CombatResult result = unit->attack(*foe);
 			switch (result)
 			{
 			case Lose:
@@ -200,11 +193,13 @@ void GameMap::moveUnit(OffsetCoords start, OffsetCoords goal)
 				unit = nullptr;
 				break;
 			case Tie:
-				target--;
+				target--; // ruch maksymalnie do poprzedniego pola
 				break;
 			case Win:
-				(*target)->objects().pop();
-				delete foe;
+				delete *foe;
+				(*target)->objects().erase(foe);
+				if (!stack.empty())
+					target--;
 				break;
 			}
 		}
@@ -250,7 +245,7 @@ GameMap::GameMap(sf::Vector2i size, Hex& style) : grid_size(size), hex_style(sty
 		{
 			Field * field;
 			if (i > 2 && i < 8 && j > 2 && j < 5)
-				newField<Water>(OffsetCoords(i, j));
+				newField<Hills>(OffsetCoords(i, j));
 			else
 				newField<Grass>(OffsetCoords(i, j));
 		}

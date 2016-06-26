@@ -1,6 +1,7 @@
 #pragma once
 #include "Ability.h"
-#include "Archer.h"
+
+class Archer;
 
 class TrainArcher :
 	public Ability
@@ -13,3 +14,4 @@ public:
 	virtual void use();
 };
 
+#include "Archer.h"

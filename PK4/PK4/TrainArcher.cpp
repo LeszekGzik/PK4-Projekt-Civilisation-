@@ -2,7 +2,7 @@
 
 namespace
 {
-	const int ID = 1;
+	const int ID = 6;
 }
 
 TrainArcher::TrainArcher(InGameObject & owner) : Ability(ID, owner)
@@ -30,12 +30,13 @@ void TrainArcher::use()
 	Field * field = unit.getField();
 	ResourcesHandler & resources = player.getResources();
 
-	if (
-		 resources.isAvailable(ResourceType::Food, 3)
+	if ( !field->objects().containsUnitType(UnitType::Land)
+		&& resources.isAvailable(ResourceType::Food, 3)
 		&& resources.isAvailable(ResourceType::Iron, 3)
 		&& resources.isAvailable(ResourceType::Wood, 2))
 	{
-		field->newUnit<Archer>(player);
+		InGameObject * archer = field->newUnit<Archer>(player);
+		archer->spendActionPoints();
 		unit.spendActionPoints(1);
 		resources.add(ResourceType::Food, -3);
 		resources.add(ResourceType::Iron, -3);

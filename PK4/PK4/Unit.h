@@ -27,6 +27,7 @@ private:
 	int strength;
 	int speed;
 	int movement_points;
+	UnitType type;
 
 public:
 	static Tileset& unitTileset() { return Textures::tilesetUnits(); }
@@ -39,15 +40,18 @@ public:
 	virtual void setName(std::string& name) { this->name = name; }
 	virtual void setSpeed(int speed) { this->speed = speed; }
 	virtual void setStrength(int strength) { this->strength = strength; }
+	virtual void setType(UnitType type) { this->type = type; }
 
 	virtual int getHealth() { return this->health; }
 	virtual int getActionPoints() { return this->movement_points; }
 	virtual std::string & getName() { return name; }
+	virtual float getTotalStrength() const;
 	virtual int getSpeed() { return this->speed; }
 	virtual int getStrength() { return this->strength; }
+	virtual UnitType getType() { return this->type; }
 
 	Unit(int id, Field* field, Player& owner);
-	Unit(int id, Field* field, Player& owner, std::string const& name, int speed, int strength);
+	Unit(int id, Field* field, Player& owner, std::string const& name, int speed, int strength, UnitType type);
 	~Unit();
 
 	virtual CombatResult attack(InGameObject * target);
@@ -61,5 +65,6 @@ public:
 	virtual void newTurn();
 	virtual void select(bool selected);
 	virtual ContextInfoContent * getContextInfoContent();
+	virtual ContextInfoContent * getContextInfoContent(ContextInfoContent * content);
 };
 

@@ -5,7 +5,6 @@ const sf::Color Hex::DEFAULT_COLOR(255, 0, 0, 255);
 
 PixelCoords Hex::toPixel(OffsetCoords position) const
 {
-	//float x = position.x * horizontal + ((position.y & 1) * horizontal * 0.5);
 	float x = (position.x + 0.5 * (position.y & 1)) * horizontal;
 	float y = position.y * edge * 1.5;
 	return sf::Vector2f(x, y);
@@ -42,12 +41,10 @@ AxialCoords Hex::round(sf::Vector2f pos) const
 
 sf::VertexArray Hex::create(OffsetCoords position) const
 {
-	PixelCoords position_px = toPixel(position);
-	return create(position_px);
+	return create(position, this->color);
 }
 
-
-sf::VertexArray Hex::create(PixelCoords position) const
+DrawableObject Hex::create(PixelCoords position, sf::Color color) const
 {
 	sf::VertexArray hex(sf::LinesStrip, 7);
 
@@ -65,6 +62,18 @@ sf::VertexArray Hex::create(PixelCoords position) const
 	}
 
 	return hex;
+}
+
+DrawableObject Hex::create(OffsetCoords position, sf::Color color) const
+{
+	PixelCoords position_px = toPixel(position);
+	return create(position_px, color);
+}
+
+
+sf::VertexArray Hex::create(PixelCoords position) const
+{
+	return create(position, this->color);
 }
 
 Hex::Hex(float edge, sf::Color color) : edge(edge), color(color)

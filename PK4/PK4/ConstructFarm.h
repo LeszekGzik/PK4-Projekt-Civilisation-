@@ -1,6 +1,8 @@
 #pragma once
 #include "Ability.h"
 
+class Grass;
+
 class ConstructFarm :
 	public Ability
 {
@@ -11,3 +13,4 @@ public:
 	virtual ContextInfoContent * getContextInfoContent();
 };
 
+#include "Grass.h"

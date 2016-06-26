@@ -1,6 +1,5 @@
 #pragma once
 #include "Improvement.h"
-#include "TrainArcher.h"
 
 class Barracks :
 	public Improvement

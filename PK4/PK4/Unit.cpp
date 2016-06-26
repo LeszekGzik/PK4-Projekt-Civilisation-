@@ -1,5 +1,10 @@
 #include "Unit.h"
 
+namespace
+{
+	const int TOKEN_ID = 1;
+}
+
 void Unit::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(token);
@@ -59,6 +64,11 @@ void Unit::select(bool selected)
 
 ContextInfoContent * Unit::getContextInfoContent()
 {
+	return getContextInfoContent(new ContextInfoContent);
+}
+
+ContextInfoContent * Unit::getContextInfoContent(ContextInfoContent * content)
+{
 	ContextInfoContent * vector = new ContextInfoContent();
 	vector->push_back(ContextInfoLine(getOwner().getName(), ColorUtils::sfColor(getOwner().getColor())));
 	vector->push_back(ContextInfoLine("HP: " + std::to_string(health), sf::Color::Black));
@@ -71,7 +81,12 @@ void Unit::init()
 {
 	OffsetCoords & position = getField()->getPosition();
 	banner = getStyle()->createBanner(position, id);
-	token = getStyle()->createToken(position, id, getOwner());
+	token = getStyle()->createToken(position, TOKEN_ID, getOwner());
+}
+
+float Unit::getTotalStrength() const
+{
+	return (float)this->health * (float)this->strength / 100;
 }
 
 Unit::Unit(int id, Field* field, Player& owner) : id(id), InGameObject(field, owner)
@@ -79,8 +94,8 @@ Unit::Unit(int id, Field* field, Player& owner) : id(id), InGameObject(field, ow
 	init();
 }
 
-Unit::Unit(int id, Field* field, Player & owner, std::string const& name, int speed, int strength)
-	: id(id), name(name), speed(speed), strength(strength), movement_points(speed), InGameObject(field, owner)
+Unit::Unit(int id, Field* field, Player & owner, std::string const& name, int speed, int strength, UnitType type)
+	: id(id), name(name), speed(speed), strength(strength), movement_points(speed), type(type), InGameObject(field, owner)
 {
 	init();
 }
@@ -144,6 +159,17 @@ Occupied Unit::checkIfOccupied(Field * field)
 	InGameObject * object = field->objects().top();
 	if (object == nullptr)
 		return Occupied::Empty;
-	else if (object->getOwner() != this->getOwner())
-		return Occupied::Enemy;
+	else 
+	{
+		if (object->getOwner() != this->getOwner())
+			return Occupied::Enemy;
+		else
+		{
+			Unit * unit = dynamic_cast<Unit*>(object);
+			if (field->objects().containsUnitType(this->getType()))
+				return Occupied::Full;
+			else
+				return Occupied::Empty;
+		}
+	}
 }

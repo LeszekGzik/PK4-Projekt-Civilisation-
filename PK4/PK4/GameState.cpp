@@ -95,7 +95,8 @@ void GameState::init(InitSettings * settings)
 		this->players[i].setId(i);
 		this->players[i].setColor(settings->player.colors[i]);
 		this->players[i].setName(settings->player.names[i]);
-		this->players[i].getResources().set(ResourcesSet(6, 12, 0, 12));
+		//this->players[i].getResources().set(ResourcesSet(6, 12, 0, 12));
+		this->players[i].getResources().set(ResourcesSet(50, 50, 50, 50));
 		this->players[i].getResources().eventResourceChange().reg(&this->resources_change);
 	}
 
@@ -104,8 +105,12 @@ void GameState::init(InitSettings * settings)
 	InGameObject::setStyle(&hex_style);
 	
 	for (int i = 0; i < this->player_count; i++)
+	{
 		game_map->getField(OffsetCoords(5 + i, 5))->newUnit<Archer>(this->players[i]);
-	game_map->getField(OffsetCoords(6, 6))->newImprovement<Farm>(this->players[0]);
+		game_map->getField(OffsetCoords(5 + i, 5))->newUnit<Worker>(this->players[i]);
+		game_map->getField(OffsetCoords(5 + i, 6))->newUnit<Swordsman>(this->players[i]);
+	}
+	game_map->getField(OffsetCoords(4, 4))->newImprovement<Farm>(this->players[0]);
 }
 
 void GameState::initGui()
@@ -140,9 +145,9 @@ void GameState::initGui()
 	addTopButton(1, button_click_grid, 0);
 
 	addResourceLabel(1, ResourceType::Food, 0);
-	addResourceLabel(1, ResourceType::Wood, 1);
-	addResourceLabel(1, ResourceType::Iron, 2);
-	addResourceLabel(1, ResourceType::Gems, 3);
+	addResourceLabel(2, ResourceType::Wood, 1);
+	addResourceLabel(3, ResourceType::Iron, 2);
+	addResourceLabel(4, ResourceType::Gems, 3);
 }
 
 void GameState::nextTurn()
@@ -172,11 +177,23 @@ void GameState::click(sf::Event::MouseButtonEvent & mouse)
 	if (field == nullptr)
 		return;
 
+	InGameObject * object = field->objects().top();
+
 	if (mouse.button == sf::Mouse::Button::Left)
 	{
-		InGameObject * object = field->objects().top();
-		if (this->selected_object == object && object != nullptr)
-			object = field->objects().next();
+		if (object != nullptr)
+		{
+			if (this->selected_object == object)
+				object = field->objects().next();
+			if (object->getOwner() != *this->active_player)
+			{
+				field->objects().next();
+			}
+		}
+		else
+		{
+			object = field->getImprovement();
+		}
 
 		changeSelection(object);
 	}
@@ -184,12 +201,19 @@ void GameState::click(sf::Event::MouseButtonEvent & mouse)
 	{
 		if (this->selected_object != nullptr)
 		{
-			this->selected_object->select(false);
-			this->page_control.get(this->ability_page).clear();
+			if (this->selected_object == object && field->getImprovement() != nullptr)
+			{
+				changeSelection(field->getImprovement());
+			}
+			else
+			{
+				this->selected_object->select(false);
+				this->page_control.get(this->ability_page).clear();
 
-			AxialCoords sel_pos = this->selected_object->getField()->getPosition();
-			game_map->moveUnit(sel_pos, field->getPosition());
-			this->selected_object = nullptr;
+				AxialCoords sel_pos = this->selected_object->getField()->getPosition();
+				game_map->moveUnit(sel_pos, field->getPosition());
+				this->selected_object = nullptr;
+			}
 		}
 	}
 }
@@ -230,7 +254,7 @@ void GameState::changeSelection(InGameObject * target)
 	}
 	else
 	{
-		this->selected_object == nullptr;
+		this->selected_object = nullptr;
 		this->page_control.get(this->ability_page).clear();
 	}
 }
@@ -308,6 +332,30 @@ void GameState::addResourceLabel(uint32_t img_id, ResourceType type, int positio
 	this->page_control.current().addComponent(label);
 }
 
+GameState::GameState(sf::RenderWindow &window, sf::VideoMode vmode, InitSettings * settings) 
+	: window(window), current_vmode(vmode)
+{
+	init(settings);
+	this->button_click_back.set(this, &GameState::buttonClick_back);
+	this->button_click_exit.set(this, &GameState::buttonClick_exit);
+	this->button_click_turn.set(this, &GameState::buttonClick_turn);
+	this->button_click_grid.set(this, &GameState::buttonClick_grid);
+	this->button_click_ability.set(this, &GameState::buttonClick_ability);
+	this->button_enter_ability.set(this, &GameState::buttonMouseEnter_ability);
+	this->button_leave_ability.set(this, &GameState::buttonMouseLeave_ability);
+	this->resources_change.set(this, &GameState::resourcesChange);
+}
+
+GameState::~GameState()
+{
+	InGameObject::clear();
+	if (game_map != nullptr)
+		delete game_map;
+	delete[player_count] players;
+}
+
+#pragma region EventHandlers
+
 void GameState::buttonClick_back(Component &, sf::Event::MouseButtonEvent)
 {
 	exit = LoopExitCode::Menu;
@@ -340,7 +388,7 @@ void GameState::buttonClick_ability(Component & sender, sf::Event::MouseButtonEv
 void GameState::buttonMouseEnter_ability(Component & sender, sf::Event::MouseMoveEvent)
 {
 	sf::IntRect const& position = sender.getPosition();
-	
+
 	context_info.setAligment(ContextInfo::Aligment::Up);
 	context_info.set(PixelCoords(position.left, position.top), this->selected_object->getAbilities()[sender.getTag()]->getContextInfoContent());
 	context_info.setActive(true);
@@ -356,26 +404,74 @@ void GameState::resourcesChange(ResourcesHandler & sender, ResourceType type)
 	this->resource_labels[type]->setCaption(std::to_string(sender.get(type)));
 }
 
-GameState::GameState(sf::RenderWindow &window, sf::VideoMode vmode, InitSettings * settings) 
-	: window(window), current_vmode(vmode)
+#pragma endregion
+
+#pragma region ConstantInitializers
+
+sf::Shape * GameState::ConstantInitializers::Gui::TOP_BAR(sf::VideoMode vmode)
 {
-	init(settings);
-	this->button_click_back.set(this, &GameState::buttonClick_back);
-	this->button_click_exit.set(this, &GameState::buttonClick_exit);
-	this->button_click_turn.set(this, &GameState::buttonClick_turn);
-	this->button_click_grid.set(this, &GameState::buttonClick_grid);
-	this->button_click_ability.set(this, &GameState::buttonClick_ability);
-	this->button_enter_ability.set(this, &GameState::buttonMouseEnter_ability);
-	this->button_leave_ability.set(this, &GameState::buttonMouseLeave_ability);
-	this->resources_change.set(this, &GameState::resourcesChange);
+	sf::RectangleShape * shape = new sf::RectangleShape(sf::Vector2f(vmode.width, 80));
+	shape->setFillColor(COLOR_FILL);
+	return shape;
 }
 
-GameState::~GameState()
+sf::Shape * GameState::ConstantInitializers::Gui::BOT_BAR(sf::VideoMode vmode)
 {
-	InGameObject::clear();
-	if (game_map != nullptr)
-		delete game_map;
-	delete[player_count] players;
+	sf::RectangleShape * shape = new sf::RectangleShape(sf::Vector2f(BOT_BAR_LENGTH, BOT_BAR_THICK));
+	shape->setPosition(vmode.width - BOT_BAR_LENGTH, vmode.height - BOT_BAR_THICK);
+	shape->setFillColor(COLOR_FILL);
+	return shape;
 }
+
+ComboButton * GameState::ConstantInitializers::Gui::MENU_BTN()
+{
+	ComboButton * btn = new ComboButton("MENU", sf::IntRect(10, 10, 190, 60));
+	btn->setBackColor(COLOR_BUTTON);
+	btn->setBorderColor(COLOR_OUTLINE);
+	btn->setBorderThickness(4);
+	btn->setTextPosition(sf::Vector2u(48, 8));
+	btn->update();
+	return btn;
+}
+
+Button * GameState::ConstantInitializers::Gui::MENU_BACK_BTN()
+{
+	Button * btn = new Button("BACK TO MAIN", sf::IntRect(0, 0, 0, 40));
+	btn->setBackColor(COLOR_BUTTON);
+	btn->setFontSize(24);
+	return btn;
+}
+
+Button * GameState::ConstantInitializers::Gui::MENU_EXIT_BTN()
+{
+	Button * btn = new Button("EXIT", sf::IntRect(0, 0, 0, 40));
+	btn->setBackColor(COLOR_BUTTON);
+	btn->setFontSize(24);
+	return btn;
+}
+
+Button * GameState::ConstantInitializers::Gui::TURN_BTN(sf::VideoMode vmode)
+{
+	Button * btn = new Button("END TURN", sf::IntRect(vmode.width - 200, 10, 190, 60));
+	btn->setBackColor(COLOR_BUTTON);
+	btn->setBorderColor(COLOR_OUTLINE);
+	btn->setBorderThickness(4);
+	btn->setTextPosition(sf::Vector2u(12, 8));
+	btn->update();
+	return btn;
+}
+
+Label * GameState::ConstantInitializers::Gui::TURN_LABEL(sf::VideoMode vmode)
+{
+	Label * label = new Label("", sf::IntRect(vmode.width - 400, vmode.height - BOT_BAR_THICK, 100, 30));
+	label->setBackColor(sf::Color::Transparent);
+	label->setFontSize(28);
+	label->setTextPosition(sf::Vector2u(4, 4));
+	label->update();
+	return label;
+}
+
+#pragma endregion
+
 
 

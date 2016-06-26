@@ -2,30 +2,35 @@
 #include <list>
 #include <SFML/Graphics.hpp>
 #include <iterator>
-#include "Event.h"
+#include "GameDefinitions.h"
 
-class InGameObject;
+class Unit;
 
 class ObjectStack 
 {
-private:
-	std::list<InGameObject*> stack;
-
 public:
+	typedef Unit* Element;
+
 	// iterator dla pêtli foreach
-	typedef std::list<InGameObject*>::iterator iterator;
+	typedef std::list<Element>::iterator iterator;
+
 	iterator begin() { return stack.begin(); }
 	iterator end() { return stack.end(); }
 
-	void add(InGameObject* object);
+	void add(Element object);
 	bool empty() const { return stack.empty(); }
+	void erase(iterator & it) { stack.erase(it); }
 	void pop();
 	int size() const { return stack.size(); }
-	InGameObject* next();
-	InGameObject* top() const;
+	bool containsUnitType(UnitType type);
+
+	Element next();
+	Element top() const;
 	ObjectStack();
 	~ObjectStack();
 
+private:
+	std::list<Element> stack;
 };
 
-#include "InGameObject.h"
+#include "Unit.h"

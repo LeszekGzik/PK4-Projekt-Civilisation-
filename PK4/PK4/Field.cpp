@@ -20,6 +20,8 @@ void Field::newTurn()
 	{
 		obj->newTurn();
 	}
+	if (this->improvement != nullptr)
+		this->improvement->newTurn();
 }
 
 ContextInfoContent * Field::getContextInfoContent()
@@ -37,6 +39,17 @@ ContextInfoContent * Field::getContextInfoContent()
 			content->push_back(ContextInfoLine::empty());
 			content->push_back(ContextInfoLine("+" + std::to_string(--items) + " MORE", sf::Color::Black));
 		}
+	}
+
+	if (this->improvement != nullptr)
+	{
+		if (content != nullptr)
+		{
+			content->push_back(ContextInfoLine::empty());
+			this->improvement->getContextInfoContent(content);
+		}
+		else
+			content = this->improvement->getContextInfoContent();
 	}
 
 	return content;

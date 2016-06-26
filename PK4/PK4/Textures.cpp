@@ -1,10 +1,10 @@
 #include "Textures.h"
 
-const TilesetLoadData Textures::BUTTONS = TilesetLoadData("gfx\\buttons.png", sf::Vector2i(64, 64), 1);
-const TilesetLoadData Textures::IMPROVEMENTS = TilesetLoadData("gfx\\imps.png", sf::Vector2i(40, 40), 1);
-const TilesetLoadData Textures::FIELDS = TilesetLoadData("gfx\\fields.png", sf::Vector2i(40, 40), 3);
-const TilesetLoadData Textures::UNITS = TilesetLoadData("gfx\\units.png", sf::Vector2i(20, 20), 1);
-const TilesetLoadData Textures::MISC = TilesetLoadData("gfx\\misc.png", sf::Vector2i(40, 40), 2);
+const TilesetLoadData Textures::BUTTONS = TilesetLoadData("gfx\\buttons.png", sf::Vector2i(64, 64));
+const TilesetLoadData Textures::IMPROVEMENTS = TilesetLoadData("gfx\\imps.png", sf::Vector2i(40, 40));
+const TilesetLoadData Textures::FIELDS = TilesetLoadData("gfx\\fields.png", sf::Vector2i(40, 40));
+const TilesetLoadData Textures::UNITS = TilesetLoadData("gfx\\units.png", sf::Vector2i(20, 20));
+const TilesetLoadData Textures::MISC = TilesetLoadData("gfx\\misc.png", sf::Vector2i(40, 40));
 
 Tileset * Textures::buttons = nullptr;
 Tileset * Textures::improvements = nullptr;

@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <SFML\Graphics.hpp>
+#include <list>
 #include "GameDefinitions.h"
 #include "ResourcesHandler.h"
 
@@ -29,4 +30,3 @@ public:
 	Player(std::string & name, Color color);
 	~Player();
 };
-

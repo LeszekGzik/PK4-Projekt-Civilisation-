@@ -41,7 +41,7 @@ void Tileset::setTexture(TilesetLoadData tileset_data)
 	image.createMaskFromColor(MASK_COLOR);
 	texture.loadFromImage(image);
 	name = tileset_data.path;
-	items_per_row = tileset_data.items;
+	items_per_row = image.getSize().x / tileset_data.size.x;
 	tile_size = tileset_data.size;
 	countItems();
 }

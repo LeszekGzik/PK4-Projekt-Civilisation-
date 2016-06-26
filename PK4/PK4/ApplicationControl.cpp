@@ -6,7 +6,7 @@ void ApplicationControl::run()
 	try
 	{
 		sf::ContextSettings context_settings;
-		context_settings.antialiasingLevel = 0;
+		context_settings.antialiasingLevel = 8;
 
 		current_vmode = sf::VideoMode::getFullscreenModes()[0];
 		current_vmode.height *= 0.9;
