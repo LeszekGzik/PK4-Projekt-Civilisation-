@@ -5,4 +5,5 @@
 #include "Forest.h"
 #include "Grass.h"
 #include "Hills.h"
+#include "Mountains.h"
 #include "Water.h"

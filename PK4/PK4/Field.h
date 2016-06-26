@@ -32,11 +32,13 @@ public:
 	template <typename TImp> inline TImp * newImprovement(Player& owner);
 	void deleteImprovement();
 
+	ObjectStack const& objects() const { return object_stack; }
 	ObjectStack & objects() { return object_stack; }
 	OffsetCoords & getPosition() { return position; }
 	int getMovementCost() const { return this->movement_cost; }
 	FieldType getType() const { return this->type; }
-	Improvement * getImprovement() { return this->improvement; }
+	Improvement * getImprovement() const { return this->improvement; }
+	DrawableObject const& getVertex() const { return this->vertex; }
 
 	void setImprovement(Improvement * imp) { this->improvement = imp; }
 

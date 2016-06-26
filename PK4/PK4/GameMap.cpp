@@ -1,5 +1,4 @@
 #include "GameMap.h"
-#include "Textures.h"
 #include <functional>
 #include <algorithm>
 
@@ -235,6 +234,7 @@ void GameMap::draw(sf::RenderTarget & window, sf::RenderStates states) const
 GameMap::GameMap(sf::Vector2i size, Hex& style) : grid_size(size), hex_style(style), show_grid(false)
 {
 	Field::setStyle(&tex_hex_style);
+	Deposit::setStyle(&tex_hex_style);
 	Unit::setStyle(&tex_hex_style);
 
 	board = new Field**[size.x];
@@ -249,7 +249,11 @@ GameMap::GameMap(sf::Vector2i size, Hex& style) : grid_size(size), hex_style(sty
 			else
 				newField<Grass>(OffsetCoords(i, j));
 		}
+
 	}
+
+	dynamic_cast<Hills*>(getField(OffsetCoords(5, 4)))->newDeposit<IronDeposit>();
+	dynamic_cast<Hills*>(getField(OffsetCoords(6, 4)))->newDeposit<GemsDeposit>();
 }
 
 GameMap::~GameMap()

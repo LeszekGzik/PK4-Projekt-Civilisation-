@@ -82,6 +82,12 @@
     <Filter Include="Source Files\Objects\Abilities">
       <UniqueIdentifier>{2d3cfb92-f01c-4e02-9f02-fdb6f982e0e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Board\Fields\Deposits">
+      <UniqueIdentifier>{2e4701fa-040c-40e1-9a54-c6d24ea6ff44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Board\Fields\Deposits">
+      <UniqueIdentifier>{eba5e43e-f322-4297-a133-27122be2721d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -238,6 +244,18 @@
       <Filter>Source Files\Objects\Improvements</Filter>
     </ClCompile>
     <ClCompile Include="Hills.cpp">
+      <Filter>Source Files\Board\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="IronDeposit.cpp">
+      <Filter>Source Files\Board\Fields\Deposits</Filter>
+    </ClCompile>
+    <ClCompile Include="GemsDeposit.cpp">
+      <Filter>Source Files\Board\Fields\Deposits</Filter>
+    </ClCompile>
+    <ClCompile Include="Deposit.cpp">
+      <Filter>Source Files\Board\Fields\Deposits</Filter>
+    </ClCompile>
+    <ClCompile Include="Mountains.cpp">
       <Filter>Source Files\Board\Fields</Filter>
     </ClCompile>
   </ItemGroup>
@@ -421,6 +439,21 @@
     </ClInclude>
     <ClInclude Include="Stable.h">
       <Filter>Header Files\Objects\Improvements</Filter>
+    </ClInclude>
+    <ClInclude Include="Mountains.h">
+      <Filter>Header Files\Board\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="Deposit.h">
+      <Filter>Header Files\Board\Fields\Deposits</Filter>
+    </ClInclude>
+    <ClInclude Include="IronDeposit.h">
+      <Filter>Header Files\Board\Fields\Deposits</Filter>
+    </ClInclude>
+    <ClInclude Include="GemsDeposit.h">
+      <Filter>Header Files\Board\Fields\Deposits</Filter>
+    </ClInclude>
+    <ClInclude Include="Deposits.h">
+      <Filter>Header Files\Board</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

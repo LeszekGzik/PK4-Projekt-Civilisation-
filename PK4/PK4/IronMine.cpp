@@ -2,7 +2,7 @@
 
 namespace
 {
-	const uint32_t ID = 1;
+	const uint32_t ID = 4;
 	const std::string NAME = "IRON ORE MINE";
 	const int ACTION_POINTS = 1;
 }

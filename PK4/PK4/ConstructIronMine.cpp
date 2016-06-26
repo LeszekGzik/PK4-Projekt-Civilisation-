@@ -2,7 +2,7 @@
 
 namespace
 {
-	const uint32_t ID = 1;
+	const uint32_t ID = 11;
 }
 
 
@@ -29,9 +29,10 @@ void ConstructIronMine::use()
 	InGameObject& unit = getOwner();
 	Player& player = unit.getOwner();
 	Field * field = unit.getField();
-	Hills * test_ptr = dynamic_cast<Hills*>(field);
+	Hills * test_field = dynamic_cast<Hills*>(field);
 
-	if (field->getImprovement() == nullptr && test_ptr != nullptr
+	if (field->getImprovement() == nullptr && test_field != nullptr 
+		&& dynamic_cast<IronDeposit*>(test_field->getDeposit()) != nullptr
 		&& player.getResources().isAvailable(ResourceType::Wood, 10))
 	{
 		field->newImprovement<IronMine>(player);

@@ -3,6 +3,7 @@
 
 class Hills;
 class IronMine;
+class IronDeposit;
 
 class ConstructIronMine : public Ability
 {
@@ -16,4 +17,5 @@ public:
 
 #include "Hills.h"
 #include "IronMine.h"
+#include "IronDeposit.h"
 

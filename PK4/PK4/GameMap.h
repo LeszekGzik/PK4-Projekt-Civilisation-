@@ -8,6 +8,7 @@
 #include "TexturedHex.h"
 #include "Textures.h"
 #include "Units.h"
+#include "Deposits.h"
 
 class GameMap : public sf::Drawable
 {
