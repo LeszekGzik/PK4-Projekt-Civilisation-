@@ -14,9 +14,12 @@ Worker::Worker(Field * field, Player & owner) : Unit(ID, field, owner, NAME, SPE
 {
 	grantAbility<Pillage>();
 	grantAbility<ConstructFarm>();
-	grantAbility<ConstructBarracks>();
 	grantAbility<ConstructLumberjacksHut>();
 	grantAbility<ConstructIronMine>();
+	grantAbility<ConstructGemsMine>();
+	grantAbility<ConstructBarracks>();
+	grantAbility<ConstructStable>();
+	grantAbility<ConstructDragonLair>();
 }
 
 Worker::~Worker()
@@ -31,4 +34,15 @@ int Worker::checkMovement(Field * field)
 		return -1;
 	else
 		return field->getMovementCost();
+}
+
+CombatResult Worker::attack(InGameObject * target)
+{
+	return CombatResult::Lose;
+}
+
+CombatResult Worker::attacked(float strength, int & counter_damage)
+{
+	counter_damage = 0;
+	return CombatResult::Win;
 }

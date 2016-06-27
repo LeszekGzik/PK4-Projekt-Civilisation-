@@ -258,6 +258,39 @@
     <ClCompile Include="Mountains.cpp">
       <Filter>Source Files\Board\Fields</Filter>
     </ClCompile>
+    <ClCompile Include="GemsMine.cpp">
+      <Filter>Source Files\Objects\Improvements</Filter>
+    </ClCompile>
+    <ClCompile Include="Horseman.cpp">
+      <Filter>Source Files\Objects\Units</Filter>
+    </ClCompile>
+    <ClCompile Include="TrainHorseman.cpp">
+      <Filter>Source Files\Objects\Abilities</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstructStable.cpp">
+      <Filter>Source Files\Objects\Abilities</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstructGemsMine.cpp">
+      <Filter>Source Files\Objects\Abilities</Filter>
+    </ClCompile>
+    <ClCompile Include="DragonLair.cpp">
+      <Filter>Source Files\Objects\Improvements</Filter>
+    </ClCompile>
+    <ClCompile Include="Dragon.cpp">
+      <Filter>Source Files\Objects\Units</Filter>
+    </ClCompile>
+    <ClCompile Include="HireDragon.cpp">
+      <Filter>Source Files\Objects\Abilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Shipyard.cpp">
+      <Filter>Source Files\Objects\Improvements</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstructDragonLair.cpp">
+      <Filter>Source Files\Objects\Abilities</Filter>
+    </ClCompile>
+    <ClCompile Include="DepositExtension.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameMap.h">
@@ -454,6 +487,39 @@
     </ClInclude>
     <ClInclude Include="Deposits.h">
       <Filter>Header Files\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="GemsMine.h">
+      <Filter>Header Files\Objects\Improvements</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstructGemsMine.h">
+      <Filter>Header Files\Objects\Abilities</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstructStable.h">
+      <Filter>Header Files\Objects\Abilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Horseman.h">
+      <Filter>Header Files\Objects\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="TrainHorseman.h">
+      <Filter>Header Files\Objects\Abilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Dragon.h">
+      <Filter>Header Files\Objects\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="DragonLair.h">
+      <Filter>Header Files\Objects\Improvements</Filter>
+    </ClInclude>
+    <ClInclude Include="HireDragon.h">
+      <Filter>Header Files\Objects\Abilities</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstructDragonLair.h">
+      <Filter>Header Files\Objects\Abilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Shipyard.h">
+      <Filter>Header Files\Objects\Improvements</Filter>
+    </ClInclude>
+    <ClInclude Include="DepositExtension.h">
+      <Filter>Header Files\Board\Fields\Deposits</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

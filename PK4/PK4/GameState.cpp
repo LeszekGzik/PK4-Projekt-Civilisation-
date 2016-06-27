@@ -108,7 +108,7 @@ void GameState::init(InitSettings * settings)
 	{
 		game_map->getField(OffsetCoords(5 + i, 5))->newUnit<Archer>(this->players[i]);
 		game_map->getField(OffsetCoords(5 + i, 5))->newUnit<Worker>(this->players[i]);
-		game_map->getField(OffsetCoords(5 + i, 6))->newUnit<Swordsman>(this->players[i]);
+		game_map->getField(OffsetCoords(5 + i, 6))->newUnit<Dragon>(this->players[i]);
 	}
 	game_map->getField(OffsetCoords(4, 4))->newImprovement<Farm>(this->players[0]);
 }

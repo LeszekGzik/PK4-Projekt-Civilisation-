@@ -20,6 +20,7 @@ ContextInfoContent * ConstructLumberjacksHut::getContextInfoContent()
 	vector->emplace_back("CONSTRUCT LUMBERJACK'S HUT", sf::Color::Black);
 	vector->emplace_back("5 WOOD", sf::Color::Black);
 	vector->emplace_back("COSTS REMAINING ACTIONS", sf::Color::Black);
+	vector->emplace_back("REQUIRES FOREST", sf::Color::Red);
 	return vector;
 }
 

@@ -6,7 +6,7 @@ namespace
 	const std::string NAME = "SWORDSMAN";
 	const int ID = 2;
 	const int SPEED = 2;
-	const int STRENGTH = 6;
+	const int STRENGTH = 9;
 	const UnitType TYPE = UnitType::Land;
 }
 

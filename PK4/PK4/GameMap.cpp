@@ -99,10 +99,12 @@ sf::Vector2f GameMap::getSizeInPixel()
 void GameMap::moveUnit(OffsetCoords start, OffsetCoords goal)
 {
 	InGameObject * obj = getField(start)->objects().top();
+	Field * target_field = getField(goal);
 	Unit * unit = dynamic_cast<Unit*>(obj);
 	bool success = false;
 	
-	if (unit == nullptr || unit->getActionPoints() == 0 || start == goal || unit->checkMovement(getField(goal)) < 0)
+	if (unit == nullptr || unit->getActionPoints() == 0 || start == goal || unit->checkMovement(getField(goal)) < 0
+		|| (target_field->objects().top() != nullptr && target_field->objects().top()->getOwner() != unit->getOwner() && !unit->canAttack()))
 		return;
 
 	auto frontier_compare = [](const NodePriorityPair& left, const NodePriorityPair& right) { return (left.second > right.second); };
@@ -168,7 +170,7 @@ void GameMap::moveUnit(OffsetCoords start, OffsetCoords goal)
 		it++;
 		for (it; it != path.rend(); it++)
 		{
-			movement -= (*it)->getMovementCost();
+			movement -= unit->checkMovement(*it);
 			target = it;
 			if (movement <= 0)
 			{

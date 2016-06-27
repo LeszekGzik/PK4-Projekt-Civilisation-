@@ -39,6 +39,7 @@ ContextInfoContent * ConstructFarm::getContextInfoContent()
 	vector->emplace_back("CONSTRUCT FARM", sf::Color::Black);
 	vector->emplace_back("5 WOOD", sf::Color::Black);
 	vector->emplace_back("COSTS REMAINING ACTIONS", sf::Color::Black);
+	vector->emplace_back("REQUIRES GRASS", sf::Color::Red);
 	return vector;
 }
 

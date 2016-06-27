@@ -19,7 +19,7 @@ IronMine::~IronMine()
 
 void IronMine::grantLoot(ResourcesHandler & handler)
 {
-	handler.add(ResourceType::Wood, 2);
+	handler.add(ResourceType::Wood, 3);
 	handler.add(ResourceType::Iron, 2);
 }
 

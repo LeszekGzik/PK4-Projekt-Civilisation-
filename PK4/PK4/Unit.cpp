@@ -36,6 +36,7 @@ void Unit::move(Field * destination)
 void Unit::newTurn()
 {
 	movement_points = speed;
+	attacked_this_turn = false;
 }
 
 void Unit::select(bool selected)
@@ -106,6 +107,7 @@ Unit::~Unit()
 
 CombatResult Unit::attack(InGameObject * target)
 {
+	this->attacked_this_turn = true;
 	float strength = (float)getStrength() * (float)getHealth() / 100;
 	int damaged;
 	CombatResult result = target->attacked(strength, damaged);

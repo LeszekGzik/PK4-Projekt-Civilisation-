@@ -1,4 +1,5 @@
 #include "Stable.h"
+#include "TrainHorseman.h"
 
 namespace
 {
@@ -9,6 +10,7 @@ namespace
 
 Stable::Stable(Field * field, Player & owner) : Improvement(field, owner, NAME, ID, ACTION_POINTS)
 {
+	grantAbility<TrainHorseman>();
 }
 
 Stable::~Stable()
@@ -17,6 +19,6 @@ Stable::~Stable()
 
 void Stable::grantLoot(ResourcesHandler & handler)
 {
-	handler.add(ResourceType::Wood, 5);
+	handler.add(ResourceType::Wood, 8);
 	handler.add(ResourceType::Iron, 2);
 }

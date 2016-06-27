@@ -19,6 +19,7 @@ private:
 	int id;
 	int misc_id;
 	bool selected;
+	bool attacked_this_turn = false;
 	sf::Sprite banner;
 	sf::Sprite token;
 	std::string name;
@@ -49,6 +50,9 @@ public:
 	virtual int getSpeed() { return this->speed; }
 	virtual int getStrength() { return this->strength; }
 	virtual UnitType getType() { return this->type; }
+
+	virtual bool canAttack() { return !this->attacked_this_turn; }
+	virtual bool hasFullAction() { return this->movement_points == this->speed; }
 
 	Unit(int id, Field* field, Player& owner);
 	Unit(int id, Field* field, Player& owner, std::string const& name, int speed, int strength, UnitType type);

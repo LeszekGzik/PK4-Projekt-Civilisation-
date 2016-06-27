@@ -38,5 +38,8 @@ public:
 	virtual int getMaxActionPoints() { return this->max_action_points; }
 	virtual void setActionPoints(int points) { this->action_points = points; }
 	virtual void setMaxActionPoints(int max_points) { this->max_action_points = max_points; }
+
+	virtual bool canAttack() { return false; }
+	virtual bool hasFullAction() { return this->max_movement_points == this->action_points; }
 };
 

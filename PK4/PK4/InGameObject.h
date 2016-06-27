@@ -34,10 +34,12 @@ public:
 	virtual ~InGameObject();
 	virtual CombatResult attacked(float strength, int & counter_damage) abstract;
 
+	virtual bool canAttack() abstract;
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const abstract;
 	virtual void move(Field * destination) abstract;
 	virtual void spendActionPoints(uint32_t points) abstract;
 	void spendActionPoints() { spendActionPoints(max_movement_points); }
+	virtual bool hasFullAction() abstract;
 	virtual void newTurn() abstract;
 	virtual void select(bool selected) abstract;
 	virtual void setActionPoints(int points) abstract;
