@@ -2,7 +2,7 @@
 
 namespace
 {
-	const uint32_t ID = 1;
+	const uint32_t ID = 17;
 }
 
 HireDragon::HireDragon(InGameObject & owner) : Ability(ID, owner)

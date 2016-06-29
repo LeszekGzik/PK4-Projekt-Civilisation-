@@ -114,7 +114,6 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -132,7 +131,9 @@
     <ClCompile Include="ApplicationControl.cpp" />
     <ClCompile Include="Archer.cpp" />
     <ClCompile Include="Barracks.cpp" />
+    <ClCompile Include="BuildShip.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="CheckBox.cpp" />
     <ClCompile Include="ComboButton.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ConstructBarracks.cpp" />
@@ -141,10 +142,10 @@
     <ClCompile Include="ConstructGemsMine.cpp" />
     <ClCompile Include="ConstructIronMine.cpp" />
     <ClCompile Include="ConstructLumberjacksHut.cpp" />
+    <ClCompile Include="ConstructShipyard.cpp" />
     <ClCompile Include="ConstructStable.cpp" />
     <ClCompile Include="ContextInfo.cpp" />
     <ClCompile Include="Deposit.cpp" />
-    <ClCompile Include="DepositExtension.cpp" />
     <ClCompile Include="Desert.cpp" />
     <ClCompile Include="Dragon.cpp" />
     <ClCompile Include="DragonLair.cpp" />
@@ -171,14 +172,18 @@
     <ClCompile Include="LumberjacksHut.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="MapFileReader.cpp" />
+    <ClCompile Include="MapLoadException.cpp" />
     <ClCompile Include="Mountains.cpp" />
     <ClCompile Include="ObjectStyle.cpp" />
     <ClCompile Include="ObjectStack.cpp" />
     <ClCompile Include="Page.cpp" />
     <ClCompile Include="PageControl.cpp" />
+    <ClCompile Include="PearlsDeposit.cpp" />
     <ClCompile Include="Pillage.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ResourcesHandler.cpp" />
+    <ClCompile Include="Ship.cpp" />
     <ClCompile Include="Shipyard.cpp" />
     <ClCompile Include="Stable.cpp" />
     <ClCompile Include="Swordsman.cpp" />
@@ -202,7 +207,9 @@
     <ClInclude Include="ApplicationControl.h" />
     <ClInclude Include="Archer.h" />
     <ClInclude Include="Barracks.h" />
+    <ClInclude Include="BuildShip.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="CheckBox.h" />
     <ClInclude Include="ComboButton.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Components.h" />
@@ -212,16 +219,15 @@
     <ClInclude Include="ConstructGemsMine.h" />
     <ClInclude Include="ConstructIronMine.h" />
     <ClInclude Include="ConstructLumberjacksHut.h" />
+    <ClInclude Include="ConstructShipyard.h" />
     <ClInclude Include="ConstructStable.h" />
     <ClInclude Include="ContextInfo.h" />
     <ClInclude Include="Deposit.h" />
-    <ClInclude Include="DepositExtension.h" />
     <ClInclude Include="Deposits.h" />
     <ClInclude Include="Desert.h" />
     <ClInclude Include="Dragon.h" />
     <ClInclude Include="DragonLair.h" />
     <ClInclude Include="EngineDefinitions.h" />
-    <ClInclude Include="Event3.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="Farm.h" />
     <ClInclude Include="Field.h" />
@@ -247,14 +253,18 @@
     <ClInclude Include="Label.h" />
     <ClInclude Include="LumberjacksHut.h" />
     <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="MapFileReader.h" />
+    <ClInclude Include="MapLoadException.h" />
     <ClInclude Include="Mountains.h" />
     <ClInclude Include="ObjectStyle.h" />
     <ClInclude Include="ObjectStack.h" />
     <ClInclude Include="Page.h" />
     <ClInclude Include="PageControl.h" />
+    <ClInclude Include="PearlsDeposit.h" />
     <ClInclude Include="Pillage.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ResourcesHandler.h" />
+    <ClInclude Include="Ship.h" />
     <ClInclude Include="Shipyard.h" />
     <ClInclude Include="Stable.h" />
     <ClInclude Include="Swordsman.h" />

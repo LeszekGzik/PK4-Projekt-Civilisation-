@@ -4,7 +4,7 @@
 namespace
 {
 	const std::string NAME = "HORSEMAN";
-	const int ID = 2;
+	const int ID = 5;
 	const int SPEED = 4;
 	const int STRENGTH = 6;
 	const UnitType TYPE = UnitType::Land;

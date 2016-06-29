@@ -1,46 +1,46 @@
-#include "TrainHorseman.h"
+#include "BuildShip.h"
 
 
 namespace
 {
-	const uint32_t ID = 16;
+	const uint32_t ID = 15;
 }
 
 
-TrainHorseman::TrainHorseman(InGameObject & owner) : Ability(ID, owner)
+BuildShip::BuildShip(InGameObject & owner) : Ability(ID, owner)
 {
 }
 
-TrainHorseman::~TrainHorseman()
+BuildShip::~BuildShip()
 {
 }
 
-ContextInfoContent * TrainHorseman::getContextInfoContent()
+ContextInfoContent * BuildShip::getContextInfoContent()
 {
 	ContextInfoContent * vector = new ContextInfoContent();
-	vector->emplace_back("TRAIN HORSEMAN", sf::Color::Black);
-	vector->emplace_back("8 FOOD, 1 IRON, 4 WOOD", sf::Color::Black);
+	vector->emplace_back("BUILD SHIP", sf::Color::Black);
+	vector->emplace_back("8 FOOD,  4 WOOD, 4 IRON", sf::Color::Black);
 	vector->emplace_back("COSTS 1 ACTION", sf::Color::Black);
 	return vector;
 }
 
-void TrainHorseman::use()
+void BuildShip::use()
 {
 	InGameObject& unit = getOwner();
 	Player& player = unit.getOwner();
 	Field * field = unit.getField();
 	ResourcesHandler & resources = player.getResources();
 
-	if (!field->objects().containsUnitType(UnitType::Land)
+	if (!field->objects().containsUnitType(UnitType::Naval)
 		&& resources.isAvailable(ResourceType::Food, 8)
-		&& resources.isAvailable(ResourceType::Iron, 1)
+		&& resources.isAvailable(ResourceType::Iron, 4)
 		&& resources.isAvailable(ResourceType::Wood, 4))
 	{
-		InGameObject * archer = field->newUnit<Horseman>(player);
+		InGameObject * archer = field->newUnit<Ship>(player);
 		archer->spendActionPoints();
 		unit.spendActionPoints(1);
 		resources.add(ResourceType::Food, -8);
-		resources.add(ResourceType::Iron, -1);
+		resources.add(ResourceType::Iron, -4);
 		resources.add(ResourceType::Wood, -4);
 	}
 }

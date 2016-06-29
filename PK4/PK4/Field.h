@@ -6,6 +6,7 @@
 #include "Textures.h"
 #include "Player.h"
 #include "ObjectStack.h"
+#include "Deposit.h"
 
 class Improvement;
 class Unit;
@@ -20,6 +21,7 @@ private:
 	Improvement * improvement = nullptr;
 	DrawableObject vertex;
 	OffsetCoords position;
+	Deposit * deposit = nullptr;
 
 	static TexturedHex * hex_style;
 
@@ -30,16 +32,19 @@ public:
 
 	template <typename TUnit> inline TUnit * newUnit(Player& owner);
 	template <typename TImp> inline TImp * newImprovement(Player& owner);
+	template <typename TDeposit> inline TDeposit * newDeposit();
 	void deleteImprovement();
 
 	ObjectStack const& objects() const { return object_stack; }
 	ObjectStack & objects() { return object_stack; }
+	Deposit * getDeposit() { return this->deposit; }
 	OffsetCoords & getPosition() { return position; }
 	int getMovementCost() const { return this->movement_cost; }
 	FieldType getType() const { return this->type; }
 	Improvement * getImprovement() const { return this->improvement; }
 	DrawableObject const& getVertex() const { return this->vertex; }
 
+	void setDeposit(Deposit * deposit) { this->deposit = deposit; }
 	void setImprovement(Improvement * imp) { this->improvement = imp; }
 
 	Field(int id, OffsetCoords position, int movement_cost, FieldType type);
@@ -62,10 +67,18 @@ inline TUnit * Field::newUnit(Player & owner)
 template<typename TImp>
 inline TImp * Field::newImprovement(Player & owner)
 {
-	//static_assert(std::is_base_of<Improvement, TImp)::value, "Input type must derive from Improvement class");
 	TImp * obj = new TImp(this, owner);
 	improvement = obj;
 	return obj;
+}
+
+template<typename TDeposit>
+inline TDeposit * Field::newDeposit()
+{
+	static_assert(std::is_base_of<Deposit, TDeposit>::value, "Input type must derive from Deposit class");
+	TDeposit * deposit = new TDeposit(this);
+	setDeposit(deposit);
+	return deposit;
 }
 
 #include "Improvement.h"

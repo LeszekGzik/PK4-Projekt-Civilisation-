@@ -5,3 +5,4 @@
 #include "Label.h"
 #include "TextBox.h"
 #include "ComboButton.h"
+#include "CheckBox.h"

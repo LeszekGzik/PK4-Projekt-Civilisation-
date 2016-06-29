@@ -6,6 +6,7 @@ enum LoopExitCode { Exit, Menu, Play };
 
 const static struct ENGINE
 {
+	static const char* file_name[3];
 	static const float basic_unit;
 	static const float flag_size_factor;
 	static const float scroll_speed;

@@ -2,7 +2,7 @@
 
 namespace
 {
-	const uint32_t ID = 1;
+	const uint32_t ID = 10;
 }
 
 ConstructLumberjacksHut::ConstructLumberjacksHut(InGameObject & owner) : Ability(ID, owner)
@@ -18,7 +18,7 @@ ContextInfoContent * ConstructLumberjacksHut::getContextInfoContent()
 {
 	ContextInfoContent * vector = new ContextInfoContent();
 	vector->emplace_back("CONSTRUCT LUMBERJACK'S HUT", sf::Color::Black);
-	vector->emplace_back("5 WOOD", sf::Color::Black);
+	vector->emplace_back("4 WOOD", sf::Color::Black);
 	vector->emplace_back("COSTS REMAINING ACTIONS", sf::Color::Black);
 	vector->emplace_back("REQUIRES FOREST", sf::Color::Red);
 	return vector;
@@ -32,10 +32,10 @@ void ConstructLumberjacksHut::use()
 	Forest * test_ptr = dynamic_cast<Forest*>(field);
 
 	if (field->getImprovement() == nullptr && test_ptr != nullptr
-		&& player.getResources().isAvailable(ResourceType::Wood, 5))
+		&& player.getResources().isAvailable(ResourceType::Wood, 4))
 	{
 		field->newImprovement<LumberjacksHut>(player);
 		unit.spendActionPoints();
-		player.getResources().add(ResourceType::Wood, -5);
+		player.getResources().add(ResourceType::Wood, -4);
 	}
 }

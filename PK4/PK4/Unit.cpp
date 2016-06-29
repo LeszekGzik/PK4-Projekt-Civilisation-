@@ -85,7 +85,7 @@ void Unit::init()
 	token = getStyle()->createToken(position, TOKEN_ID, getOwner());
 }
 
-float Unit::getTotalStrength() const
+float Unit::getTotalStrength()
 {
 	return (float)this->health * (float)this->strength / 100;
 }
@@ -107,8 +107,8 @@ Unit::~Unit()
 
 CombatResult Unit::attack(InGameObject * target)
 {
-	this->attacked_this_turn = true;
-	float strength = (float)getStrength() * (float)getHealth() / 100;
+	setIfAttackedThisTurn(true);
+	float strength = getTotalStrength();
 	int damaged;
 	CombatResult result = target->attacked(strength, damaged);
 	this->health -= damaged;
@@ -127,7 +127,7 @@ CombatResult Unit::attack(InGameObject * target)
 
 CombatResult Unit::attacked(float strength, int & counter_damage)
 {
-	float strength_ratio = strength / ((float)this->strength * (float)this->health / 100);
+	float strength_ratio = strength / getTotalStrength();
 	float damage = pow(strength_ratio, 2) * 10 - strength_ratio * 10 + 30;
 	float counter = damage / (pow(strength_ratio, 2) * 2 - strength_ratio * 4 + 3);
 	

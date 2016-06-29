@@ -6,12 +6,12 @@ TexturedHex * Field::hex_style = NULL;
 void Field::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(vertex, &(tileset().getTileset()));
+	if (deposit != nullptr)
+		target.draw(*deposit, states);
 	if (improvement != nullptr)
 		target.draw(*improvement, states);
 	if (!object_stack.empty())
-	{
 		target.draw(*object_stack.top(), states);
-	}
 }
 
 void Field::newTurn()

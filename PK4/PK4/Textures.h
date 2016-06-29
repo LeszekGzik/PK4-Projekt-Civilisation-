@@ -13,12 +13,14 @@ private:
 	static const TilesetLoadData FIELDS;
 	static const TilesetLoadData UNITS;
 	static const TilesetLoadData MISC;
+	static const TilesetLoadData CHECKBOX;
 
 	static Tileset* buttons;
 	static Tileset* improvements;
 	static Tileset* fields;
 	static Tileset* units;
 	static Tileset* misc;
+	static Tileset* checkbox;
 
 public:
 	static void init();
@@ -29,6 +31,7 @@ public:
 	static Tileset& tilesetFields() { return *fields; }
 	static Tileset& tilesetUnits() { return *units; }
 	static Tileset& tilesetMisc() { return *misc; }
+	static Tileset& tilesetCheckbox() { return *checkbox; }
 
 	Textures();
 	~Textures();

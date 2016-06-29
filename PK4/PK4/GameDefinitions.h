@@ -22,20 +22,6 @@ private:
 
 };
 
-struct MapSettings
-{
-	sf::Vector2i size;
-
-	MapSettings(sf::Vector2i _size) : size(_size)
-	{
-
-	}
-	MapSettings()
-	{
-
-	}
-};
-
 struct PlayerSettings
 {
 	int count;
@@ -51,21 +37,21 @@ struct PlayerSettings
 
 	PlayerSettings()
 	{
-
 	}
-};
 
-struct WorldSettings
-{
-
+	~PlayerSettings()
+	{
+	}
 };
 
 struct InitSettings
 {
-	MapSettings map;
 	PlayerSettings player;
+	bool fullscreen;
+	bool richmode;
 	
-	InitSettings(MapSettings _map_settings, PlayerSettings _player_settings) : map(_map_settings), player(_player_settings)
+	InitSettings(PlayerSettings _player_settings, bool fullscreen, bool richmode) 
+		: player(_player_settings), fullscreen(fullscreen), richmode(richmode)
 	{
 	}
 };

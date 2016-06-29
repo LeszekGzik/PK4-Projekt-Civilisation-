@@ -288,8 +288,26 @@
     <ClCompile Include="ConstructDragonLair.cpp">
       <Filter>Source Files\Objects\Abilities</Filter>
     </ClCompile>
-    <ClCompile Include="DepositExtension.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="PearlsDeposit.cpp">
+      <Filter>Source Files\Board\Fields\Deposits</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstructShipyard.cpp">
+      <Filter>Source Files\Objects\Abilities</Filter>
+    </ClCompile>
+    <ClCompile Include="MapFileReader.cpp">
+      <Filter>Source Files\Board</Filter>
+    </ClCompile>
+    <ClCompile Include="MapLoadException.cpp">
+      <Filter>Source Files\Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="Ship.cpp">
+      <Filter>Source Files\Objects\Units</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckBox.cpp">
+      <Filter>Source Files\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="BuildShip.cpp">
+      <Filter>Source Files\Objects\Abilities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -379,9 +397,6 @@
     </ClInclude>
     <ClInclude Include="Components.h">
       <Filter>Header Files\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Event3.h">
-      <Filter>Header Files\Event</Filter>
     </ClInclude>
     <ClInclude Include="Event.h">
       <Filter>Header Files\Event</Filter>
@@ -518,8 +533,26 @@
     <ClInclude Include="Shipyard.h">
       <Filter>Header Files\Objects\Improvements</Filter>
     </ClInclude>
-    <ClInclude Include="DepositExtension.h">
+    <ClInclude Include="PearlsDeposit.h">
       <Filter>Header Files\Board\Fields\Deposits</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstructShipyard.h">
+      <Filter>Header Files\Objects\Abilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Ship.h">
+      <Filter>Header Files\Objects\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="MapLoadException.h">
+      <Filter>Header Files\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="MapFileReader.h">
+      <Filter>Header Files\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckBox.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="BuildShip.h">
+      <Filter>Header Files\Objects\Abilities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

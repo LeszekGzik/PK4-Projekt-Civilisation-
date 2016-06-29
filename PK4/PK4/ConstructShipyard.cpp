@@ -1,40 +1,39 @@
-#include "ConstructGemsMine.h"
+#include "ConstructShipyard.h"
 
 namespace
 {
-	const uint32_t ID = 12;
+	const uint32_t ID = 14;
 }
 
-ConstructGemsMine::ConstructGemsMine(InGameObject & owner) : Ability(ID, owner)
+
+ConstructShipyard::ConstructShipyard(InGameObject & owner) : Ability(ID, owner)
 {
 }
 
-ConstructGemsMine::~ConstructGemsMine()
+ConstructShipyard::~ConstructShipyard()
 {
 }
 
-ContextInfoContent * ConstructGemsMine::getContextInfoContent()
+ContextInfoContent * ConstructShipyard::getContextInfoContent()
 {
 	ContextInfoContent * vector = new ContextInfoContent();
-	vector->emplace_back("CONSTRUCT GEMS MINE", sf::Color::Black);
+	vector->emplace_back("CONSTRUCT SHIPYARD", sf::Color::Black);
 	vector->emplace_back("10 WOOD, 5 IRON", sf::Color::Black);
 	vector->emplace_back("COSTS REMAINING ACTIONS", sf::Color::Black);
-	vector->emplace_back("REQUIRES GEMS DEPOSIT", sf::Color::Red);
 	return vector;
 }
 
-void ConstructGemsMine::use()
+void ConstructShipyard::use()
 {
 	InGameObject& unit = getOwner();
 	Player& player = unit.getOwner();
 	Field * field = unit.getField();
 
 	if (field->getImprovement() == nullptr
-		&& dynamic_cast<GemsDeposit*>(field->getDeposit()) != nullptr
 		&& player.getResources().isAvailable(ResourceType::Wood, 10)
 		&& player.getResources().isAvailable(ResourceType::Iron, 5))
 	{
-		field->newImprovement<GemsMine>(player);
+		field->newImprovement<Shipyard>(player);
 		unit.spendActionPoints();
 		player.getResources().add(ResourceType::Wood, -10);
 		player.getResources().add(ResourceType::Iron, -5);

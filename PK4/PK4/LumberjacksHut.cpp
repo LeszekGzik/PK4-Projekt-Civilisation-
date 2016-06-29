@@ -2,7 +2,7 @@
 
 namespace
 {
-	const int ID = 1;
+	const int ID = 3;
 	const int ACTION_POINTS = 1;
 	const std::string NAME = "LUMBERJACK'S HUT";
 }

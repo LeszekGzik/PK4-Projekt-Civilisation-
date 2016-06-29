@@ -8,6 +8,7 @@
 #include "ConstructFarm.h"
 #include "ConstructLumberjacksHut.h"
 #include "ConstructStable.h"
+#include "ConstructShipyard.h"
 #include "HireDragon.h"
 #include "Pillage.h"
 #include "TrainArcher.h"

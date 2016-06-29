@@ -1,15 +1,14 @@
 #pragma once
 #include "Field.h"
-#include "DepositExtension.h"
+#include "IronDeposit.h"
+#include "GemsDeposit.h"
 
 class Hills :
-	public Field, public DepositExtension
+	public Field
 {
 public:
 	Hills(OffsetCoords position);
 	~Hills();
-
-	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 };
 
 

@@ -9,11 +9,15 @@ class Player
 {
 private:
 	int id;
+	int objects = 0;
 	Color color = Red;
 	std::string name;
 	ResourcesHandler resources;
 
 public:
+	void increaseObjects() { this->objects++; }
+	void decreaseObjects() { this->objects--; }
+
 	void setColor(Color color) { this->color = color; }
 	void setId(int id) { this->id = id; }
 	void setName(std::string & name) { this->name = name; }
@@ -22,6 +26,7 @@ public:
 	int getId() { return id; }
 	std::string& getName() { return name; }
 	ResourcesHandler & getResources() { return resources; }
+	int getNumberOfObjects() { return this->objects; }
 
 	inline bool operator== (Player& operand) { return this->id == operand.getId(); }
 	inline bool operator!= (Player& operand) { return !(*this == operand); }

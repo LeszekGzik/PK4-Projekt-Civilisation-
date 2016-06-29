@@ -16,10 +16,12 @@ void InGameObject::clear()
 
 InGameObject::InGameObject(Field* field, Player& owner) : field(field), owner(owner)
 {
+	owner.increaseObjects();
 }
 
 InGameObject::~InGameObject()
 {
+	owner.decreaseObjects();
 	for each (Ability * ability in abilities)
 	{
 		delete ability;

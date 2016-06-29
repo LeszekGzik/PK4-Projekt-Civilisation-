@@ -5,13 +5,7 @@ void ApplicationControl::run()
 {
 	try
 	{
-		sf::ContextSettings context_settings;
-		context_settings.antialiasingLevel = 8;
-
-		current_vmode = sf::VideoMode::getFullscreenModes()[0];
-		current_vmode.height *= 0.9;
-		window.create(current_vmode, "WORKS!", sf::Style::Default, context_settings);
-		window.setVerticalSyncEnabled(true);
+		createWindow(false);
 
 		Textures::init();
 		Fonts::init();
@@ -29,10 +23,35 @@ void ApplicationControl::run()
 	Fonts::end();
 }
 
+void ApplicationControl::createWindow(bool fullscreen)
+{
+	sf::ContextSettings context_settings;
+	context_settings.antialiasingLevel = 8;
+
+	current_vmode = sf::VideoMode::getFullscreenModes()[0];
+	if (!fullscreen) 
+		current_vmode.height *= 0.9;
+	window.create(current_vmode, "Unforgotten Realms", fullscreen ? sf::Style::Fullscreen : sf::Style::Close, context_settings);
+	window.setVerticalSyncEnabled(true);
+}
+
 LoopExitCode ApplicationControl::gameLoop(InitSettings * settings)
 {
-	GameState game(window, current_vmode, settings);
-	LoopExitCode exit = game.loop();
+	if (settings->fullscreen)
+		createWindow(true);
+
+	GameState game(window, current_vmode);
+	LoopExitCode exit;
+	try
+	{
+		game.init(settings);
+		exit = game.loop();
+	}
+	catch (std::exception & ex)
+	{
+		MessageBoxA(nullptr, ex.what(), "Run-time error", MB_ICONERROR | MB_OK);
+		exit = LoopExitCode::Exit;
+	}
 	return exit;
 }
 

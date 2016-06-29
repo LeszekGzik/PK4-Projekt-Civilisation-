@@ -3,9 +3,9 @@
 namespace
 {
 	const std::string NAME = "DRAGON";
-	const int ID = 1;
+	const int ID = 6;
 	const int SPEED = 5;
-	const int STRENGTH = 30;
+	const int STRENGTH = 24;
 	const UnitType TYPE = UnitType::Air;
 }
 

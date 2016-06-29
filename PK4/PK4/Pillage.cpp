@@ -2,14 +2,13 @@
 
 namespace
 {
-	const int ID = 1;
+	const int ID = 19;
 }
 
 int Pillage::cost = 1;
 
 Pillage::Pillage(InGameObject & owner) : Ability(ID, owner)
-{
-	
+{	
 }
 
 Pillage::~Pillage()

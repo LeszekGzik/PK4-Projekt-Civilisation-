@@ -21,8 +21,10 @@ private:
 	sf::VideoMode current_vmode;
 	sf::RenderWindow window;
 
+	void createWindow(bool fullscreen);
 	LoopExitCode gameLoop(InitSettings * settings);
 	LoopExitCode menuLoop(InitSettings *& settings);
+
 public:
 	void run();
 	void loop();

@@ -3,7 +3,7 @@
 namespace
 {
 	const FieldType TYPE = Impassable;
-	const int ID = 1;
+	const int ID = 4;
 	const int MOVEMENT_COST = 1;
 }
 

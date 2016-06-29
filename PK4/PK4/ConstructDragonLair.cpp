@@ -2,7 +2,7 @@
 
 namespace
 {
-	const uint32_t ID = 1;
+	const uint32_t ID = 18;
 }
 
 ConstructDragonLair::ConstructDragonLair(InGameObject & owner) : Ability(ID, owner)
@@ -18,7 +18,7 @@ ContextInfoContent * ConstructDragonLair::getContextInfoContent()
 {
 	ContextInfoContent * vector = new ContextInfoContent();
 	vector->emplace_back("CONSTRUCT DRAGON LAIR", sf::Color::Black);
-	vector->emplace_back("15 WOOD, 15 IRON, GEMS 15", sf::Color::Black);
+	vector->emplace_back("10 WOOD, 10 IRON, GEMS 10", sf::Color::Black);
 	vector->emplace_back("COSTS REMAINING ACTIONS", sf::Color::Black);
 	return vector;
 }
@@ -30,14 +30,14 @@ void ConstructDragonLair::use()
 	Field * field = unit.getField();
 
 	if (field->getImprovement() == nullptr
-		&& player.getResources().isAvailable(ResourceType::Wood, 15)
-		&& player.getResources().isAvailable(ResourceType::Iron, 15)
-		&& player.getResources().isAvailable(ResourceType::Gems, 15))
+		&& player.getResources().isAvailable(ResourceType::Wood, 10)
+		&& player.getResources().isAvailable(ResourceType::Iron, 10)
+		&& player.getResources().isAvailable(ResourceType::Gems, 10))
 	{
 		field->newImprovement<DragonLair>(player);
 		unit.spendActionPoints();
-		player.getResources().add(ResourceType::Wood, -15);
-		player.getResources().add(ResourceType::Iron, -15);
-		player.getResources().add(ResourceType::Gems, -15);
+		player.getResources().add(ResourceType::Wood, -10);
+		player.getResources().add(ResourceType::Iron, -10);
+		player.getResources().add(ResourceType::Gems, -10);
 	}
 }

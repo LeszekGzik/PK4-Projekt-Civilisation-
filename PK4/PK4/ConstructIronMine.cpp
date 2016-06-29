@@ -30,10 +30,9 @@ void ConstructIronMine::use()
 	InGameObject& unit = getOwner();
 	Player& player = unit.getOwner();
 	Field * field = unit.getField();
-	Hills * test_field = dynamic_cast<Hills*>(field);
 
-	if (field->getImprovement() == nullptr && test_field != nullptr 
-		&& dynamic_cast<IronDeposit*>(test_field->getDeposit()) != nullptr
+	if (field->getImprovement() == nullptr
+		&& dynamic_cast<IronDeposit*>(field->getDeposit()) != nullptr
 		&& player.getResources().isAvailable(ResourceType::Wood, 10))
 	{
 		field->newImprovement<IronMine>(player);

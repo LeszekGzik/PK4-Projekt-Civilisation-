@@ -20,8 +20,9 @@ public:
 	GameMap * getGameMap();
 	LoopExitCode loop();
 	void scroll();
+	void init(InitSettings * settings);
 
-	GameState(sf::RenderWindow &target, sf::VideoMode vmode, InitSettings * settings);
+	GameState(sf::RenderWindow &target, sf::VideoMode vmode);
 	~GameState();
 
 private:
@@ -43,6 +44,7 @@ private:
 			Button * MENU_EXIT_BTN();
 			Button * TURN_BTN(sf::VideoMode vmode);
 			Label * TURN_LABEL(sf::VideoMode vmode);
+			Label * OBJECTS_LABEL(sf::VideoMode vmode);
 		};
 
 		struct Buttons
@@ -90,7 +92,9 @@ private:
 	sf::View gui;
 	sf::View world;
 	sf::RenderWindow & window;
-	Player * players;
+	std::vector<Player> players;
+	float scroll_speed;
+	float scroll_step;
 
 	uint16_t player_count;
 	uint16_t ability_page;
@@ -101,9 +105,9 @@ private:
 	InGameObject * selected_object = nullptr;
 	Player * active_player;
 	Label * label_turn;
+	Label * label_objects;
 	int turn_cycle;
 
-	void init(InitSettings * settings);
 	void initGui();
 	void nextTurn();
 	void click(sf::Event::MouseButtonEvent&);

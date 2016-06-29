@@ -18,7 +18,7 @@ ContextInfoContent * TrainArcher::getContextInfoContent()
 {
 	ContextInfoContent * vector = new ContextInfoContent();
 	vector->emplace_back("TRAIN ARCHER", sf::Color::Black);
-	vector->emplace_back("3 FOOD, 3 IRON, 2 WOOD", sf::Color::Black);
+	vector->emplace_back("3 FOOD, 2 IRON, 3 WOOD", sf::Color::Black);
 	vector->emplace_back("COSTS 1 ACTION", sf::Color::Black);
 	return vector;
 }
@@ -32,14 +32,14 @@ void TrainArcher::use()
 
 	if ( !field->objects().containsUnitType(UnitType::Land)
 		&& resources.isAvailable(ResourceType::Food, 3)
-		&& resources.isAvailable(ResourceType::Iron, 3)
-		&& resources.isAvailable(ResourceType::Wood, 2))
+		&& resources.isAvailable(ResourceType::Iron, 2)
+		&& resources.isAvailable(ResourceType::Wood, 3))
 	{
 		InGameObject * archer = field->newUnit<Archer>(player);
 		archer->spendActionPoints();
 		unit.spendActionPoints(1);
 		resources.add(ResourceType::Food, -3);
-		resources.add(ResourceType::Iron, -3);
-		resources.add(ResourceType::Wood, -2);
+		resources.add(ResourceType::Iron, -2);
+		resources.add(ResourceType::Wood, -3);
 	}
 }

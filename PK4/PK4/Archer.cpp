@@ -10,6 +10,8 @@ namespace
 	const UnitType TYPE = UnitType::Land;
 }
 
+const float Archer::HILL_STR_FACTOR = 2;
+
 int Archer::checkMovement(Field * field)
 {
 	if (field->getType() != FieldType::Land)
@@ -18,6 +20,12 @@ int Archer::checkMovement(Field * field)
 		return -1;
 	else
 		return field->getMovementCost();
+}
+
+float Archer::getTotalStrength()
+{
+	float base = (float)getHealth() * (float)getStrength() / 100;
+	return (dynamic_cast<Hills*>(getField()) != nullptr) ? base * HILL_STR_FACTOR : base;
 }
 
 Archer::Archer(Field* field, Player& owner) : Unit(ID, field, owner, NAME, SPEED, STRENGTH, TYPE)

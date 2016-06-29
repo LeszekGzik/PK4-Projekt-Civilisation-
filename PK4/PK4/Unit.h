@@ -42,11 +42,12 @@ public:
 	virtual void setSpeed(int speed) { this->speed = speed; }
 	virtual void setStrength(int strength) { this->strength = strength; }
 	virtual void setType(UnitType type) { this->type = type; }
+	virtual void setIfAttackedThisTurn(bool attacked) { this->attacked_this_turn = attacked; }
 
 	virtual int getHealth() { return this->health; }
 	virtual int getActionPoints() { return this->movement_points; }
 	virtual std::string & getName() { return name; }
-	virtual float getTotalStrength() const;
+	virtual float getTotalStrength();
 	virtual int getSpeed() { return this->speed; }
 	virtual int getStrength() { return this->strength; }
 	virtual UnitType getType() { return this->type; }

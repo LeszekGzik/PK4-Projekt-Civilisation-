@@ -1,7 +1,9 @@
 #include "GameState.h"
 #include <list>
+#include <Windows.h>
 
 GameState::ConstantInitializers GameState::INIT;
+
 
 void GameState::scroll()
 {
@@ -10,22 +12,22 @@ void GameState::scroll()
 	sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
 	if (mouse_pos.x < ENGINE::scroll_distance)
 	{
-		offset.x = -ENGINE::scroll_speed;
+		offset.x = -scroll_speed;
 		moved = true;
 	}
 	else if (window.getSize().x - mouse_pos.x < ENGINE::scroll_distance)
 	{
-		offset.x = ENGINE::scroll_speed;
+		offset.x = scroll_speed;
 		moved = true;
 	}
 	if (mouse_pos.y < ENGINE::scroll_distance)
 	{
-		offset.y = -ENGINE::scroll_speed;
+		offset.y = -scroll_speed;
 		moved = true;
 	}
 	else if (window.getSize().y - mouse_pos.y < ENGINE::scroll_distance)
 	{
-		offset.y = ENGINE::scroll_speed;
+		offset.y = scroll_speed;
 		moved = true;
 	}
 	
@@ -66,6 +68,17 @@ LoopExitCode GameState::loop()
 			case sf::Event::TextEntered:
 				page_control.text(event.text);
 				break;
+			case sf::Event::KeyPressed:
+				switch (event.key.code)
+				{
+				case sf::Keyboard::Key::Add:
+					this->scroll_speed += this->scroll_step;
+					break;
+				case sf::Keyboard::Key::Subtract:
+					this->scroll_speed -= this->scroll_step;
+					break;
+				}
+				break;
 			}
 		}
 
@@ -87,30 +100,27 @@ void GameState::init(InitSettings * settings)
 {
 	this->gui = window.getDefaultView();
 	this->world = window.getDefaultView();
-	this->game_map = new GameMap(settings->map.size, hex_style);
+	this->game_map = new GameMap(hex_style);
 	this->player_count = settings->player.count;
-	this->players = new Player[this->player_count];
+	this->players.reserve(this->player_count);
 	for (int i = 0; i < this->player_count; i++)
 	{
+		this->players.emplace(this->players.end());
 		this->players[i].setId(i);
 		this->players[i].setColor(settings->player.colors[i]);
 		this->players[i].setName(settings->player.names[i]);
-		//this->players[i].getResources().set(ResourcesSet(6, 12, 0, 12));
-		this->players[i].getResources().set(ResourcesSet(50, 50, 50, 50));
+		if (settings->richmode)
+			this->players[i].getResources().set(ResourcesSet(50, 50, 50, 50));
+		else
+			this->players[i].getResources().set(ResourcesSet(10, 15, 0, 20));
 		this->players[i].getResources().eventResourceChange().reg(&this->resources_change);
 	}
+
+	this->game_map->loadFromFile(std::string(ENGINE::file_name[this->player_count-2]) ,this->players);
 
 	this->turn_cycle = -1;
 
 	InGameObject::setStyle(&hex_style);
-	
-	for (int i = 0; i < this->player_count; i++)
-	{
-		game_map->getField(OffsetCoords(5 + i, 5))->newUnit<Archer>(this->players[i]);
-		game_map->getField(OffsetCoords(5 + i, 5))->newUnit<Worker>(this->players[i]);
-		game_map->getField(OffsetCoords(5 + i, 6))->newUnit<Dragon>(this->players[i]);
-	}
-	game_map->getField(OffsetCoords(4, 4))->newImprovement<Farm>(this->players[0]);
 }
 
 void GameState::initGui()
@@ -142,7 +152,10 @@ void GameState::initGui()
 	this->label_turn = INIT.GUI.TURN_LABEL(current_vmode);
 	page.addComponent(this->label_turn);
 
-	addTopButton(1, button_click_grid, 0);
+	this->label_objects = INIT.GUI.OBJECTS_LABEL(current_vmode);
+	page.addComponent(this->label_objects);
+
+	addTopButton(20, button_click_grid, 0);
 
 	addResourceLabel(1, ResourceType::Food, 0);
 	addResourceLabel(2, ResourceType::Wood, 1);
@@ -152,15 +165,27 @@ void GameState::initGui()
 
 void GameState::nextTurn()
 {
-	if (++this->turn_cycle == this->player_count)
-	{
-		this->turn_cycle = 0;
-		this->game_map->newTurn();
-	}
+	Player * temp = this->active_player;
 
-	this->active_player = &(this->players[this->turn_cycle]);
-	this->label_turn->setCaption(this->active_player->getName() + " turn");
+	do
+	{
+		if (++this->turn_cycle == this->player_count)
+		{
+			this->turn_cycle = 0;
+			this->game_map->newTurn();
+		}
+
+		this->active_player = &(this->players[this->turn_cycle]);
+
+	} while (this->active_player->getNumberOfObjects() == 0);
+	
+	if (this->active_player == temp)
+		this->label_turn->setCaption(this->active_player->getName() + " wins");
+	else
+		this->label_turn->setCaption(this->active_player->getName() + " turn");
 	this->label_turn->setTextColor(ColorUtils::sfColor(this->active_player->getColor()));
+	
+	this->label_objects->setCaption(std::to_string(this->active_player->getNumberOfObjects()));
 
 	for (std::unordered_map<ResourceType, Label*>::iterator it = this->resource_labels.begin();
 		it != this->resource_labels.end(); it++)
@@ -332,10 +357,9 @@ void GameState::addResourceLabel(uint32_t img_id, ResourceType type, int positio
 	this->page_control.current().addComponent(label);
 }
 
-GameState::GameState(sf::RenderWindow &window, sf::VideoMode vmode, InitSettings * settings) 
-	: window(window), current_vmode(vmode)
+GameState::GameState(sf::RenderWindow &window, sf::VideoMode vmode)
+	: window(window), current_vmode(vmode), scroll_speed(ENGINE::scroll_speed), scroll_step(1.f)
 {
-	init(settings);
 	this->button_click_back.set(this, &GameState::buttonClick_back);
 	this->button_click_exit.set(this, &GameState::buttonClick_exit);
 	this->button_click_turn.set(this, &GameState::buttonClick_turn);
@@ -351,7 +375,6 @@ GameState::~GameState()
 	InGameObject::clear();
 	if (game_map != nullptr)
 		delete game_map;
-	delete[player_count] players;
 }
 
 #pragma region EventHandlers
@@ -464,6 +487,16 @@ Button * GameState::ConstantInitializers::Gui::TURN_BTN(sf::VideoMode vmode)
 Label * GameState::ConstantInitializers::Gui::TURN_LABEL(sf::VideoMode vmode)
 {
 	Label * label = new Label("", sf::IntRect(vmode.width - 400, vmode.height - BOT_BAR_THICK, 100, 30));
+	label->setBackColor(sf::Color::Transparent);
+	label->setFontSize(28);
+	label->setTextPosition(sf::Vector2u(4, 4));
+	label->update();
+	return label;
+}
+
+Label * GameState::ConstantInitializers::Gui::OBJECTS_LABEL(sf::VideoMode vmode)
+{
+	Label * label = new Label("", sf::IntRect(vmode.width - 475, vmode.height - BOT_BAR_THICK, 100, 30));
 	label->setBackColor(sf::Color::Transparent);
 	label->setFontSize(28);
 	label->setTextPosition(sf::Vector2u(4, 4));

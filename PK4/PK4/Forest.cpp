@@ -3,7 +3,7 @@
 namespace
 {
 	const FieldType TYPE = Land;
-	const int ID = 2;
+	const int ID = 6;
 	const int MOVEMENT_COST = 2;
 }
 

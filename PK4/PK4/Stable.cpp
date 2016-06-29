@@ -3,7 +3,7 @@
 
 namespace
 {
-	const int ID = 1;
+	const int ID = 6;
 	const int ACTION_POINTS = 1;
 	const std::string NAME = "STABLES";
 }

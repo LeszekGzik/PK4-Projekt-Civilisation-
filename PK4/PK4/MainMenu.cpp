@@ -114,6 +114,20 @@ void MainMenu::addGameSettings()
 	}
 }
 
+void MainMenu::addOptions()
+{
+	Page & page = page_control.current();
+	sf::Vector2f position = INIT.POSITIONS.GAME_RECT_POS(sf::Vector2f(current_vmode.width, current_vmode.height));
+	sf::Vector2f size = INIT.POSITIONS.GAME_RECT_SIZE(sf::Vector2f(current_vmode.width, current_vmode.height));
+
+	page.addShape(INIT.GAME.RECT(position, size));
+
+	check_fullscreen = INIT.OPTIONS.CHCK_BOX_FULLSCREEN(position);
+	page.addComponent(check_fullscreen);
+	check_richmode = INIT.OPTIONS.CHCK_BOX_RICHMODE(position);
+	page.addComponent(check_richmode);
+}
+
 void MainMenu::buttonClick_exit(Component &, sf::Event::MouseButtonEvent)
 {
 	this->exit = LoopExitCode::Exit;
@@ -139,8 +153,8 @@ void MainMenu::buttonClick_start(Component &, sf::Event::MouseButtonEvent)
 		colors[i] = (Color)players[i].color->getTag();
 	}
 	PlayerSettings player(this->players_number, names, colors);
-	MapSettings map(sf::Vector2i(12, 8));
-	this->settings = new InitSettings(map, player);
+	this->settings = new InitSettings(
+		player, this->check_fullscreen->isChecked(), this->check_richmode->isChecked());
 	this->exit = LoopExitCode::Play;
 }
 
@@ -153,6 +167,11 @@ void MainMenu::buttonClick_color(Component & obj, sf::Event::MouseButtonEvent mo
 		color = ColorUtils::prev(color);
 	obj.setBackColor(ColorUtils::sfColor(color, 200));
 	obj.setTag(color);
+}
+
+void MainMenu::buttonClick_options(Component &, sf::Event::MouseButtonEvent)
+{
+	setPage(page_options);
 }
 
 void MainMenu::textboxEdit_playersNumber(Component & sender, std::string & old)
@@ -212,7 +231,7 @@ void MainMenu::setupComponents()
 	page_control.set(page_main);
 
 	addButton(INIT.STRINGS.MAIN_BTN_NEWGAME, &button_click_newgame, 0);
-	addButton(INIT.STRINGS.MAIN_BTN_OPTIONS, NULL, 1);
+	addButton(INIT.STRINGS.MAIN_BTN_OPTIONS, &button_click_options, 1);
 	addButton(INIT.STRINGS.MAIN_BTN_EXIT, &button_click_exit, 2);
 	
 	// NEW GAME PAGE
@@ -222,6 +241,13 @@ void MainMenu::setupComponents()
 	addButton(INIT.STRINGS.START_BTN_START, &button_click_start, 0);
 	addButton(INIT.STRINGS.START_BTN_BACK, &button_click_back_to_main, 2);
 	addGameSettings();
+
+	// OPTIONS PAGE
+	page_options = page_control.add();
+	page_control.set(page_options);
+
+	addButton(INIT.STRINGS.START_BTN_BACK, &button_click_back_to_main, 2);
+	addOptions();
 }
 
 void MainMenu::setupImage()
@@ -246,6 +272,7 @@ MainMenu::MainMenu(sf::RenderWindow& window, sf::VideoMode& vmode) : window(wind
 	this->button_click_back_to_main.set(this, &MainMenu::buttonClick_backToMain);
 	this->button_click_start.set(this, &MainMenu::buttonClick_start);
 	this->button_click_color.set(this, &MainMenu::buttonClick_color);
+	this->button_click_options.set(this, &MainMenu::buttonClick_options);
 	this->textbox_edit_players_number.set(this, &MainMenu::textboxEdit_playersNumber);
 }
 
@@ -268,4 +295,74 @@ void MainMenu::PlayerStrip::hide()
 	this->color->setEnable(false);
 	this->name->setVisible(false);
 	this->name->setEnable(false);
+}
+
+Component * MainMenu::ConstantInitializers::Game::LABEL_PLAYERS_NUMBER(sf::Vector2f const & rect)
+{
+	Component * obj = new Label("NUMBER OF PLAYERS", sf::IntRect(rect.x + 16, rect.y + 16, 250, 32));
+	obj->setFontSize(FONT_SIZE);
+	return obj;
+}
+
+TextBox * MainMenu::ConstantInitializers::Game::EDIT_PLAYERS_NUMBER(sf::Vector2f const & rect)
+{
+	TextBox * obj = new TextBox(std::to_string(DEFAULT_PLAYERS), sf::IntRect(rect.x + 250, rect.y + 16, STRIP_SIZE, STRIP_SIZE));
+	obj->setMaxLength(1);
+	obj->setFontSize(FONT_SIZE);
+	return obj;
+}
+
+sf::Shape * MainMenu::ConstantInitializers::Game::RECT(sf::Vector2f const & pos, sf::Vector2f const & size)
+{
+	sf::RectangleShape * rect = new sf::RectangleShape();
+	rect->setFillColor(sf::Color(255, 255, 255, 127));
+	rect->setPosition(pos);
+	rect->setSize(size);
+	return rect;
+}
+
+sf::Shape * MainMenu::ConstantInitializers::Game::RECT_PLAYERS(sf::Vector2f const & pos)
+{
+	sf::RectangleShape * rect = new sf::RectangleShape();
+	rect->setFillColor(sf::Color(255, 255, 255, 200));
+	rect->setPosition(pos.x, pos.y + 16);
+	rect->setSize(sf::Vector2f(STRIP_HEADER_LENGTH, STRIP_SIZE));
+	return rect;
+}
+
+TextBox * MainMenu::ConstantInitializers::Game::EDIT_PLAYER_NAME(sf::Vector2f const & pos)
+{
+	TextBox * edit = new TextBox("PLAYER", sf::IntRect(pos.x, pos.y, STRIP_CONTENT_LENGTH, STRIP_SIZE));
+	edit->setFontSize(INIT.GAME.FONT_SIZE);
+	edit->setTextPosition(sf::Vector2u(24, 8));
+	edit->setBackColor(sf::Color(255, 255, 255, 200));
+	edit->update();
+	return edit;
+}
+
+Button * MainMenu::ConstantInitializers::Game::BTN_PLAYER_COLOR(sf::Vector2f const & pos)
+{
+	Button * btn = new Button("", sf::IntRect(pos.x + STRIP_CONTENT_LENGTH + 16, pos.y, STRIP_SIZE, STRIP_SIZE));
+	btn->setBackColor(ColorUtils::sfColor(Color::Red, 200));
+	btn->setHighlights(false);
+	btn->setBorderColor(sf::Color(0, 0, 0, 127));
+	btn->setBorderThickness(2);
+	btn->setTag(Color::Red);
+	return btn;
+}
+
+CheckBox * MainMenu::ConstantInitializers::Options::CHCK_BOX_FULLSCREEN(sf::Vector2f const & pos)
+{
+	CheckBox * box = new CheckBox(std::string("FULLSCREEN"), sf::IntRect(pos.x + 16, pos.y + 16, 200, 32));
+	box->setFontSize(FONT_SIZE);
+	box->update();
+	return box;
+}
+
+CheckBox * MainMenu::ConstantInitializers::Options::CHCK_BOX_RICHMODE(sf::Vector2f const & pos)
+{
+	CheckBox * box = new CheckBox(std::string("RICH MODE"), sf::IntRect(pos.x + 16, pos.y + 52, 200, 32));
+	box->setFontSize(FONT_SIZE);
+	box->update();
+	return box;
 }

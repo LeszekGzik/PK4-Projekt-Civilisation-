@@ -19,6 +19,7 @@ Worker::Worker(Field * field, Player & owner) : Unit(ID, field, owner, NAME, SPE
 	grantAbility<ConstructGemsMine>();
 	grantAbility<ConstructBarracks>();
 	grantAbility<ConstructStable>();
+	grantAbility<ConstructShipyard>();
 	grantAbility<ConstructDragonLair>();
 }
 

@@ -9,6 +9,7 @@
 #include "Textures.h"
 #include "Units.h"
 #include "Deposits.h"
+#include "MapFileReader.h"
 
 class GameMap : public sf::Drawable
 {
@@ -23,17 +24,20 @@ private:
 	FieldMap board;
 	Hex& hex_style;
 	TexturedHex tex_hex_style;
-	sf::Vector2i grid_size;
+	sf::Vector2u grid_size;
 
 	sf::IntRect visibilityCheck(sf::View view) const;
 	void drawGrid(sf::RenderTarget& window, sf::RenderStates states, sf::IntRect visibility) const;
 	void drawMap(sf::RenderTarget& window, sf::RenderStates states, sf::IntRect visibility) const;
 
 public:
+
+	void loadFromFile(std::string & file_path, std::vector<Player> & players);
+
 	bool showGrid() { return show_grid; }
 	void showGrid(bool show) { show_grid = show; }
 	void setField(OffsetCoords pos, Field * field);
-	template<typename TField> void newField(OffsetCoords position);
+	template<typename TField> TField * newField(OffsetCoords position);
 	int getDistance(const AxialCoords& from, const AxialCoords& to) const;
 	Field * getField(OffsetCoords pos) const;
 	Field * getField(PixelCoords pos) const;
@@ -43,16 +47,21 @@ public:
 
 	void moveUnit(OffsetCoords from, OffsetCoords to);
 	void newTurn();
+	void resetMap(sf::Vector2u new_size);
 	void draw(sf::RenderTarget& window, sf::RenderStates states) const;
 
-	GameMap(sf::Vector2i size, Hex& style);
+	GameMap(Hex& style);
 	~GameMap();
 };
 
 template<typename TField>
-inline void GameMap::newField(OffsetCoords position)
+inline TField * GameMap::newField(OffsetCoords position)
 {
 	static_assert(std::is_base_of<Field, TField>::value, "Input type must derive from Field type");
 	TField * field = new TField(position);
-	this->board[position.x][position.y] = field;
+	if (this->grid_size.x > position.x && this->grid_size.y > position.y && position.x >= 0 && position.y >= 0)
+		this->board[position.x][position.y] = field;
+	else
+		throw IndexOutOfRangeException("Game Map", 0);
+	return field;
 }

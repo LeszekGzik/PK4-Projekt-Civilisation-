@@ -2,9 +2,9 @@
 
 namespace
 {
-	const int ID = 2;
+	const int ID = 8;
 	const int ACTION_POINTS = 1;
-	const std::string NAME = "BARRACKS";
+	const std::string NAME = "DRAGON LAIR";
 }
 
 

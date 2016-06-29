@@ -26,6 +26,12 @@ void GameMap::drawMap(sf::RenderTarget & window, sf::RenderStates states, sf::In
 	}
 }
 
+void GameMap::loadFromFile(std::string & file_path, std::vector<Player> & players)
+{
+	MapFileReader reader(this, players);
+	reader.load(file_path);
+}
+
 sf::IntRect GameMap::visibilityCheck(sf::View view) const
 {
 	sf::Vector2f center = view.getCenter();
@@ -34,9 +40,9 @@ sf::IntRect GameMap::visibilityCheck(sf::View view) const
 	sf::IntRect visibility_hex;
 
 	visibility_px.left = floorf((center.x - size.x / 2) / hex_style.horizontalSize() - 1);
-	visibility_px.top = floorf((center.y - size.y / 2) / hex_style.verticalSize());
+	visibility_px.top = floorf(2 * (center.y - size.y / 2) / (hex_style.verticalSize() + hex_style.edgeSize()));
 	visibility_px.width = ceilf((center.x + size.x / 2) / hex_style.horizontalSize());
-	visibility_px.height = ceilf((center.y + size.y / 2) / hex_style.verticalSize() + 2);
+	visibility_px.height = ceilf(2 * (center.y + size.y / 2) / (hex_style.verticalSize() + hex_style.edgeSize()));
 
 	if (visibility_px.left < 0)
 		visibility_hex.left = 0;
@@ -58,6 +64,7 @@ sf::IntRect GameMap::visibilityCheck(sf::View view) const
 	else
 		visibility_hex.height = visibility_px.height;
 
+	
 	return visibility_hex;
 }
 
@@ -185,7 +192,7 @@ void GameMap::moveUnit(OffsetCoords start, OffsetCoords goal)
 		if (unit->checkIfOccupied(*target) == Occupied::Enemy)
 		{
 			ObjectStack & stack = (*target)->objects();
-			ObjectStack::iterator foe = std::max_element(stack.begin(), stack.end(), [](const Unit * arg1, const Unit * arg2) { return (arg1->getTotalStrength() < arg2->getTotalStrength()); });
+			ObjectStack::iterator foe = std::max_element(stack.begin(), stack.end(), [](Unit * arg1, Unit * arg2) { return (arg1->getTotalStrength() < arg2->getTotalStrength()); });
 			CombatResult result = unit->attack(*foe);
 			switch (result)
 			{
@@ -223,46 +230,49 @@ void GameMap::newTurn()
 	}
 }
 
+void GameMap::resetMap(sf::Vector2u new_size)
+{
+	if (board != nullptr)
+	{
+		for (int i = 0; i < grid_size.x; i++)
+		{
+			for (int j = 0; j < grid_size.y; j++)
+				delete board[i][j];
+			delete[grid_size.y] board[i];
+		}
+		delete[grid_size.x] board;
+	}
+
+	this->grid_size = new_size;
+
+	board = new Field**[grid_size.x];
+	for (int i = 0; i < grid_size.x; i++)
+	{
+		board[i] = new Field*[grid_size.y];
+	}
+}
+
 void GameMap::draw(sf::RenderTarget & window, sf::RenderStates states) const
 {
 	sf::IntRect visibility = visibilityCheck(window.getView());
-
 	drawMap(window, states, visibility);
 	if (show_grid)
 		drawGrid(window, states, visibility);
 }
 
 
-GameMap::GameMap(sf::Vector2i size, Hex& style) : grid_size(size), hex_style(style), show_grid(false)
+GameMap::GameMap(Hex& style) : hex_style(style), show_grid(false)
 {
 	Field::setStyle(&tex_hex_style);
 	Deposit::setStyle(&tex_hex_style);
 	Unit::setStyle(&tex_hex_style);
-
-	board = new Field**[size.x];
-	for (int i = 0; i < size.x; i++)
-	{
-		board[i] = new Field*[size.y];
-		for (int j = 0; j < size.y; j++)
-		{
-			Field * field;
-			if (i > 2 && i < 8 && j > 2 && j < 5)
-				newField<Hills>(OffsetCoords(i, j));
-			else
-				newField<Grass>(OffsetCoords(i, j));
-		}
-
-	}
-
-	dynamic_cast<Hills*>(getField(OffsetCoords(5, 4)))->newDeposit<IronDeposit>();
-	dynamic_cast<Hills*>(getField(OffsetCoords(6, 4)))->newDeposit<GemsDeposit>();
 }
 
 GameMap::~GameMap()
 {
 	for (int i = 0; i < grid_size.x; i++)
 	{
-		delete board[i];
+		delete[grid_size.y] board[i];
 	}
 	delete board;
 }
