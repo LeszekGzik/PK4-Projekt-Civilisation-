@@ -59,9 +59,11 @@ public:
 		struct Options
 		{
 			const int FONT_SIZE = 20;
+			const int CHCK_BOX_LENGTH = 275;
 
 			CheckBox * CHCK_BOX_FULLSCREEN(sf::Vector2f const& pos);
 			CheckBox * CHCK_BOX_RICHMODE(sf::Vector2f const& pos);
+			CheckBox * CHCK_BOX_ZOOM_OUT(sf::Vector2f const& pos);
 		};
 
 		Game GAME;
@@ -92,6 +94,7 @@ private:
 	PlayerStrip players[ENGINE::max_players];
 	CheckBox * check_fullscreen;
 	CheckBox * check_richmode;
+	CheckBox * check_zoomout;
 
 	int _main_btn_left;
 	int _main_btn_top;

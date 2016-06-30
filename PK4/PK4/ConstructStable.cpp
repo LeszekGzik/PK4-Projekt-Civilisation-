@@ -23,6 +23,7 @@ ContextInfoContent * ConstructStable::getContextInfoContent()
 	vector->emplace_back("CONSTRUCT STABLE", sf::Color::Black);
 	vector->emplace_back("10 WOOD, 3 IRON", sf::Color::Black);
 	vector->emplace_back("COSTS REMAINING ACTIONS", sf::Color::Black);
+	vector->emplace_back("TRAINS HORSEMEN", sf::Color::Blue);
 	return vector;
 }
 

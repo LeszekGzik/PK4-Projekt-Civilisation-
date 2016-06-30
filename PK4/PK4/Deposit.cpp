@@ -6,7 +6,7 @@ void Deposit::init()
 {
 	Tileset & tileset = Textures::tilesetMisc();
 	sf::Vector2f position = style->toPixel(field->getPosition());
-	float scale = ENGINE::basic_unit / tileset.getTileSize().x;
+	float scale = style->edgeSize() * 2 / tileset.getTileSize().x;
 	
 	position.x -= ((float)tileset.getTileSize().x * scale - style->horizontalSize()) / 2;
 

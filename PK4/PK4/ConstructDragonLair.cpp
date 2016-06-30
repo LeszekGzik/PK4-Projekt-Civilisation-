@@ -18,8 +18,9 @@ ContextInfoContent * ConstructDragonLair::getContextInfoContent()
 {
 	ContextInfoContent * vector = new ContextInfoContent();
 	vector->emplace_back("CONSTRUCT DRAGON LAIR", sf::Color::Black);
-	vector->emplace_back("10 WOOD, 10 IRON, GEMS 10", sf::Color::Black);
-	vector->emplace_back("COSTS REMAINING ACTIONS", sf::Color::Black);
+	vector->emplace_back("10 WOOD, 10 IRON, 10 GEMS", sf::Color::Black);
+	vector->emplace_back("COSTS REMAINING ACTIONS", sf::Color::Black); 
+	vector->emplace_back("TRAINS DRAGONS", sf::Color::Blue);
 	return vector;
 }
 

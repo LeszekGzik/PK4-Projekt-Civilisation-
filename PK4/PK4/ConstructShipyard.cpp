@@ -20,6 +20,7 @@ ContextInfoContent * ConstructShipyard::getContextInfoContent()
 	vector->emplace_back("CONSTRUCT SHIPYARD", sf::Color::Black);
 	vector->emplace_back("10 WOOD, 5 IRON", sf::Color::Black);
 	vector->emplace_back("COSTS REMAINING ACTIONS", sf::Color::Black);
+	vector->emplace_back("PRODUCES SHIPS", sf::Color::Blue);
 	return vector;
 }
 

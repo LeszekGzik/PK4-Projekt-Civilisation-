@@ -64,7 +64,6 @@ public:
 	virtual void spendActionPoints(uint32_t points);
 	virtual Occupied checkIfOccupied(Field * field);
 	virtual int checkMovement(Field * field) abstract;
-	virtual void destroy() {  }
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 	virtual void move(Field * destination);
 	virtual void newTurn();

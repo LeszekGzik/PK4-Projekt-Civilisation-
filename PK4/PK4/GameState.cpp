@@ -98,6 +98,7 @@ LoopExitCode GameState::loop()
 
 void GameState::init(InitSettings * settings)
 {
+	this->hex_style = Hex(settings->zoomout ? ENGINE::basic_unit / 4 : ENGINE::basic_unit / 2);
 	this->gui = window.getDefaultView();
 	this->world = window.getDefaultView();
 	this->game_map = new GameMap(hex_style);

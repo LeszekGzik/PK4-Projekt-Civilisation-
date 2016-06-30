@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-TexturedHex::TexturedHex(const Hex & style) : Hex(style)
+TexturedHex::TexturedHex(const Hex & style, sf::Color color) : Hex(style.edgeSize(), color)
 {
 }
 

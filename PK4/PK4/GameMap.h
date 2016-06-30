@@ -23,7 +23,7 @@ private:
 	bool show_grid;
 	FieldMap board;
 	Hex& hex_style;
-	TexturedHex tex_hex_style;
+	TexturedHex tex_hex_style = TexturedHex(hex_style);
 	sf::Vector2u grid_size;
 
 	sf::IntRect visibilityCheck(sf::View view) const;

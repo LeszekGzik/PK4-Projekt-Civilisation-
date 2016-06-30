@@ -49,9 +49,10 @@ struct InitSettings
 	PlayerSettings player;
 	bool fullscreen;
 	bool richmode;
+	bool zoomout;
 	
-	InitSettings(PlayerSettings _player_settings, bool fullscreen, bool richmode) 
-		: player(_player_settings), fullscreen(fullscreen), richmode(richmode)
+	InitSettings(PlayerSettings _player_settings, bool fullscreen, bool richmode, bool zoomout) 
+		: player(_player_settings), fullscreen(fullscreen), richmode(richmode), zoomout(zoomout)
 	{
 	}
 };

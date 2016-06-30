@@ -126,6 +126,8 @@ void MainMenu::addOptions()
 	page.addComponent(check_fullscreen);
 	check_richmode = INIT.OPTIONS.CHCK_BOX_RICHMODE(position);
 	page.addComponent(check_richmode);
+	check_zoomout = INIT.OPTIONS.CHCK_BOX_ZOOM_OUT(position);
+	page.addComponent(check_zoomout);
 }
 
 void MainMenu::buttonClick_exit(Component &, sf::Event::MouseButtonEvent)
@@ -154,7 +156,7 @@ void MainMenu::buttonClick_start(Component &, sf::Event::MouseButtonEvent)
 	}
 	PlayerSettings player(this->players_number, names, colors);
 	this->settings = new InitSettings(
-		player, this->check_fullscreen->isChecked(), this->check_richmode->isChecked());
+		player, this->check_fullscreen->isChecked(), this->check_richmode->isChecked(), this->check_zoomout->isChecked());
 	this->exit = LoopExitCode::Play;
 }
 
@@ -353,7 +355,7 @@ Button * MainMenu::ConstantInitializers::Game::BTN_PLAYER_COLOR(sf::Vector2f con
 
 CheckBox * MainMenu::ConstantInitializers::Options::CHCK_BOX_FULLSCREEN(sf::Vector2f const & pos)
 {
-	CheckBox * box = new CheckBox(std::string("FULLSCREEN"), sf::IntRect(pos.x + 16, pos.y + 16, 200, 32));
+	CheckBox * box = new CheckBox(std::string("FULLSCREEN"), sf::IntRect(pos.x + 16, pos.y + 16, CHCK_BOX_LENGTH, 32));
 	box->setFontSize(FONT_SIZE);
 	box->update();
 	return box;
@@ -361,7 +363,15 @@ CheckBox * MainMenu::ConstantInitializers::Options::CHCK_BOX_FULLSCREEN(sf::Vect
 
 CheckBox * MainMenu::ConstantInitializers::Options::CHCK_BOX_RICHMODE(sf::Vector2f const & pos)
 {
-	CheckBox * box = new CheckBox(std::string("RICH MODE"), sf::IntRect(pos.x + 16, pos.y + 52, 200, 32));
+	CheckBox * box = new CheckBox(std::string("RICH MODE"), sf::IntRect(pos.x + 16, pos.y + 88, CHCK_BOX_LENGTH, 32));
+	box->setFontSize(FONT_SIZE);
+	box->update();
+	return box;
+}
+
+CheckBox * MainMenu::ConstantInitializers::Options::CHCK_BOX_ZOOM_OUT(sf::Vector2f const & pos)
+{
+	CheckBox * box = new CheckBox(std::string("WORLD ZOOM OUT"), sf::IntRect(pos.x + 16, pos.y + 52, CHCK_BOX_LENGTH, 32));
 	box->setFontSize(FONT_SIZE);
 	box->update();
 	return box;

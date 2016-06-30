@@ -34,5 +34,6 @@ ContextInfoContent * Pillage::getContextInfoContent()
 	ContextInfoContent * vector = new ContextInfoContent();
 	vector->emplace_back("PILLAGE", sf::Color::Black);
 	vector->emplace_back("REQUIRES FULL ACTIONS", sf::Color::Red);
+	vector->emplace_back("GRANTS RESOURCES", sf::Color::Blue);
 	return vector;
 }

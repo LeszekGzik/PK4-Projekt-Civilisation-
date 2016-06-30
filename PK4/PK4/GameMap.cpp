@@ -263,6 +263,7 @@ void GameMap::draw(sf::RenderTarget & window, sf::RenderStates states) const
 
 GameMap::GameMap(Hex& style) : hex_style(style), show_grid(false)
 {
+	tex_hex_style = TexturedHex(style);
 	Field::setStyle(&tex_hex_style);
 	Deposit::setStyle(&tex_hex_style);
 	Unit::setStyle(&tex_hex_style);

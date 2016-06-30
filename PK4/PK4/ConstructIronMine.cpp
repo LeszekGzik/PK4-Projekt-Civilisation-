@@ -21,6 +21,7 @@ ContextInfoContent * ConstructIronMine::getContextInfoContent()
 	vector->emplace_back("CONSTRUCT IRON ORE MINE", sf::Color::Black);
 	vector->emplace_back("10 WOOD", sf::Color::Black);
 	vector->emplace_back("COSTS REMAINING ACTIONS", sf::Color::Black);
+	vector->emplace_back("PRODUCES IRON", sf::Color::Blue);
 	vector->emplace_back("REQUIRES IRON ORE DEPOSIT", sf::Color::Red);
 	return vector;
 }

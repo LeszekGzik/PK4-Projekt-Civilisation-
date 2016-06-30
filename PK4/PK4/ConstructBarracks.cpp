@@ -37,5 +37,6 @@ ContextInfoContent * ConstructBarracks::getContextInfoContent()
 	vector->emplace_back("CONSTRUCT BARRACKS", sf::Color::Black);
 	vector->emplace_back("5 WOOD, 3 IRON", sf::Color::Black);
 	vector->emplace_back("COSTS REMAINING ACTIONS", sf::Color::Black);
+	vector->emplace_back("TRAINS ARCHERS AND SWORDSMEN", sf::Color::Blue);
 	return vector;
 }

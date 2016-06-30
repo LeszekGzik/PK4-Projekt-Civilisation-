@@ -21,6 +21,7 @@ ContextInfoContent * BuildShip::getContextInfoContent()
 	vector->emplace_back("BUILD SHIP", sf::Color::Black);
 	vector->emplace_back("8 FOOD,  4 WOOD, 4 IRON", sf::Color::Black);
 	vector->emplace_back("COSTS 1 ACTION", sf::Color::Black);
+	vector->emplace_back("GRANTS GEMS WHILE ON PEARL DEPOSIT", sf::Color::Blue);
 	return vector;
 }
 
