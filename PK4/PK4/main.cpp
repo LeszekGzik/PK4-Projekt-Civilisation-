@@ -6,29 +6,23 @@
 #include <iostream>
 #include <tchar.h>
 
-#include "MainMenu.h"
 #include "ApplicationControl.h"
 
-#define BUFSIZE MAX_PATH
-
-const std::string WINDOW_CAPTION = "PK4";
-const std::string EXE_ERR = "Couldn't setup path ";
-
-std::string ExePath()
+namespace
 {
-	char buffer[MAX_PATH];
-	GetModuleFileName(NULL, buffer, MAX_PATH);
-	std::string::size_type pos = std::string(buffer).find_last_of("\\/");
-	return std::string(buffer).substr(0, pos);
+	const std::string WINDOW_CAPTION = "PK4";
+	const std::string EXE_ERR = "Couldn't setup path ";
 }
 
 int main()
 {
-	std::string path = ExePath();
+	char buffer[MAX_PATH];
+	GetModuleFileName(NULL, buffer, MAX_PATH);
+	std::string::size_type pos = std::string(buffer).find_last_of("\\/");
+	std::string path = std::string(buffer).substr(0, pos);
 	BOOL result = SetCurrentDirectory(path.c_str());
-	srand(time(NULL));
 
-	
+	srand(time(NULL));
 
 	if (result == FALSE)
 	{
