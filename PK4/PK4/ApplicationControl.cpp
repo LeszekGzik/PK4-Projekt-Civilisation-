@@ -91,11 +91,10 @@ void ApplicationControl::loop()
 
 ApplicationControl::ApplicationControl()
 {
-	
+	Textures::end();
 }
 
 
 ApplicationControl::~ApplicationControl()
 {
-	Textures::end();
 }

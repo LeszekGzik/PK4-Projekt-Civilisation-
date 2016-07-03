@@ -22,6 +22,8 @@ private:
 	static Tileset* misc;
 	static Tileset* checkbox;
 
+	static void free(Tileset*&);
+
 public:
 	static void init();
 	static void end();
@@ -34,6 +36,8 @@ public:
 	static Tileset& tilesetCheckbox() { return *checkbox; }
 
 	Textures();
+	Textures(Textures&) = delete;
+	Textures(Textures&&) = delete;
 	~Textures();
 };
 

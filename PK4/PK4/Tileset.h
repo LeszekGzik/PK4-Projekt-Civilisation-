@@ -23,8 +23,9 @@ public:
 	sf::Texture& getTileset() { return texture; }
 	sf::Vector2i getTileSize() { return tile_size; }
 	Tileset(TilesetLoadData tileset_data);
-	Tileset();
-	~Tileset();
+	Tileset(Tileset&) = delete;
+	Tileset(Tileset&&) = delete;
+
 
 	void setTexture(TilesetLoadData tileset_data);
 };

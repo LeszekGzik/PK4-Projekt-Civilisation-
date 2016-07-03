@@ -27,7 +27,7 @@ private:
 
 public:
 
-	static Tileset tileset() { return Textures::tilesetFields(); }
+	static Tileset& tileset() { return Textures::tilesetFields(); }
 	static void setStyle(TexturedHex * style) { Field::hex_style = style; }
 
 	template <typename TUnit> inline TUnit * newUnit(Player& owner);

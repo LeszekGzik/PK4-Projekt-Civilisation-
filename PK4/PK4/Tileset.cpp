@@ -25,22 +25,14 @@ Tileset::Tileset(TilesetLoadData tileset_data)
 	setTexture(tileset_data);
 }
 
-Tileset::Tileset()
-{
-}
-
-Tileset::~Tileset()
-{
-}
-
 void Tileset::setTexture(TilesetLoadData tileset_data)
 {
 	sf::Image image;
 	if (!image.loadFromFile(tileset_data.path))
 		throw FileLoadException(tileset_data.path);
+	name = tileset_data.path;
 	image.createMaskFromColor(MASK_COLOR);
 	texture.loadFromImage(image);
-	name = tileset_data.path;
 	items_per_row = image.getSize().x / tileset_data.size.x;
 	tile_size = tileset_data.size;
 	countItems();

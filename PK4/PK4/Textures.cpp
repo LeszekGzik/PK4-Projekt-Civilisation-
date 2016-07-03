@@ -14,6 +14,15 @@ Tileset * Textures::units = nullptr;
 Tileset * Textures::misc = nullptr;
 Tileset * Textures::checkbox = nullptr;
 
+void Textures::free(Tileset *& ptr)
+{
+	if (ptr != nullptr)
+	{
+		delete ptr;
+		ptr = nullptr;
+	}
+}
+
 void Textures::init()
 {
 	buttons = new Tileset(BUTTONS);
@@ -26,13 +35,12 @@ void Textures::init()
 
 void Textures::end()
 {
-	//TO::FIX
-	//delete buttons;
-	//delete improvements;
-	//delete fields;
-	//delete units;
-	//delete misc;
-	//delete checkbox;
+	free(buttons);
+	free(improvements);
+	free(fields);
+	free(units);
+	free(misc);
+	free(checkbox);
 }
 
 Textures::Textures()
@@ -42,5 +50,3 @@ Textures::Textures()
 Textures::~Textures()
 {
 }
-
-//https://leanpub.com/tdd-ebook
