@@ -102,6 +102,7 @@ private:
 
 	std::vector<Ability*> current_abilities;
 	std::unordered_map<ResourceType, Label*> resource_labels;
+	Ability * ability_being_casted = nullptr;
 	InGameObject * selected_object = nullptr;
 	Player * active_player;
 	Label * label_turn;
@@ -117,7 +118,7 @@ private:
 	PixelCoords worldPosition(PixelCoords window_pos);
 
 	void addTopButton(uint32_t img_id, Button::Clicked::Callback<GameState> & callback, int position);
-	void addBotButton(uint32_t img_id, Button::Clicked::Callback<GameState> & callback, int position);
+	void addBotButton(uint32_t img_id, Tileset & tileset, Button::Clicked::Callback<GameState> & callback, int position);
 	void addResourceLabel(uint32_t img_id, ResourceType type, int position);
 
 	void buttonClick_back(Component&, sf::Event::MouseButtonEvent);

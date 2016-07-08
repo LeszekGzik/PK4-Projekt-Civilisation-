@@ -7,7 +7,7 @@ namespace
 }
 
 
-TrainHorseman::TrainHorseman(InGameObject & owner) : Ability(ID, owner)
+TrainHorseman::TrainHorseman(InGameObject & owner) : Ability(ID, owner, _not_targetable)
 {
 }
 
@@ -24,7 +24,7 @@ ContextInfoContent * TrainHorseman::getContextInfoContent()
 	return vector;
 }
 
-void TrainHorseman::use()
+void TrainHorseman::use(Field * target)
 {
 	InGameObject& unit = getOwner();
 	Player& player = unit.getOwner();

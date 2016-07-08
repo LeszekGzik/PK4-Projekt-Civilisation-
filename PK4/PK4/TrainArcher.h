@@ -11,7 +11,7 @@ public:
 	~TrainArcher();
 
 	virtual ContextInfoContent * getContextInfoContent();
-	virtual void use();
+	virtual void use(Field * target = nullptr);
 };
 
 #include "Archer.h"

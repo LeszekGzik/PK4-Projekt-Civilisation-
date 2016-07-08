@@ -9,7 +9,7 @@ class ConstructBarracks :
 public:
 	ConstructBarracks(InGameObject & owner);
 	~ConstructBarracks();
-	virtual void use();
+	virtual void use(Field * field = nullptr);
 	virtual ContextInfoContent * getContextInfoContent();
 };
 

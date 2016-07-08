@@ -5,7 +5,7 @@ namespace
 	const uint32_t ID = 17;
 }
 
-HireDragon::HireDragon(InGameObject & owner) : Ability(ID, owner)
+HireDragon::HireDragon(InGameObject & owner) : Ability(ID, owner, _not_targetable)
 {
 }
 
@@ -24,7 +24,7 @@ ContextInfoContent * HireDragon::getContextInfoContent()
 	return vector;
 }
 
-void HireDragon::use()
+void HireDragon::use(Field * target)
 {
 	InGameObject& unit = getOwner();
 	Player& player = unit.getOwner();

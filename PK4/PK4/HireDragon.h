@@ -11,7 +11,7 @@ public:
 	~HireDragon();
 
 	virtual ContextInfoContent * getContextInfoContent();
-	virtual void use();
+	virtual void use(Field * target = nullptr);
 };
 
 #include "Dragon.h"

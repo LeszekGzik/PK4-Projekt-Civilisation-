@@ -11,8 +11,8 @@ public:
 	~ConstructShipyard();
 
 	// Inherited via Ability
-	virtual ContextInfoContent * getContextInfoContent() override;
-	virtual void use() override;
+	virtual ContextInfoContent * getContextInfoContent();
+	virtual void use(Field * target = nullptr);
 };
 
 #include "Shipyard.h"

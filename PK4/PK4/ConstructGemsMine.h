@@ -13,7 +13,7 @@ public:
 	~ConstructGemsMine();
 
 	virtual ContextInfoContent * getContextInfoContent();
-	virtual void use();
+	virtual void use(Field * target = nullptr);
 
 private:
 	int production = 1;

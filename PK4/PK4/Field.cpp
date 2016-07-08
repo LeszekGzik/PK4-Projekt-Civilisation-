@@ -61,6 +61,13 @@ void Field::deleteImprovement()
 	this->improvement = nullptr;
 }
 
+int Field::distanceTo(Field * field)
+{
+	CubeCoords a = (AxialCoords)field->getPosition();
+	CubeCoords b = (AxialCoords)this->getPosition();
+	return (abs(a.x - b.x) + abs(a.y - b.y) + abs(a.z - b.z)) / 2;
+}
+
 Field::Field(int id, OffsetCoords position, int movement_cost, FieldType type) : position(position), movement_cost(movement_cost), type(type)
 {
 	this->id = id;

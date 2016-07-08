@@ -6,7 +6,7 @@ namespace
 }
 
 
-ConstructShipyard::ConstructShipyard(InGameObject & owner) : Ability(ID, owner)
+ConstructShipyard::ConstructShipyard(InGameObject & owner) : Ability(ID, owner, _not_targetable)
 {
 }
 
@@ -24,7 +24,7 @@ ContextInfoContent * ConstructShipyard::getContextInfoContent()
 	return vector;
 }
 
-void ConstructShipyard::use()
+void ConstructShipyard::use(Field * target)
 {
 	InGameObject& unit = getOwner();
 	Player& player = unit.getOwner();

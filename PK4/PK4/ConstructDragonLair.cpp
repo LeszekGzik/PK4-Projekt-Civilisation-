@@ -5,7 +5,7 @@ namespace
 	const uint32_t ID = 18;
 }
 
-ConstructDragonLair::ConstructDragonLair(InGameObject & owner) : Ability(ID, owner)
+ConstructDragonLair::ConstructDragonLair(InGameObject & owner) : Ability(ID, owner, _not_targetable)
 {
 }
 
@@ -24,7 +24,7 @@ ContextInfoContent * ConstructDragonLair::getContextInfoContent()
 	return vector;
 }
 
-void ConstructDragonLair::use()
+void ConstructDragonLair::use(Field * target)
 {
 	InGameObject& unit = getOwner();
 	Player& player = unit.getOwner();

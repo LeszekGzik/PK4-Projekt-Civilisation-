@@ -189,30 +189,24 @@ void GameMap::moveUnit(OffsetCoords start, OffsetCoords goal)
 		unit->setActionPoints(movement);
 		getField(start)->objects().pop();
 
+
 		if (unit->checkIfOccupied(*target) == Occupied::Enemy)
 		{
-			ObjectStack & stack = (*target)->objects();
-			ObjectStack::iterator foe = std::max_element(stack.begin(), stack.end(), [](Unit * arg1, Unit * arg2) { return (arg1->getTotalStrength() < arg2->getTotalStrength()); });
-			CombatResult result = unit->attack(*foe);
-			switch (result)
+			std::list<Field*>::reverse_iterator previous = target;
+			previous--;
+			unit->move(*previous);
+			ManagmentStatus status = unit->initCombat(*target);
+			switch (status)
 			{
-			case Lose:
+			default:
+			case ManagmentStatus::NoAction:
+				break;
+			case ManagmentStatus::Delete:
 				delete unit;
-				unit = nullptr;
-				break;
-			case Tie:
-				target--; // ruch maksymalnie do poprzedniego pola
-				break;
-			case Win:
-				delete *foe;
-				(*target)->objects().erase(foe);
-				if (!stack.empty())
-					target--;
 				break;
 			}
 		}
-
-		if (unit != nullptr)
+		else
 		{
 			unit->move(*target);
 		}

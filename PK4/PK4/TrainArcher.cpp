@@ -5,7 +5,7 @@ namespace
 	const int ID = 6;
 }
 
-TrainArcher::TrainArcher(InGameObject & owner) : Ability(ID, owner)
+TrainArcher::TrainArcher(InGameObject & owner) : Ability(ID, owner, false)
 {
 }
 
@@ -24,7 +24,7 @@ ContextInfoContent * TrainArcher::getContextInfoContent()
 	return vector;
 }
 
-void TrainArcher::use()
+void TrainArcher::use(Field * target)
 {
 	InGameObject& unit = getOwner();
 	Player& player = unit.getOwner();

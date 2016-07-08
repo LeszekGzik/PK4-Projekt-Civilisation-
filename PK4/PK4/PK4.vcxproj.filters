@@ -90,9 +90,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GameState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -308,6 +305,18 @@
     </ClCompile>
     <ClCompile Include="BuildShip.cpp">
       <Filter>Source Files\Objects\Abilities</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadUnit.cpp">
+      <Filter>Source Files\Objects\Abilities</Filter>
+    </ClCompile>
+    <ClCompile Include="UnloadUnit.cpp">
+      <Filter>Source Files\Objects\Abilities</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitCarrier.cpp">
+      <Filter>Source Files\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -553,6 +562,15 @@
     </ClInclude>
     <ClInclude Include="BuildShip.h">
       <Filter>Header Files\Objects\Abilities</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadUnit.h">
+      <Filter>Header Files\Objects\Abilities</Filter>
+    </ClInclude>
+    <ClInclude Include="UnloadUnit.h">
+      <Filter>Header Files\Objects\Abilities</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitCarrier.h">
+      <Filter>Header Files\Objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

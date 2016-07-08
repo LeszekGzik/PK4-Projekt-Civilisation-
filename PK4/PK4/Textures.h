@@ -8,6 +8,7 @@
 class Textures
 {
 private:
+	static const TilesetLoadData ABILITIES;
 	static const TilesetLoadData BUTTONS;
 	static const TilesetLoadData IMPROVEMENTS;
 	static const TilesetLoadData FIELDS;
@@ -15,6 +16,7 @@ private:
 	static const TilesetLoadData MISC;
 	static const TilesetLoadData CHECKBOX;
 
+	static Tileset* abilities;
 	static Tileset* buttons;
 	static Tileset* improvements;
 	static Tileset* fields;
@@ -28,6 +30,7 @@ public:
 	static void init();
 	static void end();
 
+	static Tileset& tilesetAbilities() { return *abilities; }
 	static Tileset& tilesetButtons() { return *buttons; }
 	static Tileset& tilesetImprovements() { return *improvements; }
 	static Tileset& tilesetFields() { return *fields; }

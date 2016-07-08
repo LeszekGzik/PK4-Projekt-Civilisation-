@@ -34,6 +34,7 @@ public:
 	template <typename TImp> inline TImp * newImprovement(Player& owner);
 	template <typename TDeposit> inline TDeposit * newDeposit();
 	void deleteImprovement();
+	int distanceTo(Field * field);
 
 	ObjectStack const& objects() const { return object_stack; }
 	ObjectStack & objects() { return object_stack; }

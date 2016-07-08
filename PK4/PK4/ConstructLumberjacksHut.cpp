@@ -5,7 +5,7 @@ namespace
 	const uint32_t ID = 10;
 }
 
-ConstructLumberjacksHut::ConstructLumberjacksHut(InGameObject & owner) : Ability(ID, owner)
+ConstructLumberjacksHut::ConstructLumberjacksHut(InGameObject & owner) : Ability(ID, owner, _not_targetable)
 {
 }
 
@@ -25,7 +25,7 @@ ContextInfoContent * ConstructLumberjacksHut::getContextInfoContent()
 	return vector;
 }
 
-void ConstructLumberjacksHut::use()
+void ConstructLumberjacksHut::use(Field * target)
 {
 	InGameObject& unit = getOwner();
 	Player& player = unit.getOwner();

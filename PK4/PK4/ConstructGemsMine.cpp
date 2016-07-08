@@ -5,7 +5,7 @@ namespace
 	const uint32_t ID = 12;
 }
 
-ConstructGemsMine::ConstructGemsMine(InGameObject & owner) : Ability(ID, owner)
+ConstructGemsMine::ConstructGemsMine(InGameObject & owner) : Ability(ID, owner, _not_targetable)
 {
 }
 
@@ -24,7 +24,7 @@ ContextInfoContent * ConstructGemsMine::getContextInfoContent()
 	return vector;
 }
 
-void ConstructGemsMine::use()
+void ConstructGemsMine::use(Field * target)
 {
 	InGameObject& unit = getOwner();
 	Player& player = unit.getOwner();

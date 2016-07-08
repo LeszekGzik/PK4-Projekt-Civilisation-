@@ -7,7 +7,7 @@ namespace
 	const uint32_t ID = 5;
 }
 
-ConstructFarm::ConstructFarm(InGameObject & owner) : Ability(ID, owner)
+ConstructFarm::ConstructFarm(InGameObject & owner) : Ability(ID, owner, _not_targetable)
 {
 	
 }
@@ -17,7 +17,7 @@ ConstructFarm::~ConstructFarm()
 {
 }
 
-void ConstructFarm::use()
+void ConstructFarm::use(Field * target)
 {
 	InGameObject& unit = getOwner();
 	Player& player = unit.getOwner();

@@ -3,8 +3,8 @@
 
 
 
-Ability::Ability(uint32_t texture_id, InGameObject & owner)
-	: texture_id(texture_id), owner(owner)
+Ability::Ability(uint32_t texture_id, InGameObject & owner, bool targetable)
+	: texture_id(texture_id), owner(owner), targetable(targetable)
 {
 }
 

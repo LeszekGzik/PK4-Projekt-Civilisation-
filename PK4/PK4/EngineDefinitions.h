@@ -3,6 +3,7 @@
 #define HEX_NEIGHBOURS 6
 
 enum LoopExitCode { Exit, Menu, Play };
+enum class ManagmentStatus { NoAction, Delete };
 
 const static struct ENGINE
 {
@@ -19,6 +20,7 @@ const static struct ENGINE
 typedef sf::Vector2f PixelCoords;
 typedef sf::VertexArray DrawableObject;
 class AxialCoords;
+class CubeCoords;
 
 class OffsetCoords : public sf::Vector2i 
 {
@@ -52,6 +54,19 @@ public:
 	}
 
 	operator OffsetCoords() const;
+	operator CubeCoords() const;
+};
+
+class CubeCoords : public sf::Vector3i
+{
+public:
+	CubeCoords() : sf::Vector3i()
+	{ }
+
+	CubeCoords(int x, int y, int z) : sf::Vector3i(x, y, z)
+	{ }
+
+	operator AxialCoords() const;
 };
 
 inline OffsetCoords::operator AxialCoords() const
@@ -72,6 +87,16 @@ inline bool OffsetCoords::operator< (OffsetCoords const& arg) const
 inline AxialCoords::operator OffsetCoords() const
 {
 	return OffsetCoords(x + y / 2, y);
+}
+
+inline AxialCoords::operator CubeCoords() const
+{
+	return CubeCoords(x, -x - y, y);
+}
+
+inline CubeCoords::operator AxialCoords() const
+{
+	return AxialCoords(x, z);
 }
 
 class Neighbours

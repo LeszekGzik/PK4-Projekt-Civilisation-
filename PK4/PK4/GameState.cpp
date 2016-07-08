@@ -156,7 +156,7 @@ void GameState::initGui()
 	this->label_objects = INIT.GUI.OBJECTS_LABEL(current_vmode);
 	page.addComponent(this->label_objects);
 
-	addTopButton(20, button_click_grid, 0);
+	addTopButton(5, button_click_grid, 0);
 
 	addResourceLabel(1, ResourceType::Food, 0);
 	addResourceLabel(2, ResourceType::Wood, 1);
@@ -167,6 +167,7 @@ void GameState::initGui()
 void GameState::nextTurn()
 {
 	Player * temp = this->active_player;
+	changeSelection(nullptr);
 
 	do
 	{
@@ -207,21 +208,29 @@ void GameState::click(sf::Event::MouseButtonEvent & mouse)
 
 	if (mouse.button == sf::Mouse::Button::Left)
 	{
-		if (object != nullptr)
+		if (this->ability_being_casted == nullptr)
 		{
-			if (this->selected_object == object)
-				object = field->objects().next();
-			if (object->getOwner() != *this->active_player)
+			if (object != nullptr)
 			{
-				field->objects().next();
+				if (this->selected_object == object)
+					object = field->objects().next();
+				if (object->getOwner() != *this->active_player)
+				{
+					field->objects().next();
+				}
 			}
+			else
+			{
+				object = field->getImprovement();
+			}
+
+			changeSelection(object);
 		}
 		else
 		{
-			object = field->getImprovement();
+			this->ability_being_casted->use(field);
+			this->ability_being_casted = nullptr;
 		}
-
-		changeSelection(object);
 	}
 	else if (mouse.button == sf::Mouse::Button::Right)
 	{
@@ -269,6 +278,8 @@ void GameState::move(sf::Event::MouseMoveEvent & mouse)
 
 void GameState::changeSelection(InGameObject * target)
 {
+	this->ability_being_casted = nullptr;
+
 	if (this->selected_object != nullptr)
 		this->selected_object->select(false);
 
@@ -290,12 +301,13 @@ void GameState::listAbilities(InGameObject * object)
 	Page& page = this->page_control.get(this->ability_page);
 	page.clear();
 	this->current_abilities.clear();
+	this->ability_being_casted = nullptr;
 	Abilities const& vector = object->getAbilities();
 	for (size_t i = 0; i < vector.size(); i++)
 	{
 		Ability * ability = vector[i];
 		this->current_abilities.push_back(ability);
-		addBotButton(ability->getTextureId(), button_click_ability, i);
+		addBotButton(ability->getTextureId(), Textures::tilesetAbilities(), button_click_ability, i);
 	}
 }
 
@@ -322,7 +334,7 @@ void GameState::addTopButton(uint32_t img_id, Button::Clicked::Callback<GameStat
 	page_control.current().addComponent(btn);
 }
 
-void GameState::addBotButton(uint32_t img_id, Button::Clicked::Callback<GameState>& callback, int position)
+void GameState::addBotButton(uint32_t img_id, Tileset & tileset, Button::Clicked::Callback<GameState>& callback, int position)
 {
 	sf::IntRect pos;
 	pos.top = this->current_vmode.height - INIT.BUTTONS.BOT_POS.y;
@@ -331,7 +343,7 @@ void GameState::addBotButton(uint32_t img_id, Button::Clicked::Callback<GameStat
 	pos.width = INIT.BUTTONS.BOT_SIZE.x;
 	Button * btn = new Button("", pos);
 	btn->setDisplayStyle(DisplayStyle::Image);
-	btn->setImage(Textures::tilesetButtons(), img_id);
+	btn->setImage(tileset, img_id);
 	btn->eventClicked().reg(&callback);
 	btn->setTag(position);
 	btn->eventMouseEnter().reg(&this->button_enter_ability);
@@ -406,7 +418,12 @@ void GameState::buttonClick_ability(Component & sender, sf::Event::MouseButtonEv
 	if (tag > this->current_abilities.size())
 		throw IndexOutOfRangeException("CurrentAbilites", tag);
 	else
-		this->current_abilities[tag]->use();
+	{
+		if (this->current_abilities[tag]->isTargetable())
+			this->ability_being_casted = this->current_abilities[tag];
+		else
+			this->current_abilities[tag]->use();
+	}
 }
 
 void GameState::buttonMouseEnter_ability(Component & sender, sf::Event::MouseMoveEvent)

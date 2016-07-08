@@ -12,7 +12,7 @@ public:
 	~ConstructIronMine();
 
 	virtual ContextInfoContent * getContextInfoContent();
-	virtual void use();
+	virtual void use(Field * target = nullptr);
 };
 
 #include "Hills.h"
