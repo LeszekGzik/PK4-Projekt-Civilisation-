@@ -44,8 +44,8 @@ bool Page::click(sf::Event::MouseButtonEvent mouse)
 	bool processed = false;
 
 	sf::Vector2i click(mouse.x, mouse.y);
-	ComponentList::iterator it = std::find_if(components.begin(), components.end(), [&click](Component*& o) { return o->contains(click); });
-	if (it != components.end())
+	ComponentList::reverse_iterator it = std::find_if(components.rbegin(), components.rend(), [&click](Component*& o) { return o->contains(click); });
+	if (it != components.rend())
 	{
 		if (focused_component != NULL && focused_component != (*it))
 			focused_component->setFocus(false);
@@ -78,12 +78,12 @@ bool Page::text(sf::Event::TextEvent key)
 bool Page::mouse(sf::Event::MouseMoveEvent mouse)
 {
 	sf::Vector2i pos(mouse.x, mouse.y);
-	ComponentList::iterator it = std::find_if(components.begin(), components.end(), [&pos](Component*& o) { return o->contains(pos); });
+	ComponentList::reverse_iterator it = std::find_if(components.rbegin(), components.rend(), [&pos](Component*& o) { return o->contains(pos); });
 	
 	if (mouse_cursor.is_valid && mouse_cursor != it && (*mouse_cursor)->getEnabled())
 		(*mouse_cursor)->mouseLeave(mouse);
 
-	if (it != components.end() && (*it)->getEnabled())
+	if (it != components.rend() && (*it)->getEnabled())
 	{
 		if (mouse_cursor != it)
 		{

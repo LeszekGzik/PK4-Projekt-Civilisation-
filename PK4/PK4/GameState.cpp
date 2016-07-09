@@ -117,7 +117,7 @@ void GameState::init(InitSettings * settings)
 		this->players[i].getResources().eventResourceChange().reg(&this->resources_change);
 	}
 
-	this->game_map->loadFromFile(std::string(ENGINE::file_name[this->player_count-2]) ,this->players);
+	this->game_map->loadFromFile(settings->file, this->players);
 
 	this->turn_cycle = -1;
 

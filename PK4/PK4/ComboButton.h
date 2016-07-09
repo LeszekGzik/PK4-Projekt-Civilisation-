@@ -33,6 +33,7 @@ public:
 	int32_t getItemCount() const { return item_count; }
 
 	void addItem(ComboItem * item);
+	void clear();
 
 	ComboButton(std::string caption, sf::IntRect & position);
 	ComboButton();

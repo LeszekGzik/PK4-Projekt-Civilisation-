@@ -2,7 +2,7 @@
 
 namespace
 {
-	uint32_t ID = 19;
+	uint32_t ID = 2;
 	int MAX_DISTANCE = 1;
 }
 

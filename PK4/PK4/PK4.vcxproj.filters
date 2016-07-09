@@ -49,9 +49,6 @@
     <Filter Include="Source Files\Exception">
       <UniqueIdentifier>{6c0c1777-85fa-47e3-a845-0a5487e80ee2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Graphics">
-      <UniqueIdentifier>{12318e50-2b51-4014-bf31-5af1507ff54c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Graphics">
       <UniqueIdentifier>{98e4875f-5afe-40c9-88df-806f650a7ed3}</UniqueIdentifier>
     </Filter>
@@ -87,6 +84,9 @@
     </Filter>
     <Filter Include="Source Files\Board\Fields\Deposits">
       <UniqueIdentifier>{eba5e43e-f322-4297-a133-27122be2721d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{12318e50-2b51-4014-bf31-5af1507ff54c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -317,6 +317,9 @@
     </ClCompile>
     <ClCompile Include="UnitCarrier.cpp">
       <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="MapPackLoader.cpp">
+      <Filter>Source Files\Menus</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -571,6 +574,9 @@
     </ClInclude>
     <ClInclude Include="UnitCarrier.h">
       <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="MapPackLoader.h">
+      <Filter>Header Files\Menus</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

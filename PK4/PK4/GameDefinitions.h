@@ -47,12 +47,13 @@ struct PlayerSettings
 struct InitSettings
 {
 	PlayerSettings player;
+	std::string file;
 	bool fullscreen;
 	bool richmode;
 	bool zoomout;
 	
-	InitSettings(PlayerSettings _player_settings, bool fullscreen, bool richmode, bool zoomout) 
-		: player(_player_settings), fullscreen(fullscreen), richmode(richmode), zoomout(zoomout)
+	InitSettings(PlayerSettings _player_settings, std::string & file, bool fullscreen, bool richmode, bool zoomout) 
+		: player(_player_settings), file(file), fullscreen(fullscreen), richmode(richmode), zoomout(zoomout)
 	{
 	}
 };

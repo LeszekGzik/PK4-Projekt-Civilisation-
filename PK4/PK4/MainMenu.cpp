@@ -104,6 +104,7 @@ void MainMenu::addGameSettings()
 	page.addShape(INIT.GAME.RECT_PLAYERS(position));
 
 	page.addComponent(INIT.GAME.LABEL_PLAYERS_NUMBER(position));
+
 	TextBox * box = INIT.GAME.EDIT_PLAYERS_NUMBER(position);
 	box->eventTextChange().reg(&textbox_edit_players_number);
 	page.addComponent(box);
@@ -112,6 +113,10 @@ void MainMenu::addGameSettings()
 	{
 		addTextBox(position, i);
 	}
+
+	this->btn_map_select = INIT.GAME.BTN_MAP_SELECT(position);
+	this->btn_map_select->eventClicked().reg(&this->button_click_map);
+	page.addComponent(this->btn_map_select);
 }
 
 void MainMenu::addOptions()
@@ -147,6 +152,8 @@ void MainMenu::buttonClick_backToMain(Component &, sf::Event::MouseButtonEvent)
 
 void MainMenu::buttonClick_start(Component &, sf::Event::MouseButtonEvent)
 {
+	if (this->btn_map_select->getTag() < 0)
+		return;
 	std::string * names = new std::string[this->players_number];
 	Color * colors = new Color[this->players_number];
 	for (int i = 0; i < this->players_number; i++)
@@ -156,7 +163,7 @@ void MainMenu::buttonClick_start(Component &, sf::Event::MouseButtonEvent)
 	}
 	PlayerSettings player(this->players_number, names, colors);
 	this->settings = new InitSettings(
-		player, this->check_fullscreen->isChecked(), this->check_richmode->isChecked(), this->check_zoomout->isChecked());
+		player, this->maps[btn_map_select->getTag()].path, this->check_fullscreen->isChecked(), this->check_richmode->isChecked(), this->check_zoomout->isChecked());
 	this->exit = LoopExitCode::Play;
 }
 
@@ -174,6 +181,34 @@ void MainMenu::buttonClick_color(Component & obj, sf::Event::MouseButtonEvent mo
 void MainMenu::buttonClick_options(Component &, sf::Event::MouseButtonEvent)
 {
 	setPage(page_options);
+}
+
+void MainMenu::buttonClick_map(Component & obj, sf::Event::MouseButtonEvent)
+{
+	ComboButton * button = dynamic_cast<ComboButton*>(&obj);
+	sf::IntRect item_rect = sf::IntRect(0, 0, 0, INIT.GAME.STRIP_SIZE);
+	MapPackLoader loader;
+	maps = loader.getFiles(this->players_number);
+	button->clear();
+	int counter = 0;
+	for each (MapPackLoader::MapFile map in maps)
+	{
+		std::string map_size(std::to_string(map.size.x) + ":" + std::to_string(map.size.y));
+		Button * btn = new Button(map.name + " " + map_size, item_rect);
+		btn->setHighlightBackColor(sf::Color(255, 255, 127, 255));
+		btn->setFontSize(INIT.GAME.FONT_SIZE);
+		btn->setTextPosition(sf::Vector2u(24, 8));
+		btn->setBackColor(sf::Color::White);
+		btn->setTag(counter++);
+		btn->eventClicked().reg(&this->button_click_map_item_select);
+		button->addItem(btn);
+	}
+}
+
+void MainMenu::buttonClick_map_item_select(Component & sender, sf::Event::MouseButtonEvent)
+{
+	this->btn_map_select->setCaption(sender.getCaption());
+	this->btn_map_select->setTag(sender.getTag());
 }
 
 void MainMenu::textboxEdit_playersNumber(Component & sender, std::string & old)
@@ -197,9 +232,12 @@ void MainMenu::textboxEdit_playersNumber(Component & sender, std::string & old)
 	}
 	else
 	{
+		this->btn_map_select->setCaption("");
+		this->btn_map_select->setTag(-1);
 		setPlayersNumber(i);
 	}
 }
+
 
 void MainMenu::setPlayersNumber(int number)
 {
@@ -275,6 +313,8 @@ MainMenu::MainMenu(sf::RenderWindow& window, sf::VideoMode& vmode) : window(wind
 	this->button_click_start.set(this, &MainMenu::buttonClick_start);
 	this->button_click_color.set(this, &MainMenu::buttonClick_color);
 	this->button_click_options.set(this, &MainMenu::buttonClick_options);
+	this->button_click_map.set(this, &MainMenu::buttonClick_map);
+	this->button_click_map_item_select.set(this, &MainMenu::buttonClick_map_item_select);
 	this->textbox_edit_players_number.set(this, &MainMenu::textboxEdit_playersNumber);
 }
 
@@ -326,7 +366,7 @@ sf::Shape * MainMenu::ConstantInitializers::Game::RECT(sf::Vector2f const & pos,
 sf::Shape * MainMenu::ConstantInitializers::Game::RECT_PLAYERS(sf::Vector2f const & pos)
 {
 	sf::RectangleShape * rect = new sf::RectangleShape();
-	rect->setFillColor(sf::Color(255, 255, 255, 200));
+	rect->setFillColor(BACK_COLOR);
 	rect->setPosition(pos.x, pos.y + 16);
 	rect->setSize(sf::Vector2f(STRIP_HEADER_LENGTH, STRIP_SIZE));
 	return rect;
@@ -337,7 +377,7 @@ TextBox * MainMenu::ConstantInitializers::Game::EDIT_PLAYER_NAME(sf::Vector2f co
 	TextBox * edit = new TextBox("PLAYER", sf::IntRect(pos.x, pos.y, STRIP_CONTENT_LENGTH, STRIP_SIZE));
 	edit->setFontSize(INIT.GAME.FONT_SIZE);
 	edit->setTextPosition(sf::Vector2u(24, 8));
-	edit->setBackColor(sf::Color(255, 255, 255, 200));
+	edit->setBackColor(BACK_COLOR);
 	edit->update();
 	return edit;
 }
@@ -351,6 +391,17 @@ Button * MainMenu::ConstantInitializers::Game::BTN_PLAYER_COLOR(sf::Vector2f con
 	btn->setBorderThickness(2);
 	btn->setTag(Color::Red);
 	return btn;
+}
+
+ComboButton * MainMenu::ConstantInitializers::Game::BTN_MAP_SELECT(sf::Vector2f const & rect)
+{
+	ComboButton * obj = new ComboButton("SELECT MAP HERE", sf::IntRect(rect.x, rect.y + 22 + STRIP_SIZE, STRIP_HEADER_LENGTH, STRIP_SIZE));
+	obj->setBackColor(BACK_COLOR);
+	obj->setTextPosition(sf::Vector2u(24, 8));
+	obj->setFontSize(INIT.GAME.FONT_SIZE);
+	obj->update();
+	obj->setTag(-1);
+	return obj;
 }
 
 CheckBox * MainMenu::ConstantInitializers::Options::CHCK_BOX_FULLSCREEN(sf::Vector2f const & pos)

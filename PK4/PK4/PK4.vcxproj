@@ -175,6 +175,7 @@
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MapFileReader.cpp" />
     <ClCompile Include="MapLoadException.cpp" />
+    <ClCompile Include="MapPackLoader.cpp" />
     <ClCompile Include="Mountains.cpp" />
     <ClCompile Include="ObjectStyle.cpp" />
     <ClCompile Include="ObjectStack.cpp" />
@@ -259,6 +260,7 @@
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="MapFileReader.h" />
     <ClInclude Include="MapLoadException.h" />
+    <ClInclude Include="MapPackLoader.h" />
     <ClInclude Include="Mountains.h" />
     <ClInclude Include="ObjectStyle.h" />
     <ClInclude Include="ObjectStack.h" />

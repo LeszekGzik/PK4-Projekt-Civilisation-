@@ -50,6 +50,8 @@ void MapFileReader::load(std::string & file_path)
 	{
 		std::string line;
 		std::getline(file, line);
+		std::getline(file, line);
+		std::getline(file, line);
 		readSize(line);
 		this->target->resetMap(this->size);
 
