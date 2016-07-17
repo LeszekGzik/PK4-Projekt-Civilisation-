@@ -8,6 +8,7 @@
 #include "Deposits.h"
 #include "GameExceptions.h"
 #include "EngineDefinitions.h"
+#include "Improvements.h"
 
 class GameMap;
 
@@ -18,6 +19,8 @@ private:
 	std::vector<Player> & players;
 	sf::Vector2u size;
 
+	void assignResource(std::string & token, int & resource);
+	void assignResources(std::string & str);
 	void readSize(std::string & str);
 
 	template <typename TDeposit>

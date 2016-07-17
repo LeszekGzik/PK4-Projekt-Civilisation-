@@ -3,7 +3,7 @@
 #define HEX_NEIGHBOURS 6
 
 enum LoopExitCode { Exit, Menu, Play };
-enum class ManagmentStatus { NoAction, Delete };
+enum class ManagmentStatus { NoAction, Delete, Null };
 
 const static struct ENGINE
 {

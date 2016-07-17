@@ -112,10 +112,11 @@ ManagmentStatus Unit::initCombat(Field * target)
 		return_status = ManagmentStatus::NoAction;
 		break;
 	case Win:
-		return_status = ManagmentStatus::NoAction;
+		return_status = ManagmentStatus::Null;
 		delete *foe;
 		target->objects().erase(foe);
-		this->move(target);
+		if (target->objects().empty())
+			this->move(target);
 		break;
 	}
 

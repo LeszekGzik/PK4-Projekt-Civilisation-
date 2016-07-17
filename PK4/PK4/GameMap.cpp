@@ -204,6 +204,9 @@ void GameMap::moveUnit(OffsetCoords start, OffsetCoords goal)
 			case ManagmentStatus::Delete:
 				delete unit;
 				break;
+			case ManagmentStatus::Null:
+				(*previous)->objects().pop();
+				break;
 			}
 		}
 		else

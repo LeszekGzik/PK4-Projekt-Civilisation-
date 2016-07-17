@@ -21,8 +21,16 @@ MapPackLoader::FileList MapPackLoader::getFiles(int player_number)
 	{
 		do
 		{
+			MapFile map;
 			bool result = false;
-			MapFile map = checkFile(file, player_number, result);
+			try
+			{
+				map = checkFile(file, player_number, result);
+			}
+			catch (const std::exception&)
+			{
+				result = false;
+			}
 			if (result)
 				files.push_back(map);
 		} while (FindNextFile(search_handle, &file));

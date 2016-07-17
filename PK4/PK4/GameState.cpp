@@ -110,14 +110,16 @@ void GameState::init(InitSettings * settings)
 		this->players[i].setId(i);
 		this->players[i].setColor(settings->player.colors[i]);
 		this->players[i].setName(settings->player.names[i]);
-		if (settings->richmode)
-			this->players[i].getResources().set(ResourcesSet(50, 50, 50, 50));
-		else
-			this->players[i].getResources().set(ResourcesSet(10, 15, 0, 20));
 		this->players[i].getResources().eventResourceChange().reg(&this->resources_change);
 	}
 
 	this->game_map->loadFromFile(settings->file, this->players);
+
+	if (settings->richmode)
+	{
+		for (int i = 0; i < this->player_count; i++)
+			this->players[i].getResources().set(ResourcesSet(50, 50, 50, 50));
+	}
 
 	this->turn_cycle = -1;
 

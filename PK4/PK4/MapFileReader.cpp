@@ -2,7 +2,7 @@
 
 namespace
 {
-	const size_t TOKEN_LENGTH = 4;
+	const size_t TOKEN_LENGTH = 5;
 
 	const char FIELD_DESERT = 'D';
 	const char FIELD_FOREST = 'F';
@@ -22,7 +22,48 @@ namespace
 	const char UNIT_SWORDSMAN = 'S';
 	const char UNIT_WORKER = 'W';
 
+	const char IMP_FARM = 'F';
+	const char IMP_LUMBERJACKS = 'L';
+	const char IMP_IRON = 'I';
+	const char IMP_GEMS = 'G';
+	const char IMP_BARRACKS = 'B';
+	const char IMP_STABLE = 'S';
+	const char IMP_SHIPYARD = 'N';
+	const char IMP_DRAGON = 'D';
+
 	const char NO_ARG = '_';
+}
+
+void MapFileReader::assignResource(std::string & token, int & resource)
+{
+	std::string::size_type result;
+	int amount = std::stoi(token, &result);
+	if (result != token.length())
+		throw MapLoadException(std::string("Invalid resources"));
+	else
+		resource = amount;
+}
+
+void MapFileReader::assignResources(std::string & str)
+{
+	ResourcesSet resources;
+	std::stringstream ss(str);
+	std::string token;
+
+	ss >> token;
+	assignResource(token, resources.food);
+
+	ss >> token;
+	assignResource(token, resources.wood);
+
+	ss >> token;
+	assignResource(token, resources.iron);
+
+	ss >> token;
+	assignResource(token, resources.gems);
+
+	for (size_t i = 0; i < this->players.size(); i++)
+		this->players[i].getResources().set(resources);
 }
 
 void MapFileReader::readSize(std::string & str)
@@ -54,6 +95,8 @@ void MapFileReader::load(std::string & file_path)
 		std::getline(file, line);
 		readSize(line);
 		this->target->resetMap(this->size);
+		std::getline(file, line);
+		assignResources(line);
 
 		OffsetCoords actual(0, 0);
 
@@ -148,6 +191,37 @@ void MapFileReader::load(std::string & file_path)
 						break;
 					case UNIT_WORKER:
 						field->newUnit<Worker>(*player);
+						break;
+					case NO_ARG:
+					default:
+						break;
+					}
+
+					switch (token[4])
+					{
+					case IMP_BARRACKS:
+						field->newImprovement<Barracks>(*player);
+						break;
+					case IMP_DRAGON:
+						field->newImprovement<DragonLair>(*player);
+						break;
+					case IMP_FARM:
+						field->newImprovement<Farm>(*player);
+						break;
+					case IMP_GEMS:
+						field->newImprovement<GemsMine>(*player);
+						break;
+					case IMP_IRON:
+						field->newImprovement<IronMine>(*player);
+						break;
+					case IMP_LUMBERJACKS:
+						field->newImprovement<LumberjacksHut>(*player);
+						break;
+					case IMP_SHIPYARD:
+						field->newImprovement<Shipyard>(*player);
+						break;
+					case IMP_STABLE:
+						field->newImprovement<Stable>(*player);
 						break;
 					case NO_ARG:
 					default:
