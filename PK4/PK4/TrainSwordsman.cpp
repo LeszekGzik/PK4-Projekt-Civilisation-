@@ -6,7 +6,7 @@ namespace
 	const uint32_t ID = 7;
 }
 
-TrainSwordsman::TrainSwordsman(InGameObject & owner) : Ability(ID, owner)
+TrainSwordsman::TrainSwordsman(InGameObject & owner) : Ability(ID, owner, _not_targetable)
 {
 }
 
@@ -23,7 +23,7 @@ ContextInfoContent * TrainSwordsman::getContextInfoContent()
 	return vector;
 }
 
-void TrainSwordsman::use()
+void TrainSwordsman::use(Field * target)
 {
 	InGameObject& unit = getOwner();
 	Player& player = unit.getOwner();

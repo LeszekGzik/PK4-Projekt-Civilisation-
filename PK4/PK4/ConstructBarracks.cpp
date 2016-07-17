@@ -5,7 +5,7 @@ namespace
 	const int ID = 9;
 }
 
-ConstructBarracks::ConstructBarracks(InGameObject & owner) : Ability(ID, owner)
+ConstructBarracks::ConstructBarracks(InGameObject & owner) : Ability(ID, owner, _not_targetable)
 {
 }
 
@@ -14,7 +14,7 @@ ConstructBarracks::~ConstructBarracks()
 {
 }
 
-void ConstructBarracks::use()
+void ConstructBarracks::use(Field * target)
 {
 	InGameObject& unit = getOwner();
 	Player& player = unit.getOwner();

@@ -7,7 +7,7 @@ namespace
 
 int Pillage::cost = 1;
 
-Pillage::Pillage(InGameObject & owner) : Ability(ID, owner)
+Pillage::Pillage(InGameObject & owner) : Ability(ID, owner, _not_targetable)
 {	
 }
 
@@ -15,7 +15,7 @@ Pillage::~Pillage()
 {
 }
 
-void Pillage::use()
+void Pillage::use(Field * target)
 {
 	InGameObject& object = getOwner();
 	Field * field = object.getField();

@@ -11,15 +11,6 @@ void Unit::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	target.draw(banner);
 }
 
-/*void Unit::move(AxialCoords coords)
-{
-	ObjectStyle * style = getStyle();
-	PixelCoords pixels = style->hex().toPixel(coords);
-	pixels.x += style->hex().horizontalSize() / 2;
-	pixels.y += style->hex().verticalSize() / 2;
-	//move(pixels);
-}*/
-
 void Unit::move(Field * destination)
 {
 	ObjectStyle * style = getStyle();
@@ -105,6 +96,33 @@ Unit::~Unit()
 {
 }
 
+ManagmentStatus Unit::initCombat(Field * target)
+{
+	ObjectStack & stack = target->objects();
+	ObjectStack::iterator foe = std::max_element(stack.begin(), stack.end(), [](Unit * arg1, Unit * arg2) { return (arg1->getTotalStrength() < arg2->getTotalStrength()); });
+	CombatResult result = this->attack(*foe);
+	ManagmentStatus return_status;
+
+	switch (result)
+	{
+	case Lose:
+		return_status = ManagmentStatus::Delete;
+		break;
+	case Tie:
+		return_status = ManagmentStatus::NoAction;
+		break;
+	case Win:
+		return_status = ManagmentStatus::Null;
+		delete *foe;
+		target->objects().erase(foe);
+		if (target->objects().empty())
+			this->move(target);
+		break;
+	}
+
+	return return_status;
+}
+
 CombatResult Unit::attack(InGameObject * target)
 {
 	setIfAttackedThisTurn(true);
@@ -151,6 +169,8 @@ CombatResult Unit::attacked(float strength, int & counter_damage)
 void Unit::spendActionPoints(uint32_t points)
 {
 	if (points == max_movement_points)
+		this->movement_points = 0;
+	else if (points > movement_points)
 		this->movement_points = 0;
 	else
 		this->movement_points -= points;

@@ -6,7 +6,7 @@ namespace
 }
 
 
-ConstructIronMine::ConstructIronMine(InGameObject & owner) : Ability(ID, owner)
+ConstructIronMine::ConstructIronMine(InGameObject & owner) : Ability(ID, owner, _not_targetable)
 {
 
 }
@@ -26,7 +26,7 @@ ContextInfoContent * ConstructIronMine::getContextInfoContent()
 	return vector;
 }
 
-void ConstructIronMine::use()
+void ConstructIronMine::use(Field * target)
 {
 	InGameObject& unit = getOwner();
 	Player& player = unit.getOwner();

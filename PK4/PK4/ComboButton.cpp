@@ -1,14 +1,21 @@
 #include "ComboButton.h"
 
-
-
 void ComboButton::clicked(sf::Event::MouseButtonEvent & mouse)
 {
 	Component * base = this;
-	base->eventClicked().invoke(*this, mouse);
 	if (expanded)
-		items.click(mouse);
-	setExpanded(true);
+	{
+		bool received = items.click(mouse);
+		if (received)
+		{
+			setExpanded(false);
+		}
+	}
+	else
+	{
+		base->eventClicked().invoke(*this, mouse);
+		setExpanded(true);
+	}
 }
 
 void ComboButton::expandChange()
@@ -78,6 +85,13 @@ void ComboButton::addItem(ComboItem * item)
 
 	items.addComponent(item);
 	item_count++;
+}
+
+void ComboButton::clear()
+{
+	item_count = 0;
+	expanded_length = 0;
+	items.clear();
 }
 
 void ComboButton::draw(sf::RenderTarget & target, sf::RenderStates states) const

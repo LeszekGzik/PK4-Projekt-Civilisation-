@@ -169,11 +169,13 @@
     <ClCompile Include="IronDeposit.cpp" />
     <ClCompile Include="IronMine.cpp" />
     <ClCompile Include="Label.cpp" />
+    <ClCompile Include="LoadUnit.cpp" />
     <ClCompile Include="LumberjacksHut.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MapFileReader.cpp" />
     <ClCompile Include="MapLoadException.cpp" />
+    <ClCompile Include="MapPackLoader.cpp" />
     <ClCompile Include="Mountains.cpp" />
     <ClCompile Include="ObjectStyle.cpp" />
     <ClCompile Include="ObjectStack.cpp" />
@@ -198,6 +200,8 @@
     <ClCompile Include="TrainSwordsman.cpp" />
     <ClCompile Include="TrainWorker.cpp" />
     <ClCompile Include="Unit.cpp" />
+    <ClCompile Include="UnitCarrier.cpp" />
+    <ClCompile Include="UnloadUnit.cpp" />
     <ClCompile Include="Water.cpp" />
     <ClCompile Include="Worker.cpp" />
   </ItemGroup>
@@ -251,10 +255,12 @@
     <ClInclude Include="IronDeposit.h" />
     <ClInclude Include="IronMine.h" />
     <ClInclude Include="Label.h" />
+    <ClInclude Include="LoadUnit.h" />
     <ClInclude Include="LumberjacksHut.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="MapFileReader.h" />
     <ClInclude Include="MapLoadException.h" />
+    <ClInclude Include="MapPackLoader.h" />
     <ClInclude Include="Mountains.h" />
     <ClInclude Include="ObjectStyle.h" />
     <ClInclude Include="ObjectStack.h" />
@@ -280,7 +286,9 @@
     <ClInclude Include="TrainSwordsman.h" />
     <ClInclude Include="TrainWorker.h" />
     <ClInclude Include="Unit.h" />
+    <ClInclude Include="UnitCarrier.h" />
     <ClInclude Include="Units.h" />
+    <ClInclude Include="UnloadUnit.h" />
     <ClInclude Include="Water.h" />
     <ClInclude Include="Worker.h" />
   </ItemGroup>

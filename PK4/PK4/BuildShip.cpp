@@ -7,7 +7,7 @@ namespace
 }
 
 
-BuildShip::BuildShip(InGameObject & owner) : Ability(ID, owner)
+BuildShip::BuildShip(InGameObject & owner) : Ability(ID, owner, _not_targetable)
 {
 }
 
@@ -25,7 +25,7 @@ ContextInfoContent * BuildShip::getContextInfoContent()
 	return vector;
 }
 
-void BuildShip::use()
+void BuildShip::use(Field * target)
 {
 	InGameObject& unit = getOwner();
 	Player& player = unit.getOwner();

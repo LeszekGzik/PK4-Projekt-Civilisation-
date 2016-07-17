@@ -25,12 +25,12 @@ public:
 	~Page();
 
 private:
-	struct CursorMarker : ComponentList::iterator
+	struct CursorMarker : ComponentList::reverse_iterator
 	{
 		bool is_valid;
-		CursorMarker& operator= (ComponentList::iterator obj)
+		CursorMarker& operator= (ComponentList::reverse_iterator obj)
 		{
-			ComponentList::iterator * base = this;
+			ComponentList::reverse_iterator * base = this;
 			*base = obj;
 			this->is_valid = true;
 			return *this;
@@ -38,22 +38,22 @@ private:
 
 		Component* & operator* ()
 		{
-			ComponentList::iterator * base = this;
+			ComponentList::reverse_iterator * base = this;
 			return **base;
 		}
 
-		bool operator== (ComponentList::iterator const& arg) 
+		bool operator== (ComponentList::reverse_iterator const& arg)
 		{
 			if (!is_valid)
 				return false;
 			else
 			{
-				ComponentList::iterator * base = this;
+				ComponentList::reverse_iterator * base = this;
 				return (arg == *this);
 			}
 		}
 
-		bool operator != (ComponentList::iterator const& arg)
+		bool operator != (ComponentList::reverse_iterator const& arg)
 		{
 			return !(*this == arg);
 		}

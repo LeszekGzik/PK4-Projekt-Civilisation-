@@ -9,7 +9,7 @@ class ConstructFarm :
 public:
 	ConstructFarm(InGameObject& owner);
 	~ConstructFarm();
-	virtual void use();
+	virtual void use(Field * target = nullptr);
 	virtual ContextInfoContent * getContextInfoContent();
 };
 

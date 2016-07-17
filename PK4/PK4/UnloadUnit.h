@@ -1,17 +1,19 @@
 #pragma once
 #include "Ability.h"
 
-class Ship;
+class UnitCarrier;
 
-class BuildShip :
+class UnloadUnit :
 	public Ability
 {
 public:
-	BuildShip(InGameObject & owner);
-	~BuildShip();
-
+	UnloadUnit(InGameObject & object);
+	~UnloadUnit();
 	virtual ContextInfoContent * getContextInfoContent();
 	virtual void use(Field * target = nullptr);
+
+private:
+	int max_distance;
 };
 
-#include "Ship.h"
+#include "UnitCarrier.h"

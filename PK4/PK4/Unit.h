@@ -59,6 +59,7 @@ public:
 	Unit(int id, Field* field, Player& owner, std::string const& name, int speed, int strength, UnitType type);
 	~Unit();
 
+	virtual ManagmentStatus initCombat(Field * field);
 	virtual CombatResult attack(InGameObject * target);
 	virtual CombatResult attacked(float strength, int & counter_damage);
 	virtual void spendActionPoints(uint32_t points);

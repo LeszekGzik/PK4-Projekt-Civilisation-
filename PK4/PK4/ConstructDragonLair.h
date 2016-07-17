@@ -11,7 +11,7 @@ public:
 	~ConstructDragonLair();
 
 	virtual ContextInfoContent * getContextInfoContent();
-	virtual void use();
+	virtual void use(Field * target = nullptr);
 };
 
 

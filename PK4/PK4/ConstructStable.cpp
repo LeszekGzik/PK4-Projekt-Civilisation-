@@ -8,7 +8,7 @@ namespace
 }
 
 
-ConstructStable::ConstructStable(InGameObject & owner) : Ability(ID, owner)
+ConstructStable::ConstructStable(InGameObject & owner) : Ability(ID, owner, _not_targetable)
 {
 
 }
@@ -27,7 +27,7 @@ ContextInfoContent * ConstructStable::getContextInfoContent()
 	return vector;
 }
 
-void ConstructStable::use()
+void ConstructStable::use(Field * target)
 {
 	InGameObject& unit = getOwner();
 	Player& player = unit.getOwner();

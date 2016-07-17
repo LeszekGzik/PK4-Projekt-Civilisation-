@@ -7,7 +7,7 @@ public:
 	Pillage(InGameObject & owner);
 	~Pillage();
 
-	virtual void use();
+	virtual void use(Field * target = nullptr);
 	virtual ContextInfoContent * getContextInfoContent();
 
 private:

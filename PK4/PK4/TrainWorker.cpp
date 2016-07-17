@@ -5,7 +5,7 @@ namespace
 	const int ID = 8;
 }
 
-TrainWorker::TrainWorker(InGameObject & owner) : Ability(ID, owner)
+TrainWorker::TrainWorker(InGameObject & owner) : Ability(ID, owner, _not_targetable)
 {
 }
 
@@ -23,7 +23,7 @@ ContextInfoContent * TrainWorker::getContextInfoContent()
 	return vector;
 }
 
-void TrainWorker::use()
+void TrainWorker::use(Field * target)
 {
 	InGameObject& unit = getOwner();
 	Player& player = unit.getOwner();
