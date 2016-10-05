@@ -77,6 +77,7 @@ private:
 	Button::Clicked::Callback<GameState> button_click_exit;
 	Button::Clicked::Callback<GameState> button_click_turn;
 	Button::Clicked::Callback<GameState> button_click_grid;
+	Button::Clicked::Callback<GameState> button_click_techs;
 	Button::Clicked::Callback<GameState> button_click_ability;
 	Button::MouseEnter::Callback<GameState> button_enter_ability;
 	Button::MouseLeave::Callback<GameState> button_leave_ability;
@@ -125,6 +126,7 @@ private:
 	void buttonClick_exit(Component&, sf::Event::MouseButtonEvent);
 	void buttonClick_turn(Component&, sf::Event::MouseButtonEvent);
 	void buttonClick_grid(Component&, sf::Event::MouseButtonEvent);
+	void buttonClick_techs(Component&, sf::Event::MouseButtonEvent);
 	void buttonClick_ability(Component&, sf::Event::MouseButtonEvent);
 	void buttonMouseEnter_ability(Component&, sf::Event::MouseMoveEvent);
 	void buttonMouseLeave_ability(Component&, sf::Event::MouseMoveEvent);

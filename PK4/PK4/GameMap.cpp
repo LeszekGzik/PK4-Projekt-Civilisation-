@@ -110,7 +110,7 @@ void GameMap::moveUnit(OffsetCoords start, OffsetCoords goal)
 	Unit * unit = dynamic_cast<Unit*>(obj);
 	bool success = false;
 	
-	if (unit == nullptr || unit->getActionPoints() == 0 || start == goal || unit->checkMovement(getField(goal)) < 0
+	if (unit == nullptr || unit->getActionPoints() == 0 || start == goal || unit->checkMovement(getField(goal)) == _unreachable
 		|| (target_field->objects().top() != nullptr && target_field->objects().top()->getOwner() != unit->getOwner() && !unit->canAttack()))
 		return;
 

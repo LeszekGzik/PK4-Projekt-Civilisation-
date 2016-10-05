@@ -181,6 +181,7 @@
     <ClCompile Include="ObjectStack.cpp" />
     <ClCompile Include="Page.cpp" />
     <ClCompile Include="PageControl.cpp" />
+    <ClCompile Include="Panel.cpp" />
     <ClCompile Include="PearlsDeposit.cpp" />
     <ClCompile Include="Pillage.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -266,6 +267,7 @@
     <ClInclude Include="ObjectStack.h" />
     <ClInclude Include="Page.h" />
     <ClInclude Include="PageControl.h" />
+    <ClInclude Include="Panel.h" />
     <ClInclude Include="PearlsDeposit.h" />
     <ClInclude Include="Pillage.h" />
     <ClInclude Include="Player.h" />

@@ -31,10 +31,10 @@ int Ship::checkMovement(Field * field)
 		if (unit != nullptr && unit->getOwner() != this->getOwner())
 			return 1;
 		else
-			return -1;
+			return _unreachable;
 	}	
 	else if (checkIfOccupied(field) == Occupied::Full)
-		return -1;
+		return _unreachable;
 	else
 		return field->getMovementCost();
 }

@@ -15,9 +15,9 @@ const float Archer::HILL_STR_FACTOR = 2;
 int Archer::checkMovement(Field * field)
 {
 	if (field->getType() != FieldType::Land)
-		return -1;
+		return _unreachable;
 	else if (checkIfOccupied(field) == Occupied::Full)
-		return -1;
+		return _unreachable;
 	else
 		return field->getMovementCost();
 }

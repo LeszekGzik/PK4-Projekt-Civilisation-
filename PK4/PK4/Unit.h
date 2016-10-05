@@ -13,6 +13,8 @@
 #include <queue>
 #include <vector>
 
+#define _unreachable -1
+
 class Unit : public InGameObject
 {
 private:

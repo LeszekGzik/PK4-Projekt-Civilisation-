@@ -88,6 +88,18 @@
     <Filter Include="Header Files\Graphics">
       <UniqueIdentifier>{12318e50-2b51-4014-bf31-5af1507ff54c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Objects\Abilities\Train">
+      <UniqueIdentifier>{18dc239f-a581-4c21-89e5-afea2a81199a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Objects\Abilities\Construct">
+      <UniqueIdentifier>{a5532cc3-4a82-4388-8ff4-3cf7ba8aca97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Abilities\Construct">
+      <UniqueIdentifier>{24df7a97-44e2-4e03-a720-df3a276b97a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Abilities\Train">
+      <UniqueIdentifier>{1d91757b-e988-4456-b765-7a3f24c11a18}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameState.cpp">
@@ -186,9 +198,6 @@
     <ClCompile Include="Farm.cpp">
       <Filter>Source Files\Objects\Improvements</Filter>
     </ClCompile>
-    <ClCompile Include="ConstructFarm.cpp">
-      <Filter>Source Files\Objects\Abilities</Filter>
-    </ClCompile>
     <ClCompile Include="Ability.cpp">
       <Filter>Source Files\Objects\Abilities</Filter>
     </ClCompile>
@@ -204,38 +213,20 @@
     <ClCompile Include="Barracks.cpp">
       <Filter>Source Files\Objects\Improvements</Filter>
     </ClCompile>
-    <ClCompile Include="ConstructBarracks.cpp">
-      <Filter>Source Files\Objects\Abilities</Filter>
-    </ClCompile>
-    <ClCompile Include="TrainArcher.cpp">
-      <Filter>Source Files\Objects\Abilities</Filter>
-    </ClCompile>
     <ClCompile Include="Swordsman.cpp">
       <Filter>Source Files\Objects\Units</Filter>
     </ClCompile>
     <ClCompile Include="Worker.cpp">
       <Filter>Source Files\Objects\Units</Filter>
     </ClCompile>
-    <ClCompile Include="TrainWorker.cpp">
-      <Filter>Source Files\Objects\Abilities</Filter>
-    </ClCompile>
-    <ClCompile Include="TrainSwordsman.cpp">
-      <Filter>Source Files\Objects\Abilities</Filter>
-    </ClCompile>
     <ClCompile Include="LumberjacksHut.cpp">
       <Filter>Source Files\Objects\Improvements</Filter>
-    </ClCompile>
-    <ClCompile Include="ConstructLumberjacksHut.cpp">
-      <Filter>Source Files\Objects\Abilities</Filter>
     </ClCompile>
     <ClCompile Include="Forest.cpp">
       <Filter>Source Files\Board\Fields</Filter>
     </ClCompile>
     <ClCompile Include="IronMine.cpp">
       <Filter>Source Files\Objects\Improvements</Filter>
-    </ClCompile>
-    <ClCompile Include="ConstructIronMine.cpp">
-      <Filter>Source Files\Objects\Abilities</Filter>
     </ClCompile>
     <ClCompile Include="Stable.cpp">
       <Filter>Source Files\Objects\Improvements</Filter>
@@ -261,35 +252,17 @@
     <ClCompile Include="Horseman.cpp">
       <Filter>Source Files\Objects\Units</Filter>
     </ClCompile>
-    <ClCompile Include="TrainHorseman.cpp">
-      <Filter>Source Files\Objects\Abilities</Filter>
-    </ClCompile>
-    <ClCompile Include="ConstructStable.cpp">
-      <Filter>Source Files\Objects\Abilities</Filter>
-    </ClCompile>
-    <ClCompile Include="ConstructGemsMine.cpp">
-      <Filter>Source Files\Objects\Abilities</Filter>
-    </ClCompile>
     <ClCompile Include="DragonLair.cpp">
       <Filter>Source Files\Objects\Improvements</Filter>
     </ClCompile>
     <ClCompile Include="Dragon.cpp">
       <Filter>Source Files\Objects\Units</Filter>
     </ClCompile>
-    <ClCompile Include="HireDragon.cpp">
-      <Filter>Source Files\Objects\Abilities</Filter>
-    </ClCompile>
     <ClCompile Include="Shipyard.cpp">
       <Filter>Source Files\Objects\Improvements</Filter>
     </ClCompile>
-    <ClCompile Include="ConstructDragonLair.cpp">
-      <Filter>Source Files\Objects\Abilities</Filter>
-    </ClCompile>
     <ClCompile Include="PearlsDeposit.cpp">
       <Filter>Source Files\Board\Fields\Deposits</Filter>
-    </ClCompile>
-    <ClCompile Include="ConstructShipyard.cpp">
-      <Filter>Source Files\Objects\Abilities</Filter>
     </ClCompile>
     <ClCompile Include="MapFileReader.cpp">
       <Filter>Source Files\Board</Filter>
@@ -302,9 +275,6 @@
     </ClCompile>
     <ClCompile Include="CheckBox.cpp">
       <Filter>Source Files\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="BuildShip.cpp">
-      <Filter>Source Files\Objects\Abilities</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
@@ -320,6 +290,51 @@
     </ClCompile>
     <ClCompile Include="MapPackLoader.cpp">
       <Filter>Source Files\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Panel.cpp">
+      <Filter>Source Files\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstructBarracks.cpp">
+      <Filter>Source Files\Objects\Abilities\Construct</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstructDragonLair.cpp">
+      <Filter>Source Files\Objects\Abilities\Construct</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstructFarm.cpp">
+      <Filter>Source Files\Objects\Abilities\Construct</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstructGemsMine.cpp">
+      <Filter>Source Files\Objects\Abilities\Construct</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstructIronMine.cpp">
+      <Filter>Source Files\Objects\Abilities\Construct</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstructLumberjacksHut.cpp">
+      <Filter>Source Files\Objects\Abilities\Construct</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstructShipyard.cpp">
+      <Filter>Source Files\Objects\Abilities\Construct</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstructStable.cpp">
+      <Filter>Source Files\Objects\Abilities\Construct</Filter>
+    </ClCompile>
+    <ClCompile Include="BuildShip.cpp">
+      <Filter>Source Files\Objects\Abilities\Train</Filter>
+    </ClCompile>
+    <ClCompile Include="HireDragon.cpp">
+      <Filter>Source Files\Objects\Abilities\Train</Filter>
+    </ClCompile>
+    <ClCompile Include="TrainArcher.cpp">
+      <Filter>Source Files\Objects\Abilities\Train</Filter>
+    </ClCompile>
+    <ClCompile Include="TrainHorseman.cpp">
+      <Filter>Source Files\Objects\Abilities\Train</Filter>
+    </ClCompile>
+    <ClCompile Include="TrainSwordsman.cpp">
+      <Filter>Source Files\Objects\Abilities\Train</Filter>
+    </ClCompile>
+    <ClCompile Include="TrainWorker.cpp">
+      <Filter>Source Files\Objects\Abilities\Train</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -440,9 +455,6 @@
     <ClInclude Include="Ability.h">
       <Filter>Header Files\Objects\Abilities</Filter>
     </ClInclude>
-    <ClInclude Include="ConstructFarm.h">
-      <Filter>Header Files\Objects\Abilities</Filter>
-    </ClInclude>
     <ClInclude Include="Pillage.h">
       <Filter>Header Files\Objects\Abilities</Filter>
     </ClInclude>
@@ -454,9 +466,6 @@
     </ClInclude>
     <ClInclude Include="Barracks.h">
       <Filter>Header Files\Objects\Improvements</Filter>
-    </ClInclude>
-    <ClInclude Include="ConstructBarracks.h">
-      <Filter>Header Files\Objects\Abilities</Filter>
     </ClInclude>
     <ClInclude Include="Swordsman.h">
       <Filter>Header Files\Objects\Units</Filter>
@@ -470,29 +479,14 @@
     <ClInclude Include="Abilities.h">
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="TrainWorker.h">
-      <Filter>Header Files\Objects\Abilities</Filter>
-    </ClInclude>
-    <ClInclude Include="TrainArcher.h">
-      <Filter>Header Files\Objects\Abilities</Filter>
-    </ClInclude>
-    <ClInclude Include="TrainSwordsman.h">
-      <Filter>Header Files\Objects\Abilities</Filter>
-    </ClInclude>
     <ClInclude Include="LumberjacksHut.h">
       <Filter>Header Files\Objects\Improvements</Filter>
-    </ClInclude>
-    <ClInclude Include="ConstructLumberjacksHut.h">
-      <Filter>Header Files\Objects\Abilities</Filter>
     </ClInclude>
     <ClInclude Include="Forest.h">
       <Filter>Header Files\Board\Fields</Filter>
     </ClInclude>
     <ClInclude Include="IronMine.h">
       <Filter>Header Files\Objects\Improvements</Filter>
-    </ClInclude>
-    <ClInclude Include="ConstructIronMine.h">
-      <Filter>Header Files\Objects\Abilities</Filter>
     </ClInclude>
     <ClInclude Include="Hills.h">
       <Filter>Header Files\Board\Fields</Filter>
@@ -518,17 +512,8 @@
     <ClInclude Include="GemsMine.h">
       <Filter>Header Files\Objects\Improvements</Filter>
     </ClInclude>
-    <ClInclude Include="ConstructGemsMine.h">
-      <Filter>Header Files\Objects\Abilities</Filter>
-    </ClInclude>
-    <ClInclude Include="ConstructStable.h">
-      <Filter>Header Files\Objects\Abilities</Filter>
-    </ClInclude>
     <ClInclude Include="Horseman.h">
       <Filter>Header Files\Objects\Units</Filter>
-    </ClInclude>
-    <ClInclude Include="TrainHorseman.h">
-      <Filter>Header Files\Objects\Abilities</Filter>
     </ClInclude>
     <ClInclude Include="Dragon.h">
       <Filter>Header Files\Objects\Units</Filter>
@@ -536,20 +521,11 @@
     <ClInclude Include="DragonLair.h">
       <Filter>Header Files\Objects\Improvements</Filter>
     </ClInclude>
-    <ClInclude Include="HireDragon.h">
-      <Filter>Header Files\Objects\Abilities</Filter>
-    </ClInclude>
-    <ClInclude Include="ConstructDragonLair.h">
-      <Filter>Header Files\Objects\Abilities</Filter>
-    </ClInclude>
     <ClInclude Include="Shipyard.h">
       <Filter>Header Files\Objects\Improvements</Filter>
     </ClInclude>
     <ClInclude Include="PearlsDeposit.h">
       <Filter>Header Files\Board\Fields\Deposits</Filter>
-    </ClInclude>
-    <ClInclude Include="ConstructShipyard.h">
-      <Filter>Header Files\Objects\Abilities</Filter>
     </ClInclude>
     <ClInclude Include="Ship.h">
       <Filter>Header Files\Objects\Units</Filter>
@@ -563,9 +539,6 @@
     <ClInclude Include="CheckBox.h">
       <Filter>Header Files\Component</Filter>
     </ClInclude>
-    <ClInclude Include="BuildShip.h">
-      <Filter>Header Files\Objects\Abilities</Filter>
-    </ClInclude>
     <ClInclude Include="LoadUnit.h">
       <Filter>Header Files\Objects\Abilities</Filter>
     </ClInclude>
@@ -577,6 +550,51 @@
     </ClInclude>
     <ClInclude Include="MapPackLoader.h">
       <Filter>Header Files\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Panel.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstructBarracks.h">
+      <Filter>Header Files\Objects\Abilities\Construct</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstructDragonLair.h">
+      <Filter>Header Files\Objects\Abilities\Construct</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstructFarm.h">
+      <Filter>Header Files\Objects\Abilities\Construct</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstructGemsMine.h">
+      <Filter>Header Files\Objects\Abilities\Construct</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstructIronMine.h">
+      <Filter>Header Files\Objects\Abilities\Construct</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstructLumberjacksHut.h">
+      <Filter>Header Files\Objects\Abilities\Construct</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstructShipyard.h">
+      <Filter>Header Files\Objects\Abilities\Construct</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstructStable.h">
+      <Filter>Header Files\Objects\Abilities\Construct</Filter>
+    </ClInclude>
+    <ClInclude Include="BuildShip.h">
+      <Filter>Header Files\Objects\Abilities\Train</Filter>
+    </ClInclude>
+    <ClInclude Include="HireDragon.h">
+      <Filter>Header Files\Objects\Abilities\Train</Filter>
+    </ClInclude>
+    <ClInclude Include="TrainArcher.h">
+      <Filter>Header Files\Objects\Abilities\Train</Filter>
+    </ClInclude>
+    <ClInclude Include="TrainHorseman.h">
+      <Filter>Header Files\Objects\Abilities\Train</Filter>
+    </ClInclude>
+    <ClInclude Include="TrainWorker.h">
+      <Filter>Header Files\Objects\Abilities\Train</Filter>
+    </ClInclude>
+    <ClInclude Include="TrainSwordsman.h">
+      <Filter>Header Files\Objects\Abilities\Train</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

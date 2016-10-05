@@ -30,9 +30,9 @@ Worker::~Worker()
 int Worker::checkMovement(Field * field)
 {
 	if (field->getType() != FieldType::Land)
-		return -1;
+		return _unreachable;
 	else if (checkIfOccupied(field) == Occupied::Full)
-		return -1;
+		return _unreachable;
 	else
 		return field->getMovementCost();
 }

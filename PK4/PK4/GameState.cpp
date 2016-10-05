@@ -414,6 +414,11 @@ void GameState::buttonClick_grid(Component &, sf::Event::MouseButtonEvent)
 	game_map->showGrid(!game_map->showGrid());
 }
 
+void GameState::buttonClick_techs(Component &, sf::Event::MouseButtonEvent)
+{
+
+}
+
 void GameState::buttonClick_ability(Component & sender, sf::Event::MouseButtonEvent)
 {
 	int tag = sender.getTag();

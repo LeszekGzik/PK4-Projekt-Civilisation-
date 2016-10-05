@@ -22,7 +22,7 @@ Dragon::~Dragon()
 int Dragon::checkMovement(Field * field)
 {
 	if (checkIfOccupied(field) == Occupied::Full)
-		return -1;
+		return _unreachable;
 	else
 		return 1;
 }
