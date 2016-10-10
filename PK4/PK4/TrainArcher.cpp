@@ -18,7 +18,7 @@ ContextInfoContent * TrainArcher::getContextInfoContent()
 {
 	ContextInfoContent * vector = new ContextInfoContent();
 	vector->emplace_back("TRAIN ARCHER", sf::Color::Black);
-	vector->emplace_back("3 FOOD, 2 IRON, 3 WOOD", sf::Color::Black);
+	vector->emplace_back("4 FOOD, 1 IRON, 3 WOOD", sf::Color::Black);
 	vector->emplace_back("COSTS 1 ACTION", sf::Color::Black);
 	vector->emplace_back("DOUBLE STRENGTH ON HILLS", sf::Color::Blue);
 	return vector;

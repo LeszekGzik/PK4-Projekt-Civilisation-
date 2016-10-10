@@ -7,7 +7,7 @@ namespace
 	const int MOVEMENT_COST = 2;
 }
 
-Forest::Forest(OffsetCoords position) : Field(ID, position, ID, TYPE)
+Forest::Forest(OffsetCoords position) : Field(ID, position, MOVEMENT_COST, TYPE)
 {
 
 }

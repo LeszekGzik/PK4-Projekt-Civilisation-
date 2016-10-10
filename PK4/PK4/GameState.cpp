@@ -77,6 +77,9 @@ LoopExitCode GameState::loop()
 				case sf::Keyboard::Key::Subtract:
 					this->scroll_speed -= this->scroll_step;
 					break;
+				case sf::Keyboard::Key::Space:
+					centerWorld();
+					break;
 				}
 				break;
 			}
@@ -124,6 +127,13 @@ void GameState::init(InitSettings * settings)
 	this->turn_cycle = -1;
 
 	InGameObject::setStyle(&hex_style);
+}
+
+void GameState::centerWorld()
+{
+	sf::Vector2f size = game_map->getSizeInPixel();
+	sf::Vector2f middle = sf::Vector2f(size.x / 2, size.y / 2);
+	world.setCenter(middle);
 }
 
 void GameState::initGui()

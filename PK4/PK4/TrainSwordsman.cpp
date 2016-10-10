@@ -18,7 +18,7 @@ ContextInfoContent * TrainSwordsman::getContextInfoContent()
 {
 	ContextInfoContent * vector = new ContextInfoContent();
 	vector->emplace_back("TRAIN SWORDSMAN", sf::Color::Black);
-	vector->emplace_back("4 FOOD, 4 IRON", sf::Color::Black);
+	vector->emplace_back("4 FOOD, 3 IRON", sf::Color::Black);
 	vector->emplace_back("COSTS 1 ACTION", sf::Color::Black);
 	return vector;
 }

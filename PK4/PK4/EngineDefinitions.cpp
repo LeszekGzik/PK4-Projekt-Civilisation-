@@ -4,7 +4,7 @@ const char* ENGINE::file_name[3] = { "map_2p.txt", "map_3p.txt", "map_4p.txt" };
 const float ENGINE::basic_unit = 120;
 const float ENGINE::flag_size_factor = 0.5;
 const float ENGINE::scroll_speed = 6.f;
-const float ENGINE::scroll_distance = 30.f;
+const float ENGINE::scroll_distance = 10.f;
 
 const sf::Vector2i Neighbours::neighbours[2][6] =
 { { sf::Vector2i(1, 0), sf::Vector2i(0, -1), sf::Vector2i(-1, -1), sf::Vector2i(-1, 0), sf::Vector2i(-1, 1), sf::Vector2i(0, 1) },

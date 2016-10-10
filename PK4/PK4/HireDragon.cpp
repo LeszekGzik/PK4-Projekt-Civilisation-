@@ -18,7 +18,7 @@ ContextInfoContent * HireDragon::getContextInfoContent()
 {
 	ContextInfoContent * vector = new ContextInfoContent();
 	vector->emplace_back("HIRE DRAGON", sf::Color::Black);
-	vector->emplace_back("30 FOOD, 20 GEMS", sf::Color::Black);
+	vector->emplace_back("30 FOOD, 15 GEMS", sf::Color::Black);
 	vector->emplace_back("COSTS 1 ACTION", sf::Color::Black);
 	vector->emplace_back("FLYING UNIT", sf::Color::Blue);
 	return vector;

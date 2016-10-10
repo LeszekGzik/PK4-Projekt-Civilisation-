@@ -8,12 +8,12 @@ namespace
 	const int SPEED = 4;
 	const int STRENGTH = 12;
 	const UnitType TYPE = UnitType::Naval;
-	const UnitCarrier::AvailableTypes CARRIER_TYPES = { UnitType::Land, UnitType::Worker };
+	const UnitCarrier::AvailableTypes CARRIED_TYPES = { UnitType::Land, UnitType::Worker };
 }
 
 Ship::Ship(Field * field, Player & owner) : 
 	Unit(ID, field, owner, NAME, SPEED, STRENGTH, TYPE),
-	UnitCarrier(CARRIER_TYPES)
+	UnitCarrier(CARRIED_TYPES)
 {
 	grantAbility<LoadUnit>();
 	grantAbility<UnloadUnit>();

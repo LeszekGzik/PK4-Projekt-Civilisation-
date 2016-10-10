@@ -110,6 +110,7 @@ private:
 	Label * label_objects;
 	int turn_cycle;
 
+	void centerWorld();
 	void initGui();
 	void nextTurn();
 	void click(sf::Event::MouseButtonEvent&);
