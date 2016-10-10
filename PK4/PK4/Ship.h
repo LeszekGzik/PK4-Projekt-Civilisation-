@@ -4,9 +4,7 @@
 #include "LoadUnit.h"
 #include "UnloadUnit.h"
 
-class Pearls;
 class PearlsDeposit;
-class GeneralDepositExtension;
 
 class Ship :
 	public Unit, public UnitCarrier
